@@ -6,13 +6,11 @@ namespace Project2.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
+        { }
 
-        }
-
-        public DbSet<User> Users {get;set;}
-        public DbSet<SavedTrip> SavedTrips {get;set;}
-        public DbSet<Trip> Trips {get; set;}
+        public DbSet<User> Users { get; set; }
+        public DbSet<SavedTrip> SavedTrips { get; set; }
+        public DbSet<Trip> Trips { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +22,12 @@ namespace Project2.Data
             modelBuilder.Entity<Trip>()
                 .HasMany(t => t.SavedTrips)
                 .WithOne(s => s.Trip)
-                .HasForeignKey( s => s.TripId);
+                .HasForeignKey(s => s.TripId);
+
+            modelBuilder.Entity<SavedTrip>(entity =>
+            {
+                entity.HasKey(e => e.TripId);
+            });
         }
     }
 }
