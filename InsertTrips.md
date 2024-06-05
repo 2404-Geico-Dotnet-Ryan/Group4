@@ -1,5 +1,5 @@
 INSERT INTO Trip VALUES 
-('Cruise the Carribbean', 3000, 'cruise', 'warm', 1, 'Swimming, Snorkeling'), 
+('Cruise the Caribbean', 3000, 'cruise', 'warm', 1, 'Swimming, Snorkeling'), 
 ('Visit Theme Parks in Florida', 5000, 'air', 'warm', 0, 'Riding Rollercoasters, Seeing Shows'),
 ('Experience Alaska', 7000, 'cruise', 'cool', 0, 'Observing Glaciers, Nature Hikes'),
 ('Historical Tour of Europe', 10000, 'train', 'cool', 1, 'Explore Ancient Ruins, Immerse in Art and Culture'),
@@ -8,7 +8,7 @@ INSERT INTO Trip VALUES
 ('Safari in Africa', 10000, 'air', 'warm', 1, 'Observe wildlife, Visit Conservation Centers'),
 ('Romantic Trip for Two to Hawaii', 9000, 'air', 'warm', 0, 'Sunset Dinner Cruise, Spa Day for Two'),
 ('Weekend Getaway to NYC', 5000, 'air', 'cool', 0, 'Broadway show, Statue of Liberty tour'), 
-('Ski Adventure in Aspen', 11000, 'air', 'cool', 0, 'Ski Lessons, Snowshow Escursion'),
+('Ski Adventure in Aspen', 11000, 'air', 'cool', 0, 'Ski Lessons, Snowshoe Excursion'),
 ('Taste of Tuscany Culinary Tour', 15000, 'air', 'warm', 1, 'Cooking Classes, Wine Tasting'),
 ('Zen Wellness Retreat in Bali', 8000, 'air', 'warm', 1, 'Daily Yoga and Meditation, Balinese Spa Treatments'),
 ('Paradise in the Maldives', 15000, 'cruise', 'warm', 1, 'Private Cabana, Dolphin Cruise'),
