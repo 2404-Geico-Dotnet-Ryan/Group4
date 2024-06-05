@@ -11,8 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, UserService>();
-// builder.Services.AddScoped<ITripService, TripService>();
-// builder.Services.AddScoped<ISavedTripService, SavedTripService>();
+//builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<ISavedTripService, SavedTripService>();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
