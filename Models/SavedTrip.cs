@@ -17,6 +17,8 @@ public class SavedTrip
     public string? IncludedActivities { get; set; }
     public User User {get; set;} //Navigation Property - FK Class
     public Trip Trip {get; set;} //Navigation Property - FK Class
+
+
     
     // SavedTrip has a foreign key relationship with Trip and User
     // A SavedTrip can have one Trip and one User
