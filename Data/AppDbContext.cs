@@ -26,7 +26,7 @@ namespace Project2.Data
 
             modelBuilder.Entity<SavedTrip>(entity =>
             {
-                entity.HasKey(e => e.TripId);
+                entity.HasKey(e => e.UId);
             });
         }
     }
