@@ -29,3 +29,5 @@ INSERT INTO Trips VALUES
 ('French Riviera', 13000, 'air', 'warm', 1, 'Catamaran from Cannes, Sunny St Tropez'),
 ('Train Through the Alps', 9000, 'air', 'cool', 1, 'Day-Trip to Jungfraujoch, Cruise Lake Lugano'),
 ('Best of Prague', 8000, 'air', 'cool', 1, 'Prague Castle, Pubs of Prague')
+
+//test
