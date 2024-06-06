@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Trip 
 {
-    public int Id { get; set; }
+    public int TripId { get; set; }
     public string? Location { get; set; }
     public int MaxBudget { get; set; }
     public string? TravelType { get; set; }
@@ -23,9 +23,9 @@ public class Trip
 
     }
 
-    public Trip(int id,  string location, int maxBudget, string travelType, string climate, bool needsPassport, string includedActivities)
+    public Trip(int tripId,  string location, int maxBudget, string travelType, string climate, bool needsPassport, string includedActivities)
     {
-        Id = id;
+        TripId = tripId;
         Location = location;
         MaxBudget = maxBudget;        
         TravelType = travelType;
@@ -37,7 +37,7 @@ public class Trip
 
     public override string ToString()
     {
-        return $"{{Trip Id: {Id}, Destination: {Location}, All-Inclusive Cost: {MaxBudget}, Travel Type: {TravelType}, Climate: {Climate}, Requires Passport: {NeedsPassport}, Included Activities: {IncludedActivities}}}";
+        return $"{{Trip Id: {TripId}, Destination: {Location}, All-Inclusive Cost: {MaxBudget}, Travel Type: {TravelType}, Climate: {Climate}, Requires Passport: {NeedsPassport}, Included Activities: {IncludedActivities}}}";
     }
 
 
