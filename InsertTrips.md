@@ -1,4 +1,4 @@
-INSERT INTO Trip VALUES 
+INSERT INTO Trips VALUES 
 ('Cruise the Caribbean', 3000, 'cruise', 'warm', 1, 'Swimming, Snorkeling'), 
 ('Visit Theme Parks in Florida', 5000, 'air', 'warm', 0, 'Riding Rollercoasters, Seeing Shows'),
 ('Experience Alaska', 7000, 'cruise', 'cool', 0, 'Observing Glaciers, Nature Hikes'),
