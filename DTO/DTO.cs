@@ -25,4 +25,15 @@ namespace Project2.DTO
     public string? IncludedActivities { get; set; }
     }
 
+    public class TripDTO
+    {
+    public int TripId { get; set; }
+    public string? Location { get; set; }
+    public int MaxBudget { get; set; }
+    public string? TravelType { get; set; }
+    public string? Climate { get; set; }
+    public bool NeedsPassport { get; set; }
+    public string? IncludedActivities { get; set; }
+    }
+
 }
