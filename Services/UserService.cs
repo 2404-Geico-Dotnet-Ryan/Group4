@@ -2,6 +2,9 @@ using Project2.Models;
 using Project2.DTO;
 using Project2.Data;
 
+using System.Linq;
+
+
 namespace Project2.Services
 {
     public class UserService : IUserService
@@ -23,7 +26,10 @@ namespace Project2.Services
                 MaxBudget = userDTO.MaxBudget
             };
             _context.Users.Add(user);
-           // _context.SaveChanges();
+
+
+            _context.SaveChanges();
+
             return user;
         }
 
@@ -63,7 +69,10 @@ namespace Project2.Services
 
         public UserDTO GetUserByUsername(string username)
         {
-           var user = _context.Users.Find(username);
+
+
+          var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
         //TODO: Add User Not Found Exception
             if (user == null)
             {
@@ -83,7 +92,10 @@ namespace Project2.Services
 
         public UserDTO GetUserByUsernameAndPassword(string username, string password)
         {
-            var user = _context.Users.Find(username, password);
+
+
+           var user = _context.Users.Single(u => u.Username == username && u.Password == password);
+
         //TODO: Add User Not Found Exception; re-enter username and password
             if (user == null)
             {

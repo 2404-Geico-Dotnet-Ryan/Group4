@@ -2,6 +2,7 @@ namespace Project2.DTO
 {
     public class UserDTO
     {
+
         public int UserId { get; set; } 
         public string Username { get; set; }
         public string Password { get; set; }
@@ -34,6 +35,7 @@ namespace Project2.DTO
     public string? Climate { get; set; }
     public bool NeedsPassport { get; set; }
     public string? IncludedActivities { get; set; }
+
     }
 
 }

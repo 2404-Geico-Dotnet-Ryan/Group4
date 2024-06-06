@@ -29,7 +29,11 @@ namespace Project2.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{userId}")]
+
+       
+
+        [HttpGet("{userId:int}")]
+
         public ActionResult<UserDTO> GetUserById(int userId)
         {
             var user = _userService.GetUserById(userId);
@@ -51,10 +55,14 @@ namespace Project2.Controllers
         }
 
         [HttpPut("{userId}")]
-        public ActionResult<UserDTO> UpdateUser(int userId, UserDTO userDTO)
+
+       
+
+        public ActionResult<UserDTO> UpdateUser(int userId, UserDTO UpdatedUser)
         {
-            _userService.UpdateUser(userId, userDTO);
-            return Ok(UpdateUser);
+            _userService.UpdateUser(userId, UpdatedUser);
+            return Ok(UpdatedUser);
+         
         }
     }
 }

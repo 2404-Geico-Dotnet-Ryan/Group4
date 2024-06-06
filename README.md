@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# Group4
-hello
-=======
+
 # Group4  
 **Team Members:** Bobbi Baker, Dawn Brinson, Katherine Piper, Johanna Smith
 ## Project 2: Trips.com
@@ -26,4 +23,4 @@ Group 4 will build upon Johanna's "Trip" application and add the following funct
 
 
 
->>>>>>> origin/main
+
