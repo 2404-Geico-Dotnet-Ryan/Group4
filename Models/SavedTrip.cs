@@ -1,8 +1,8 @@
 namespace Project2.Models;
 public class SavedTrip 
 {
-    public int TripId { get; set; }
-    public int UId { get; set; } 
+    public int UId { get; set; }
+    public int TripId { get; set; } 
     public int UserId { get; set; } 
     public string? Season { get; set; }
     public string? Location { get; set; }
