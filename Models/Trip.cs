@@ -13,6 +13,9 @@ public class Trip
     public string? Climate { get; set; }
     public bool NeedsPassport { get; set; }
     public string? IncludedActivities { get; set; }
+
+    // This establishes a one-to-many relationship between Trip and SavedTrip
+    // A Trip can have many SavedTrips
     public ICollection<SavedTrip> SavedTrips {get; set;}
 
     public Trip()
