@@ -1,9 +1,12 @@
 namespace Project2.Models;
 public class SavedTrip 
 {
+
+
     public int UId { get; set; } //Primary Key
     public int TripId { get; set; } //Foreign Key
     public int UserId { get; set; } //Foreign Key
+
     public string? Season { get; set; }
     public string? Location { get; set; }
     public int MaxBudget { get; set; }
