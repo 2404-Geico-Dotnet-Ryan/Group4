@@ -11,6 +11,10 @@ namespace Project2.Data
         public DbSet<User> Users { get; set; }
         public DbSet<SavedTrip> SavedTrips { get; set; }
         public DbSet<Trip> Trips { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Climate> Climates {get; set;}
+        public DbSet<Location> Locations { get; set;}
+        public DbSet<TravelType> TravelTypes { get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
