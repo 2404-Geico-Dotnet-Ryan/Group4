@@ -1,0 +1,48 @@
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  align-content: center;
+  align-self: center;
+}
+.intro {
+  text-align: center;
+  margin-top: 20px;
+}
+#Title {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+a:hover {
+  color: white;
+  font-size: 25px;
+}
+a {
+  color: blue;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+}
+p {
+  color: darkblue;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.footer {
+  color: darkgreen;
+  background-color: lightslategray;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: small;
+}
+@media screen and (max-width: 600px) {
+  body {
+    background-color: black;
+  }
+  #Title {
+    font-size: 30px;
+  }
+  a {
+    font-size: 10px;
+  }
+}

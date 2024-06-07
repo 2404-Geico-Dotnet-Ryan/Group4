@@ -12,9 +12,9 @@ namespace Project2.Data
         public DbSet<SavedTrip> SavedTrips { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<Climate> Climates {get; set;}
-        public DbSet<Location> Locations { get; set;}
-        public DbSet<TravelType> TravelTypes { get; set;}
+        public DbSet<Climate> Climates { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<TravelType> TravelTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,25 @@ namespace Project2.Data
                 .WithOne(s => s.Trip)
                 .HasForeignKey(s => s.TripId);
 
+            modelBuilder.Entity<Trip>()
+                .HasOne(t => t.Climate)
+                .WithMany(c => c.Trips)
+                .HasForeignKey(t => t.ClimateId);
+
+            modelBuilder.Entity<Trip>()
+                .HasOne(t => t.Location)
+                .WithMany(l => l.Trips)
+                .HasForeignKey(t => t.LocationId);
+
+            modelBuilder.Entity<Trip>()
+                .HasOne(t => t.TravelType)
+                .WithMany(v => v.Trips)
+                .HasForeignKey(t => t.TravelTypeId);   
+
             modelBuilder.Entity<SavedTrip>(entity =>
-            {
-
-
-                entity.HasKey(e => e.UId);
-
-            });
+                {
+                    entity.HasKey(e => e.UId);
+                });
         }
     }
 }

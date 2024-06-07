@@ -1,9 +1,8 @@
 using Project2.Models;
 using Project2.DTO;
 using Project2.Data;
-
-using System.Linq;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project2.Services
 {
@@ -15,27 +14,21 @@ namespace Project2.Services
         {
             _context = context;
         }
-        public User AddUser(UserDTO userDTO)
+        
+        // Method to add a user // DONE
+        public async Task<UserDTO> AddUser(UserDTO userDTO)
         {
-            User user = new User
-            {
-                Username = userDTO.Username,
-                Password = userDTO.Password,
-                FirstName = userDTO.FirstName,
-                LastName = userDTO.LastName,
-                MaxBudget = userDTO.MaxBudget
-            };
+            var user = ConvertUserDTOToUser(userDTO);
             _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-
-            _context.SaveChanges();
-
-            return user;
+            return userDTO;
         }
 
-        public IEnumerable<UserDTO> GetAllUsers()
+        // Method to get all users // DONE
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
-            var users = _context.Users.Select(u => new UserDTO
+            var users = await _context.Users.Select(u => new UserDTO
             {
                 UserId = u.UserId,
                 Username = u.Username,
@@ -43,89 +36,136 @@ namespace Project2.Services
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 MaxBudget = u.MaxBudget
-            }).ToList();
+            }).ToListAsync();
             return users;
         }
 
-        public UserDTO GetUserById(int userId)
+        // Method to get a user by ID // DONE
+        public async Task<ActionResult<UserDTO>> GetUser(int userId)
         {
-           var user = _context.Users.Find(userId);
-        //TODO: Add User Not Found Exception
+            var userEntity = await GetUserById(userId); // call the helper method to get the user by ID
+
+            if (userEntity == null)
+            {
+                return null;
+            }
+            // Convert the User entity to a UserDTO
+            var user = ConvertUserToUserDTO(userEntity);
+
+            return user;
+        }
+
+        // Method to get a user by username // DONE
+        public async Task<ActionResult<UserDTO>> GetUserByUsername(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
             if (user == null)
             {
                 return null;
             }
-            var userDTO = new UserDTO
-            {
-                UserId = user.UserId,
-                Username = user.Username,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                MaxBudget = user.MaxBudget
-            };
+            var userDTO = ConvertUserToUserDTO(user);
             return userDTO;
         }
 
-        public UserDTO GetUserByUsername(string username)
+        // Method to log in a user // DONE
+        public async Task<ActionResult<UserDTO>> LoginUser(UserLoginDTO userLogin)
         {
+            // Find the user by username and password
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == userLogin.Username && u.Password == userLogin.Password);
 
+            if (user == null)
+            {
+                return null; // Indicate failure to find the user
+            }
 
-          var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            // Convert the User entity to a UserDTO
+            var userDto = ConvertUserToUserDTO(user);
 
-        //TODO: Add User Not Found Exception
+            return userDto;
+        }
+
+        // Method to update a user // DONE
+        public async Task<UserDTO> UpdateUser(int userId, UserDTO userDTO)
+        {
+            // Find the user by ID
+            var user = await GetUserById(userId);
+
             if (user == null)
             {
                 return null;
             }
-            var userDTO = new UserDTO
-            {
-                UserId = user.UserId,
-                Username = user.Username,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                MaxBudget = user.MaxBudget
-            };
-            return userDTO;
-        }
+            // Update the user's properties
+            user.Username = userDTO.Username;
+            user.Password = userDTO.Password;
+            user.FirstName = userDTO.FirstName;
+            user.LastName = userDTO.LastName;
+            user.MaxBudget = userDTO.MaxBudget;
 
-        public UserDTO GetUserByUsernameAndPassword(string username, string password)
-        {
-
-
-           var user = _context.Users.Single(u => u.Username == username && u.Password == password);
-
-        //TODO: Add User Not Found Exception; re-enter username and password
-            if (user == null)
-            {
-                return null;
-            }
-            var userDTO = new UserDTO
-            {
-                UserId = user.UserId,
-                Username = user.Username,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                MaxBudget = user.MaxBudget
-            };
-            return userDTO;
-        }
-
-        public void UpdateUser(int userId, UserDTO updatedUser)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
-            {
-                user.UserId = userId;
-                user.Username = updatedUser.Username;
-                user.Password = updatedUser.Password;
-                user.FirstName = updatedUser.FirstName;
-                user.LastName = updatedUser.LastName;
-                user.MaxBudget = updatedUser.MaxBudget;
-            };
             _context.Users.Update(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            return userDTO;
         }
+
+        // Method to convert a User entity to a UserDTO // DONE
+        private UserDTO ConvertUserToUserDTO(User user)
+        {
+            return new UserDTO
+            {
+                Username = user.Username,
+                Password = user.Password,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                MaxBudget = user.MaxBudget
+            };
+        }
+
+        // Method to convert a UserDTO to a User entity // DONE
+        private User ConvertUserDTOToUser(UserDTO userDto)
+        {
+            return new User
+            {
+                Username = userDto.Username,
+                Password = userDto.Password,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                MaxBudget = userDto.MaxBudget
+            };
+        }
+
+        // Helper Method to get a user by ID // DONE
+        private async Task<User> GetUserById(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        // GetUser by UserId and Password - Replaced by Login method
+        // public UserDTO GetUserByUsernameAndPassword(string username, string password)
+        // {
+        //     var user = _context.Users.Single(u => u.Username == username && u.Password == password);
+
+        //     if (user == null)
+        //     {
+        //         return null;
+        //     }
+        //     var userDTO = new UserDTO
+        //     {
+        //         UserId = user.UserId,
+        //         Username = user.Username,
+        //         Password = user.Password,
+        //         FirstName = user.FirstName,
+        //         LastName = user.LastName,
+        //         MaxBudget = user.MaxBudget
+        //     };
+        //     return userDTO;
+        // }
     }
 }
