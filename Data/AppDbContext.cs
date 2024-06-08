@@ -27,21 +27,21 @@ namespace Project2.Data
                 .HasMany(t => t.SavedTrips)
                 .WithOne(s => s.Trip)
                 .HasForeignKey(s => s.TripId);
-
-            modelBuilder.Entity<Trip>()
-                .HasOne(t => t.Climate)
-                .WithMany(c => c.Trips)
+         
+            modelBuilder.Entity<Climate>()
+                .HasMany(c => c.Trips)
+                .WithOne(t => t.Climate)
                 .HasForeignKey(t => t.ClimateId);
 
-            modelBuilder.Entity<Trip>()
-                .HasOne(t => t.Location)
-                .WithMany(l => l.Trips)
+            modelBuilder.Entity<Location>()
+                .HasMany(l => l.Trips)
+                .WithOne(t => t.Location)
                 .HasForeignKey(t => t.LocationId);
-
-            modelBuilder.Entity<Trip>()
-                .HasOne(t => t.TravelType)
-                .WithMany(v => v.Trips)
-                .HasForeignKey(t => t.TravelTypeId);   
+            
+            modelBuilder.Entity<TravelType>()
+                .HasMany(v => v.Trips)
+                .WithOne(t => t.TravelType)
+                .HasForeignKey(t => t.TravelTypeId);    
 
             modelBuilder.Entity<SavedTrip>(entity =>
                 {
