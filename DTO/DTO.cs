@@ -33,13 +33,14 @@ namespace Project2.DTO
 
     public class TripDTO
     {
-        public int TripId { get; set; }
-        public string? Location { get; set; }
-        public int MaxBudget { get; set; }
-        public string? TravelType { get; set; }
-        public string? Climate { get; set; }
-        public bool NeedsPassport { get; set; }
-        public string? ActivityName { get; set; }
+    public int TripId { get; set; }
+    public string TripName { get; set; }
+    public string? LocationName { get; set; }
+    public int MaxBudget { get; set; }
+    public string? TravelTypeName { get; set; }
+    public string? ClimateName { get; set; }
+    public bool NeedsPassport { get; set; }
+    public string? ActivityName { get; set; }
 
     }
 
