@@ -4,41 +4,43 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-public class Trip 
+public class Trip
 {
-    public int TripId { get; set; } //Primary Key
-    public string? Location { get; set; } //Foreign Key - Location.cs
+    public int Id { get; set; } //Primary Key
+    public string? TripName { get; set; }
     public int MaxBudget { get; set; }
-    public string? TravelType { get; set; } //Foreign Key - TravelType.cs
-    public string? Climate { get; set; } //Foreign Key - Climate.cs
     public bool NeedsPassport { get; set; }
-    
+    public int LocationId { get; set; } //Foreign Key - Location.cs
+    public int TravelTypeId { get; set; } //Foreign Key - TravelType.cs
+    public int? ClimateId { get; set; } //Foreign Key - Climate.cs
+
     // This establishes a one-to-many relationship between Trip and SavedTrip
     // A Trip can have many SavedTrips
-    public ICollection<SavedTrip> SavedTrips {get; set;}
-    public ICollection<Activity> Activities { get; set; } //FK Class
+    public ICollection<SavedTrip> SavedTrips { get; set; }
+    public ICollection<Activity>? Activities { get; set; } //FK Class
+    public TravelType TravelType { get; set; } //Navigation Property - FK Class
+    public Climate? Climate { get; set; } //Navigation Property - FK Class
+    public Location Location { get; set; } //Navigation Property - FK Class
 
     public Trip()
     {
 
     }
 
-    public Trip(int tripId,  string location, int maxBudget, string travelType, string climate, bool needsPassport, List<Activity> activities)
+    public Trip(int tripId, string tripName, int locationId, int maxBudget, int travelTypeId, int climateId, bool needsPassport)
     {
-        TripId = tripId;
-        Location = location;
-        MaxBudget = maxBudget;        
-        TravelType = travelType;
-        Climate = climate;
+        Id = tripId;
+        TripName = tripName;
+        LocationId = locationId;
+        MaxBudget = maxBudget;
+        TravelTypeId = travelTypeId;
+        ClimateId = climateId;
         NeedsPassport = needsPassport;
-        Activities = new List<Activity>(activities);   
-    
     }
 
     public override string ToString()
     {
-        return $"{{Trip Id: {TripId}, Destination: {Location}, All-Inclusive Cost: {MaxBudget}, Travel Type: {TravelType}, Climate: {Climate}, Requires Passport: {NeedsPassport}, Activities: {Activities}}}";
+        return $"{{Trip Id: {Id}, Trip Name: {TripName}, Location Id: {LocationId}, Max Budget: {MaxBudget}, Travel Type Id: {TravelTypeId}, Climate Id: {ClimateId}, Needs Passport: {NeedsPassport}}}";
     }
-
 
 }

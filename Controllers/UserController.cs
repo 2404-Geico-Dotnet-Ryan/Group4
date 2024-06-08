@@ -15,54 +15,71 @@ namespace Project2.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public ActionResult<UserDTO> AddUser(UserDTO userDTO)
+        [HttpPost] //Done
+        public async Task<ActionResult<UserDTO>> AddUser(UserDTO userDTO)
         {
-            var user = _userService.AddUser(userDTO);
-            return CreatedAtAction(nameof(GetUserById), new {userId = user.UserId}, userDTO);
+            await _userService.AddUser(userDTO);
+            return CreatedAtAction(nameof(GetUser), new { userId = userDTO.UserId }, userDTO);
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<UserDTO>> GetAllUsers()
+        [HttpGet] //Done
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
-            var users = _userService.GetAllUsers();
-            return Ok(users);
+            var users = await _userService.GetAllUsers();
+            return users;
         }
 
-
-       
-
-        [HttpGet("{userId:int}")]
-
-        public ActionResult<UserDTO> GetUserById(int userId)
+        [HttpGet("{userId:int}")] //Done
+        public async Task<ActionResult<UserDTO>> GetUser(int userId)
         {
-            var user = _userService.GetUserById(userId);
-            return Ok(user);
+            var user = await _userService.GetUser(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
         }
 
-        [HttpGet("{username}")]
-        public ActionResult<UserDTO> GetUserByUsername(string username)
+        [HttpGet("{username}")] //Done
+        public async Task<ActionResult<UserDTO>> GetUserByUsername(string username)
         {
-            var user = _userService.GetUserByUsername(username);
-            return Ok(user);
+            var user = await _userService.GetUserByUsername(username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
         }
 
-        [HttpGet("{username}/{password}")]
-         public ActionResult<UserDTO> GetUserByUsernameAndPassword(string username, string password)
+        // Replaced by Login method
+        // [HttpGet("{username}/{password}")] 
+        // public ActionResult<UserDTO> GetUserByUsernameAndPassword(string username, string password)
+        // {
+        //     var user = _userService.GetUserByUsernameAndPassword(username, password);
+        //     return Ok(user);
+        // }
+
+        [HttpPut("{userId}")] //Done
+        public async Task<IActionResult> UpdateUser(int userId, UserDTO userDTO)
         {
-            var user = _userService.GetUserByUsernameAndPassword(username, password);
-            return Ok(user);
+            var updatedUserDTO = await _userService.UpdateUser(userId, userDTO);
+            if (updatedUserDTO == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
 
-        [HttpPut("{userId}")]
-
-       
-
-        public ActionResult<UserDTO> UpdateUser(int userId, UserDTO UpdatedUser)
+        [HttpPost("login")] //Done
+        public async Task<ActionResult<UserDTO>> Login(UserLoginDTO userLogin)
         {
-            _userService.UpdateUser(userId, UpdatedUser);
-            return Ok(UpdatedUser);
-         
+            var user = await _userService.LoginUser(userLogin);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            return user;
         }
     }
 }

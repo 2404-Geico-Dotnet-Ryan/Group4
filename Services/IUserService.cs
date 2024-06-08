@@ -1,15 +1,19 @@
-using Project2.Models;
+
 using Project2.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Project2.Services
 {
     public interface IUserService
     {
-        IEnumerable<UserDTO> GetAllUsers();
-        UserDTO GetUserById(int userId);
-        UserDTO GetUserByUsername(string username);
-        UserDTO GetUserByUsernameAndPassword(string username, string password);
-        User AddUser(UserDTO UserDTO);
-        void UpdateUser(int userId, UserDTO UpdatedUser);
+        Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers(); //done
+        Task<ActionResult<UserDTO>> GetUser(int userId); //done
+        Task<ActionResult<UserDTO>> GetUserByUsername(string username);
+        
+        // UserDTO GetUserByUsernameAndPassword(string username, string password); 
+        // Replace with LoginUser method
+        Task<UserDTO> AddUser(UserDTO userDTO); //done
+        Task<UserDTO> UpdateUser(int userId, UserDTO userDTO); //done
+        Task<ActionResult<UserDTO>> LoginUser(UserLoginDTO userLogin); //done
     }
 }

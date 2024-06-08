@@ -27,7 +27,7 @@ namespace Project2.Services
                 TravelType = savedTripDTO.TravelType,
                 ClimatePref = savedTripDTO.ClimatePref,
                 PassportStatus = savedTripDTO.PassportStatus,
-                IncludedActivities = savedTripDTO.IncludedActivities
+                //ActivityName = savedTripDTO.IncludedActivities
             };
             _context.SavedTrips.Add(savedTrip);
             _context.SaveChanges();
@@ -61,7 +61,7 @@ namespace Project2.Services
                 TravelType = s.TravelType,
                 ClimatePref = s.ClimatePref,
                 PassportStatus = s.PassportStatus,
-                IncludedActivities = s.IncludedActivities
+                //IncludedActivities = s.IncludedActivities
             }).ToList();
             return savedTrips;
         }
@@ -82,7 +82,7 @@ namespace Project2.Services
                     TravelType = savedTrip.TravelType,
                     ClimatePref = savedTrip.ClimatePref,
                     PassportStatus = savedTrip.PassportStatus,
-                    IncludedActivities = savedTrip.IncludedActivities
+                    //IncludedActivities = savedTrip.IncludedActivities
                 };
                 return savedTripDTO;
             }
@@ -109,7 +109,7 @@ namespace Project2.Services
             savedTrip.TravelType = updatedSavedTripDTO.TravelType;
             savedTrip.ClimatePref = updatedSavedTripDTO.ClimatePref;
             savedTrip.PassportStatus = updatedSavedTripDTO.PassportStatus;
-            savedTrip.IncludedActivities = updatedSavedTripDTO.IncludedActivities;
+            //savedTrip.IncludedActivities = updatedSavedTripDTO.IncludedActivities;
             _context.Entry(savedTrip).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
             return updatedSavedTripDTO;
