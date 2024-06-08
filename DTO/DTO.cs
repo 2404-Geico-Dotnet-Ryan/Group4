@@ -38,7 +38,7 @@ namespace Project2.DTO
     public string? LocationName { get; set; }
     public int MaxBudget { get; set; }
     public string? TravelTypeName { get; set; }
-    public string? ClimateName { get; set; }
+    public string? ClimateType { get; set; }
     public bool NeedsPassport { get; set; }
     public string? ActivityName { get; set; }
 
