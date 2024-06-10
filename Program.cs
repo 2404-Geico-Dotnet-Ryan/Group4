@@ -25,6 +25,8 @@ builder.Services.AddScoped<ISavedTripService, SavedTripService>();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//Add CORS policy
+
 var app = builder.Build();
 app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
