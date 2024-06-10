@@ -79,7 +79,15 @@ namespace Project2.Controllers
             {
                 return Unauthorized();
             }
+//TODO: Implement this method for admin login
+          //  Response.Headers.Add("Authorization", "Admin" ();
             return user;
         }
+
+        // [HttpGet("protected")] 
+        // public async Task<ActionResult> ProtectedEndpoint([FromHeader] string authorization)
+        // {
+//TODO: Implement this method
+        // }
     }
 }
