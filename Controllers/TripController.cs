@@ -33,7 +33,7 @@ namespace Project2.Controllers
                 TripName = t.TripName,
                 MaxBudget = t.MaxBudget,
                 NeedsPassport = t.NeedsPassport,
-               // ActivityName = t.Activities.ActivityName, //need to figure out how to get ActivityName to work
+               ActivityName = t.Activities.ActivityName, //need to figure out how to get ActivityName to work
                 LocationName = t.Location.LocationName,
                 ClimateType = t.Climate.ClimateType,
                 TravelTypeName = t.TravelType.TravelTypeName
@@ -51,7 +51,7 @@ namespace Project2.Controllers
                 TripId = trip.Id,
                 MaxBudget = trip.MaxBudget,
                 NeedsPassport = trip.NeedsPassport,
-               // ActivityName = trip.Activities.Activity.ActivityName, //need to figure out how to do this
+                ActivityName = ICollection<Activity>.Activities, //need to figure out how to do this
                 LocationName = trip.Location.LocationName,
                 ClimateType = trip.Climate.ClimateType,
                 TravelTypeName = trip.TravelType.TravelTypeName
@@ -63,7 +63,7 @@ namespace Project2.Controllers
         [HttpPost]
         public async Task<ActionResult<TripDTO>> PostTrip(TripDTO tripDTO)
         {
-            var activities =  _context.Activities.FirstOrDefault(a => a.ActivityName == tripDTO.ActivityName);
+            var activities =  _context.Activities.Where(a => tripDTO.ActivityName.Contains(a.ActivityName)).ToList();
             var location =  _context.Locations.FirstOrDefault(l => l.LocationName == tripDTO.LocationName);
             var climate =  _context.Climates.FirstOrDefault(c => c.ClimateType == tripDTO.ClimateType);
             var travelType =  _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == tripDTO.TravelTypeName);
@@ -74,7 +74,7 @@ namespace Project2.Controllers
                 TripName = tripDTO.TripName,
                 MaxBudget = tripDTO.MaxBudget,
                 NeedsPassport = tripDTO.NeedsPassport,
-                Activities = (ICollection<Activity>)activities,
+                Activities = activities,
                 Location = location,
                 Climate = climate,
                 TravelType = travelType
@@ -96,12 +96,12 @@ namespace Project2.Controllers
             var location = _context.Locations.FirstOrDefault(l => l.LocationName == UpdatedTrip.LocationName);   
             var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == UpdatedTrip.ClimateType);
             var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == UpdatedTrip.TravelTypeName);
-            var activities = _context.Activities.FirstOrDefault(a => a.ActivityName == UpdatedTrip.ActivityName);
+            var activities = _context.Activities.Where(a => UpdatedTrip.ActivityName.Contains(a.ActivityName)).ToList();
 
             trip.TripName = UpdatedTrip.TripName;
             trip.MaxBudget = UpdatedTrip.MaxBudget;
             trip.NeedsPassport = UpdatedTrip.NeedsPassport;
-            trip.Activities = (ICollection<Activity>)activities;
+            trip.Activities = activities;
             trip.Location = location;
             trip.Climate = climate;
             trip.TravelType = travelType;
