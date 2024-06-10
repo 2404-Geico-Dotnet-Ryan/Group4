@@ -18,6 +18,11 @@ namespace Project2.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Activity>()
+                .HasMany(a => a.Trips)
+                .WithOne(t => t.Activity)
+                .HasForeignKey(t => t.ActivityId);
+
             modelBuilder.Entity<User>()
                 .HasMany(s => s.SavedTrips)
                 .WithOne(u => u.User)
