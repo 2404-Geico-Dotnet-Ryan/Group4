@@ -73,7 +73,7 @@ function GetLoginInformation() {
 // Function to log in the user
 async function LoginUser(username, password) {
   try {
-    let response = await fetch("http://localhost:5236/Users/login", {
+    let response = await fetch("http://localhost:5029/Users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Corrected the content type to 'application/json'

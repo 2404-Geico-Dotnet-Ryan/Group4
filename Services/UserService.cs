@@ -14,7 +14,7 @@ namespace Project2.Services
         {
             _context = context;
         }
-        
+
         // Method to add a user // DONE
         public async Task<UserDTO> AddUser(UserDTO userDTO)
         {
@@ -35,7 +35,8 @@ namespace Project2.Services
                 Password = u.Password,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                MaxBudget = u.MaxBudget
+                MaxBudget = (int)u.MaxBudget,
+                IsAdmin = u.IsAdmin
             }).ToListAsync();
             return users;
         }
@@ -101,6 +102,7 @@ namespace Project2.Services
             user.FirstName = userDTO.FirstName;
             user.LastName = userDTO.LastName;
             user.MaxBudget = userDTO.MaxBudget;
+            user.IsAdmin = userDTO.IsAdmin;
 
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
@@ -117,7 +119,8 @@ namespace Project2.Services
                 Password = user.Password,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                MaxBudget = user.MaxBudget
+                MaxBudget = (int)user.MaxBudget,
+                IsAdmin = user.IsAdmin
             };
         }
 
@@ -130,7 +133,8 @@ namespace Project2.Services
                 Password = userDto.Password,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                MaxBudget = userDto.MaxBudget
+                MaxBudget = userDto.MaxBudget,
+                IsAdmin = userDto.IsAdmin
             };
         }
 
@@ -143,7 +147,6 @@ namespace Project2.Services
             {
                 return null;
             }
-
             return user;
         }
 

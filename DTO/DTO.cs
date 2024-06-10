@@ -8,12 +8,29 @@ namespace Project2.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int MaxBudget { get; set; }
+        public bool IsAdmin { get; set; }
     }
 
     public class UserLoginDTO
     {
         public string Username { get; set; }
         public string Password { get; set; }
+    }
+
+    public class UserRegisterDTO
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int MaxBudget { get; set; }
+        public bool IsAdmin { get; set; }
+    }
+
+    public class LoginResponseDTO
+    {
+        public string Username { get; set; }
+        public bool IsAdmin { get; set; }
     }
 
     public class SavedTripDTO
@@ -33,15 +50,13 @@ namespace Project2.DTO
 
     public class TripDTO
     {
-    public int TripId { get; set; }
-    public string TripName { get; set; }
-    public string? LocationName { get; set; }
-    public int MaxBudget { get; set; }
-    public string? TravelTypeName { get; set; }
-    public string? ClimateType { get; set; }
-    public bool NeedsPassport { get; set; }
-    public string? ActivityName { get; set; }
-
+        public int TripId { get; set; }
+        public string TripName { get; set; }
+        public string? LocationName { get; set; }
+        public int MaxBudget { get; set; }
+        public string? TravelTypeName { get; set; }
+        public string? ClimateType { get; set; }
+        public bool NeedsPassport { get; set; }
+        public string? ActivityName { get; set; }
     }
-
 }
