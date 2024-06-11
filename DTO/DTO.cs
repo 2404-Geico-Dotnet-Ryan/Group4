@@ -7,7 +7,7 @@ namespace Project2.DTO
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int MaxBudget { get; set; }
+        public int? MaxBudget { get; set; }
         public bool IsAdmin { get; set; }
     }
 
@@ -15,16 +15,6 @@ namespace Project2.DTO
     {
         public string Username { get; set; }
         public string Password { get; set; }
-    }
-
-    public class UserRegisterDTO
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int MaxBudget { get; set; }
-        public bool IsAdmin { get; set; }
     }
 
     public class LoginResponseDTO

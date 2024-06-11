@@ -18,8 +18,13 @@ namespace Project2.Controllers
         [HttpPost] //Done
         public async Task<ActionResult<UserDTO>> AddUser(UserDTO userDTO)
         {
-            await _userService.AddUser(userDTO);
-            return CreatedAtAction(nameof(GetUser), new { userId = userDTO.UserId }, userDTO);
+            var user = await _userService.AddUser(userDTO);
+            if(user == null)
+            {
+                return BadRequest("Username already exists. Please try again.");
+            }   
+            return Created();  // from Brian's example
+            //return CreatedAtAction(nameof(GetUser), new { userId = userDTO.UserId }, userDTO);
         }
 
         [HttpGet] //Done
@@ -71,17 +76,18 @@ namespace Project2.Controllers
         }
 
         [HttpPost("login")] //Done
-        public async Task<ActionResult<UserDTO>> Login(UserLoginDTO userLogin)
+        public async Task<ActionResult<LoginResponseDTO>> Login(UserLoginDTO userLogin)
         {
-            var user = await _userService.LoginUser(userLogin);
+            var userDTO = await _userService.LoginUser(userLogin);
 
-            if (user == null)
+            if (userDTO == null)
             {
-                return Unauthorized();
+                return Ok("Invalid username or password. Please try again.");
             }
+       
 //TODO: Implement this method for admin login
           //  Response.Headers.Add("Authorization", "Admin" ();
-            return user;
+            return new LoginResponseDTO();
         }
 
         // [HttpGet("protected")] 
