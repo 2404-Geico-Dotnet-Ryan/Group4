@@ -17,7 +17,7 @@ public class Trip
 
     // This establishes a one-to-many relationship between Trip and SavedTrip
     // A Trip can have many SavedTrips
-    public ICollection<SavedTrip> SavedTrips { get; set; }
+    public virtual ICollection<SavedTrip> SavedTrips { get; set; }
     public Activity Activity { get; set; } //FK Class
     public TravelType TravelType { get; set; } //Navigation Property - FK Class
     public Climate? Climate { get; set; } //Navigation Property - FK Class
@@ -28,9 +28,9 @@ public class Trip
 
     }
 
-    public Trip(int tripId, string tripName, int locationId, int maxBudget, int travelTypeId, int climateId, bool needsPassport, int activityId)
+    public Trip(int Id, string tripName, int locationId, int maxBudget, int travelTypeId, int climateId, bool needsPassport, int activityId)
     {
-        Id = tripId;
+        this.Id = Id;
         TripName = tripName;
         LocationId = locationId;
         MaxBudget = maxBudget;
