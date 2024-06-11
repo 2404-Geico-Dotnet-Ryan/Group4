@@ -40,7 +40,7 @@ namespace Project2.DTO
 
     public class TripDTO
     {
-        public int TripId { get; set; }
+        public int Id { get; set; }
         public string TripName { get; set; }
         public string? LocationName { get; set; }
         public int MaxBudget { get; set; }
