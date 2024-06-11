@@ -22,21 +22,6 @@ namespace Group4.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ActivityTrip", b =>
-                {
-                    b.Property<int>("ActivitiesActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TripsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActivitiesActivityId", "TripsId");
-
-                    b.HasIndex("TripsId");
-
-                    b.ToTable("ActivityTrip");
-                });
-
             modelBuilder.Entity("Project2.Models.Activity", b =>
                 {
                     b.Property<int>("ActivityId")
@@ -153,6 +138,9 @@ namespace Group4.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ClimateId")
                         .HasColumnType("int");
 
@@ -172,6 +160,8 @@ namespace Group4.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("ClimateId");
 
@@ -194,11 +184,14 @@ namespace Group4.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaxBudget")
+                    b.Property<int?>("MaxBudget")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -212,21 +205,6 @@ namespace Group4.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ActivityTrip", b =>
-                {
-                    b.HasOne("Project2.Models.Activity", null)
-                        .WithMany()
-                        .HasForeignKey("ActivitiesActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project2.Models.Trip", null)
-                        .WithMany()
-                        .HasForeignKey("TripsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Project2.Models.SavedTrip", b =>
@@ -250,6 +228,12 @@ namespace Group4.Migrations
 
             modelBuilder.Entity("Project2.Models.Trip", b =>
                 {
+                    b.HasOne("Project2.Models.Activity", "Activity")
+                        .WithMany("Trips")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Project2.Models.Climate", "Climate")
                         .WithMany("Trips")
                         .HasForeignKey("ClimateId");
@@ -266,11 +250,18 @@ namespace Group4.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Activity");
+
                     b.Navigation("Climate");
 
                     b.Navigation("Location");
 
                     b.Navigation("TravelType");
+                });
+
+            modelBuilder.Entity("Project2.Models.Activity", b =>
+                {
+                    b.Navigation("Trips");
                 });
 
             modelBuilder.Entity("Project2.Models.Climate", b =>
