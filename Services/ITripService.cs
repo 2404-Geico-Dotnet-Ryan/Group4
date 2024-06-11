@@ -12,7 +12,7 @@ namespace Project2.Services
         //TripDTO GetTripByTravelType(string travelType);
         //TripDTO GetTripByClimate(string climate);
         Trip AddTrip(TripDTO TripDTO);
-        void UpdateTrip(int Id, TripDTO UpdatedTrip);
-        void DeleteTrip(int Id);
+        TripDTO UpdateTrip(int tripId, TripDTO UpdatedTrip);
+        void DeleteTrip(int tripId);
     }
 }

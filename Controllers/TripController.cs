@@ -14,48 +14,74 @@ namespace Project2.Controllers
 
     public class TripController : ControllerBase
     {
-        private readonly ITripService _tripService;
-
-        public TripController(ITripService tripService)
+        private readonly AppDbContext _context;
+        public TripController(AppDbContext context)
         {
-            _tripService = tripService;
+            _context = context;
         }
-    
+        // private readonly ITripService _tripService;
+
+        // public TripController(ITripService tripService)
+        // {
+        //     _tripService = tripService;
+        // }
+
         [HttpGet]
         public ActionResult<IEnumerable<TripDTO>> GetTrips()
         {
-           var trips = _tripService.GetAllTrips();
+            var trips = _context.Trips.ToList();
             return Ok(trips);
         }
-        [HttpGet("{TripId}")]
-        public ActionResult<TripDTO> GetTripById(int Id)
+        [HttpGet("{tripId}")]
+        public ActionResult<Trip> GetTripById(int tripId)
         {
-           var trip = _tripService.GetTripById(Id);
-           return trip;
+            var trip = _context.Trips.Find(tripId);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+            return Ok(trip);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TripDTO>> PostTrip(TripDTO tripDTO)
+        public ActionResult<Trip> AddTrip(Trip trip)
+        // public async Task<ActionResult<TripDTO>> PostTrip(TripDTO tripDTO)
         {
-            var trip = _tripService.AddTrip(tripDTO);
+            _context.Trips.Add(trip);
+            _context.SaveChanges();
+            // var trip = _tripService.AddTrip(tripDTO);
 
-            return CreatedAtAction(nameof(GetTrips), new { TripId = trip.Id}, tripDTO);
+            return CreatedAtAction(nameof(GetTrips), new { tripId = trip.TripId }, trip);
         }
-        [HttpPut("{TripId}")]
-        public ActionResult<TripDTO> UpdateTrip(int Id, TripDTO UpdatedTrip)
+        [HttpPut("{tripId}")]
+        public ActionResult<Trip> UpdateTrip(int tripId, TripDTO tripDTO)
         {
-           _tripService.UpdateTrip(Id, UpdatedTrip);
-
-            return Ok(UpdatedTrip);
+            var trip = _context.Trips.Find(tripId);
+            if (tripId != trip.TripId)
+            {
+                return BadRequest();
+            }
+            _context.Update(tripDTO);
+            _context.SaveChanges();
+            return Ok(tripDTO);
         }
+
+
         [HttpDelete("{TripId}")]
-        public IActionResult DeleteTrip(int id)
+        public IActionResult DeleteTrip(int tripId)
         {
-            _tripService.DeleteTrip(id);
+            var trip = _context.Trips.Find(tripId);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+            _context.Trips.Remove(trip);
+            _context.SaveChanges();
+            // _tripService.DeleteTrip(tripId);
 
             return Ok();
         }
-        
+
     }
 
 }
