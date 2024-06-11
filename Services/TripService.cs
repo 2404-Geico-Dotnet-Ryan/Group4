@@ -67,18 +67,24 @@ namespace Project2.Services
             }).ToList();
             return trips;
         }
-          public TripDTO GetTripById(int tripId)
+          public TripDTO GetTripById(int Id)
         {
-             var trip = _context.Trips.Find(tripId);
+             var trip = _context.Trips
+                .Include( t=> t.Activity)
+                .Include(t => t.TravelType)
+                .Include(t => t.Climate)
+                .Include(t => t.Location)
+                .FirstOrDefault(t => t.Id == Id);
+                
             var tripDTO = new TripDTO{
-                TripName = trip.TripName,
-                TripId = trip.Id,
+                Id = trip.Id,
+                TripName = trip.TripName,                
                 MaxBudget = trip.MaxBudget,
                 NeedsPassport = trip.NeedsPassport,
                 ActivityName = trip.Activity.ActivityName, //need to figure out how to do this
                 LocationName = trip.Location.LocationName,
                 ClimateType = trip.Climate.ClimateType,
-                TravelTypeName = trip.TravelType.TravelTypeName
+                TravelTypeName = trip.TravelType.TravelTypeName,
 
             };
             return tripDTO;

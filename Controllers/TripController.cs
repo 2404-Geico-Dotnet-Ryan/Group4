@@ -27,7 +27,7 @@ namespace Project2.Controllers
            var trips = _tripService.GetAllTrips();
             return Ok(trips);
         }
-        [HttpGet("{TripId}")]
+        [HttpGet("{Id}")]
         public ActionResult<TripDTO> GetTripById(int Id)
         {
            var trip = _tripService.GetTripById(Id);
@@ -41,14 +41,14 @@ namespace Project2.Controllers
 
             return CreatedAtAction(nameof(GetTrips), new { TripId = trip.Id}, tripDTO);
         }
-        [HttpPut("{TripId}")]
+        [HttpPut("{Id}")]
         public ActionResult<TripDTO> UpdateTrip(int Id, TripDTO UpdatedTrip)
         {
            _tripService.UpdateTrip(Id, UpdatedTrip);
 
             return Ok(UpdatedTrip);
         }
-        [HttpDelete("{TripId}")]
+        [HttpDelete("{Id}")]
         public IActionResult DeleteTrip(int id)
         {
             _tripService.DeleteTrip(id);
