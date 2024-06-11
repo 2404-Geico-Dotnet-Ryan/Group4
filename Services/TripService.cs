@@ -2,6 +2,7 @@ using Project2.Models;
 using Project2.DTO;
 using Project2.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Project2.Services
 {
@@ -46,7 +47,7 @@ namespace Project2.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<TripDTO> GetAllTrips()
+        public async Task<ActionResult<IEnumerable<TripDTO>>> GetAllTrips()
         {
             var trips = _context.Trips
                 .Include(t => t.Activity)
@@ -67,6 +68,8 @@ namespace Project2.Services
                 }).ToList();
             return trips;
         }
+
+
         public TripDTO GetTripById(int tripId)
         {
             var trip = _context.Trips.Find(tripId);
