@@ -3,6 +3,7 @@ using Project2.DTO;
 using Project2.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Azure.Identity;
 
 namespace Project2.Services
 {
@@ -18,11 +19,16 @@ namespace Project2.Services
         // Method to add a user // DONE
         public async Task<UserDTO> AddUser(UserDTO userDTO)
         {
-            var user = ConvertUserDTOToUser(userDTO);
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            var checkUser = await GetUserByUsername(userDTO.Username);  
+            if (checkUser == null)
+            {
+                var user = ConvertUserDTOToUser(userDTO);
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
-            return userDTO;
+                return userDTO;
+            }
+            return null;
         }
 
         // Method to get all users // DONE
@@ -115,6 +121,7 @@ namespace Project2.Services
         {
             return new UserDTO
             {
+                UserId = user.UserId,
                 Username = user.Username,
                 Password = user.Password,
                 FirstName = user.FirstName,
@@ -129,6 +136,7 @@ namespace Project2.Services
         {
             return new User
             {
+                UserId = userDto.UserId,
                 Username = userDto.Username,
                 Password = userDto.Password,
                 FirstName = userDto.FirstName,
