@@ -27,13 +27,8 @@ namespace Project2.Controllers
             var trips = await _tripService.GetAllTrips();
             return trips;
         }
-        // public ActionResult<IEnumerable<TripDTO>> GetTrips()
-        // {
-        //    var trips = _tripService.GetAllTrips();
-        //     return Ok(trips);
-        // }
-        [HttpGet("{TripId}")]
-        public ActionResult<TripDTO> GetTripById(int tripId)
+        [HttpGet("{Id}")]
+        public ActionResult<TripDTO> GetTripById(int Id)
         {
            var trip = _tripService.GetTripById(tripId);
            return trip;
@@ -46,15 +41,15 @@ namespace Project2.Controllers
 
             return CreatedAtAction(nameof(GetTrips), new { tripId = trip.TripId}, tripDTO);
         }
-        [HttpPut("{TripId}")]
-        public ActionResult<TripDTO> UpdateTrip(int tripId, TripDTO UpdatedTrip)
+        [HttpPut("{Id}")]
+        public ActionResult<TripDTO> UpdateTrip(int Id, TripDTO UpdatedTrip)
         {
            _tripService.UpdateTrip(tripId, UpdatedTrip);
 
             return Ok(UpdatedTrip);
         }
-        [HttpDelete("{TripId}")]
-        public IActionResult DeleteTrip(int tripId)
+        [HttpDelete("{Id}")]
+        public IActionResult DeleteTrip(int id)
         {
             _tripService.DeleteTrip(tripId);
 

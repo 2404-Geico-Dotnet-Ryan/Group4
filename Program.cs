@@ -31,7 +31,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 //Add CORS policy
 
 var app = builder.Build();
-app.UseCors("AllowAll");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,5 +44,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowAll");
 
 app.Run();
