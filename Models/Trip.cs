@@ -28,9 +28,9 @@ public class Trip
 
     }
 
-    public Trip(int Id, string tripName, int locationId, int maxBudget, int travelTypeId, int climateId, bool needsPassport, int activityId)
+    public Trip(int tripId, string tripName, int locationId, int maxBudget, int travelTypeId, int climateId, bool needsPassport, int activityId)
     {
-        this.Id = Id;
+        TripId = tripId;
         TripName = tripName;
         LocationId = locationId;
         MaxBudget = maxBudget;

@@ -47,7 +47,7 @@ namespace Project2.Services
             _context.SaveChanges();
         }
 
-        public async Task<ActionResult<IEnumerable<TripDTO>>> GetAllTrips()
+         public IEnumerable<TripDTO> GetAllTrips()
         {
             var trips = _context.Trips
                 .Include(t => t.Activity)
@@ -56,6 +56,7 @@ namespace Project2.Services
                 .Include(t => t.Location)
                 .Select(t => new TripDTO
                 {
+                    TripId = t.TripId,
                     TripName = t.TripName,
                     MaxBudget = t.MaxBudget,
                     NeedsPassport = t.NeedsPassport,
@@ -68,17 +69,17 @@ namespace Project2.Services
                 }).ToList();
             return trips;
         }
-          public TripDTO GetTripById(int Id)
+          public TripDTO GetTripById(int tripId)
         {
              var trip = _context.Trips
                 .Include( t=> t.Activity)
                 .Include(t => t.TravelType)
                 .Include(t => t.Climate)
                 .Include(t => t.Location)
-                .FirstOrDefault(t => t.Id == Id);
+                .FirstOrDefault(t => t.TripId == tripId);
                 
             var tripDTO = new TripDTO{
-                Id = trip.Id,
+                TripId = trip.TripId,
                 TripName = trip.TripName,                
                 MaxBudget = trip.MaxBudget,
                 NeedsPassport = trip.NeedsPassport,
@@ -115,24 +116,24 @@ namespace Project2.Services
 
         public TripDTO UpdateTrip(int tripId, TripDTO UpdatedTrip)
         {
-            var trip = _context.Trips.Find(tripId);
-            // var trip = _context.Trips.Include(t => t.Location)
-            //    .Include(t => t.Climate)
-            //    .Include(t => t.TravelType)
-            //    .Include(t => t.Activity)
-            //    .FirstOrDefault(t => t.TripId == tripId);
-            // var location = _context.Locations.FirstOrDefault(l => l.LocationName == UpdatedTrip.LocationName);
-            // var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == UpdatedTrip.ClimateType);
-            // var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == UpdatedTrip.TravelTypeName);
-            // var activity = _context.Activities.FirstOrDefault(a => a.ActivityName == UpdatedTrip.ActivityName);
+             var trip = _context.Trips.Include(t => t.Location)
+                .Include(t => t.Climate) 
+                .Include(t => t.TravelType)
+                .Include(t => t.Activity)
+                .FirstOrDefault(t => t.TripId == tripId);
+            var location = _context.Locations.FirstOrDefault(l => l.LocationName == UpdatedTrip.LocationName);   
+            var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == UpdatedTrip.ClimateType);
+            var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == UpdatedTrip.TravelTypeName);
+            var activity = _context.Activities.FirstOrDefault(a => a.ActivityName == UpdatedTrip.ActivityName);
 
             trip.TripName = UpdatedTrip.TripName;
             trip.MaxBudget = UpdatedTrip.MaxBudget;
             trip.NeedsPassport = UpdatedTrip.NeedsPassport;
-            // trip.Activity = activity;
-            // trip.Location = location;
-            // trip.Climate = climate;
-            // trip.TravelType = travelType;
+            trip.Activity = activity;
+            trip.Location = location;
+            trip.Climate = climate;
+            trip.TravelType = travelType;
+
 
             _context.Trips.Update(trip);
             _context.SaveChanges();

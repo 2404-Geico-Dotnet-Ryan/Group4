@@ -13,16 +13,16 @@ namespace Project2.Services
         {
             _context = context;
         }
-        public ActivityDTO AddActivity(ActivityDTO activityDTO)
+        public Activity AddActivity(ActivityDTO activityDTO)
         {
-            Activity activity = new Activity
+            var activity = new Activity
             {
                 ActivityId = activityDTO.ActivityId,
                 ActivityName = activityDTO.ActivityName
             };
             _context.Activities.Add(activity);
             _context.SaveChanges();
-            return activityDTO;
+            return activity;
         }
 
         public void DeleteActivity(int activityId)
@@ -78,6 +78,7 @@ namespace Project2.Services
             activity.ActivityName = updatedActivity.ActivityName;
             
             _context.Activities.Update(activity);
+            _context.SaveChanges();
 
             return updatedActivity;
         }

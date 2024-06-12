@@ -14,29 +14,37 @@ namespace Project2.Controllers
 
     public class ClimateController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        // private readonly AppDbContext _context;
 
-        public ClimateController(AppDbContext context)
+        // public ClimateController(AppDbContext context)
+        // {
+        //     _context = context;
+        // }
+        private readonly IClimateService _climateService;
+        public ClimateController(IClimateService climateService)
         {
-            _context = context;
+            _climateService = climateService;
         }
         [HttpPost]
-        public ActionResult<Climate> AddClimate(Climate climate)
+        public ActionResult<Climate> AddClimate(ClimateDTO climateDTO)
         {
-            _context.Climates.Add(climate);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetClimateById), new { climateId = climate.ClimateId}, climate);
+            // _context.Climates.Add(climate);
+            // _context.SaveChanges();
+            var climates = _climateService.AddClimate(climateDTO);
+            return CreatedAtAction(nameof(GetClimateById), new { climateId = climateDTO.ClimateId}, climateDTO);
         }
         [HttpGet]
         public ActionResult<IEnumerable<ClimateDTO>> GetClimates()
         {
-            var climates = _context.Climates.ToList();
+            // var climates = _context.Climates.ToList();
+            var climates = _climateService.GetAllClimates();
             return Ok(climates);      
         }
         [HttpGet("{climateId}")]
         public ActionResult<Climate> GetClimateById(int climateId)
         {
-            var climate = _context.Climates.Find(climateId);
+            // var climate = _context.Climates.Find(climateId);
+            var climate = _climateService.GetClimateById(climateId);
             if (climate == null)
             {
                 return NotFound();
@@ -44,26 +52,28 @@ namespace Project2.Controllers
             return Ok(climateId);
         }
         [HttpPut("{climateId}")]
-        public ActionResult<Climate> UpdatedClimate(int climateId, Climate updatedClimate)
+        public ActionResult<Climate> UpdatedClimate(int climateId, ClimateDTO updatedClimate)
         {
             if (climateId != updatedClimate.ClimateId)
             {
                 return BadRequest();
             }
-            _context.Update(updatedClimate);
-            _context.SaveChanges();
-            return updatedClimate;
+            // _context.Update(updatedClimate);
+            // _context.SaveChanges();
+            _climateService.UpdateClimate(climateId, updatedClimate);
+            return Ok(updatedClimate);
         }
         [HttpDelete("{climateId}")]
         public ActionResult<Climate> DeleteClimate(int climateId)
         {
-            var climate = _context.Climates.Find(climateId);
-            if (climate == null)
-            {
-                return NotFound();
-            }
-            _context.Climates.Remove(climate);
-            _context.SaveChanges();
+            _climateService.DeleteClimate(climateId);
+            // var climate = _context.Climates.Find(climateId);
+            // if (climate == null)
+            // {
+            //     return NotFound();
+            // }
+            // _context.Climates.Remove(climate);
+            // _context.SaveChanges();
             return NoContent();
         }
         

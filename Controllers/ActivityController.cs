@@ -14,31 +14,40 @@ namespace Project2.Controllers
 
     public class ActivityController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        // private readonly AppDbContext _context;
 
-        public ActivityController(AppDbContext context)
+        // public ActivityController(AppDbContext context)
+        // {
+        //     _context = context;
+        // }
+
+        private readonly IActivityService _activityService;
+        public ActivityController(IActivityService activityService)
         {
-            _context = context;
+            _activityService = activityService;
         }
 
         [HttpPost]
-        public ActionResult<Activity> AddActivity(Activity activity)
+        public ActionResult<Activity> AddActivity(ActivityDTO activityDTO)
         {
-            _context.Activities.Add(activity);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetActivityById), new { activityId = activity.ActivityId}, activity);
+            var activities = _activityService.AddActivity(activityDTO);
+            // _context.Activities.Add(activity);
+            // _context.SaveChanges();
+            return CreatedAtAction(nameof(GetActivityById), new { activityId = activityDTO.ActivityId}, activityDTO);
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<ActivityDTO>> GetActivities()
         {
-            var activities = _context.Activities.ToList();
+            // var activities = _context.Activities.ToList();
+            var activities = _activityService.GetAllActivities();
             return Ok(activities);
         }
         [HttpGet("{activityId}")]
         public ActionResult<Activity> GetActivityById(int activityId)
         {
-            var activity = _context.Activities.Find(activityId);
+            // var activity = _context.Activities.Find(activityId);
+            var activity = _activityService.GetActivityById(activityId);
             if (activity == null)
             {
                 return NotFound();
@@ -46,26 +55,28 @@ namespace Project2.Controllers
             return Ok(activity);
         }
         [HttpPut("{activityId}")]
-        public ActionResult<Activity> UpdateActivity(int activityId, Activity updatedActivity)
+        public ActionResult<ActivityDTO> UpdateActivity(int activityId, ActivityDTO updatedActivity)
         {
             if (activityId != updatedActivity.ActivityId)
             {
                 return BadRequest();
             }
-            _context.Update(updatedActivity);
-            _context.SaveChanges();
-            return updatedActivity;
+            _activityService.UpdateActivity(activityId, updatedActivity);
+            // _context.Update(updatedActivity);
+            // _context.SaveChanges();
+            return Ok(updatedActivity);
         }
         [HttpDelete("{activityId}")]
         public ActionResult<Activity> DeleteActivity(int activityId)
         {
-            var activity = _context.Activities.Find(activityId);
-            if (activity == null)
-            {
-                return NotFound();
-            }
-            _context.Activities.Remove(activity);
-            _context.SaveChanges();
+            _activityService.DeleteActivity(activityId);
+            // var activity = _context.Activities.Find(activityId);
+            // if (activity == null)
+            // {
+            //     return NotFound();
+            // }
+            // _context.Activities.Remove(activity);
+            // _context.SaveChanges();
             return NoContent();
         }
     }

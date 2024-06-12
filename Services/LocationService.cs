@@ -16,7 +16,7 @@ namespace Project2.Services
 
         public LocationDTO AddLocation(LocationDTO locationDTO)
         {
-            Location location = new Location
+            var location = new Location
             {
                 LocationId = locationDTO.LocationId,
                 LocationName = locationDTO.LocationName

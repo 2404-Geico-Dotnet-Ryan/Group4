@@ -8,7 +8,7 @@ namespace Project2.Services
     {
         IEnumerable<LocationDTO> GetAllLocations();
         LocationDTO GetLocationById(int locationId);
-        LocationDTO AddLocation(LocationDTO  locationDTO);
+        LocationDTO AddLocation(LocationDTO locationDTO);
         LocationDTO UpdateLocation(int locationId, LocationDTO updatedLocation);
         void DeleteLocation(int locationId);
     }

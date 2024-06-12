@@ -13,16 +13,16 @@ namespace Project2.Services
         {
             _context = context;
         }
-        public ClimateDTO AddClimate(ClimateDTO climateDTO)
+        public Climate AddClimate(ClimateDTO climateDTO)
         {
-            Climate climate = new Climate
+            var climate = new Climate
             {
                 ClimateId = climateDTO.ClimateId,
                 ClimateType = climateDTO.ClimateType
             };
             _context.Climates.Add(climate);
             _context.SaveChanges();
-            return climateDTO;
+            return climate;
         }
 
         public void DeleteClimate(int climateId)

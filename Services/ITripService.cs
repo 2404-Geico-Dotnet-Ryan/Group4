@@ -7,7 +7,7 @@ namespace Project2.Services
     public interface ITripService
     {
         IEnumerable<TripDTO> GetAllTrips();
-        TripDTO GetTripById(int Id);
+        TripDTO GetTripById(int tripId);
        // TripDTO GetTripByLocation(string location);
        // TripDTO GetTripByMaxBudget(int maxBudget);
         //TripDTO GetTripByTravelType(string travelType);

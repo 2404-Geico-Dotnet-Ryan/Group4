@@ -7,7 +7,7 @@ namespace Project2.Services
     {
         IEnumerable<ActivityDTO> GetAllActivities();
         ActivityDTO GetActivityById(int activityId);
-        ActivityDTO AddActivity(ActivityDTO activityDTO);
+        Activity AddActivity(ActivityDTO activityDTO);
         ActivityDTO UpdateActivity(int activityId, ActivityDTO updatedActivity);
         void DeleteActivity(int activityId);
     }
