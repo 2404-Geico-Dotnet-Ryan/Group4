@@ -76,7 +76,7 @@ namespace Project2.Services
         }
 
         // Method to log in a user // DONE
-        public async Task<ActionResult<UserDTO>> LoginUser(UserLoginDTO userLogin)
+        public async Task<UserDTO> LoginUser(UserLoginDTO userLogin)
         {
             // Find the user by username and password
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == userLogin.Username && u.Password == userLogin.Password);

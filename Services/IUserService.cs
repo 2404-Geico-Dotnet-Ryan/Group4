@@ -11,6 +11,6 @@ namespace Project2.Services
         Task<ActionResult<UserDTO>> GetUserByUsername(string username);
         Task<UserDTO> AddUser(UserDTO userDTO); //done
         Task<UserDTO> UpdateUser(int userId, UserDTO userDTO); //done
-        Task<ActionResult<UserDTO>> LoginUser(UserLoginDTO userLogin); //done
+        Task<UserDTO> LoginUser(UserLoginDTO userLogin); //done
     }
 }

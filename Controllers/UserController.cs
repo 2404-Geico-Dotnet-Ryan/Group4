@@ -87,7 +87,7 @@ namespace Project2.Controllers
        
 //TODO: Implement this method for admin login
           //  Response.Headers.Add("Authorization", "Admin" ();
-            return new LoginResponseDTO();
+            return Ok(new LoginResponseDTO{Username = userDTO.Username, IsAdmin = userDTO.IsAdmin});
         }
 
         // [HttpGet("protected")] 
