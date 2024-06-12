@@ -2,6 +2,7 @@ using Project2.Models;
 using Project2.DTO;
 using Project2.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Project2.Services
 {
@@ -16,10 +17,10 @@ namespace Project2.Services
 
         public Trip AddTrip(TripDTO tripDTO)
         {
-            var activities =  _context.Activities.FirstOrDefault(a => a.ActivityName == tripDTO.ActivityName);
-            var location =  _context.Locations.FirstOrDefault(l => l.LocationName == tripDTO.LocationName);
-            var climate =  _context.Climates.FirstOrDefault(c => c.ClimateType == tripDTO.ClimateType);
-            var travelType =  _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == tripDTO.TravelTypeName);
+            var activities = _context.Activities.FirstOrDefault(a => a.ActivityName == tripDTO.ActivityName);
+            var location = _context.Locations.FirstOrDefault(l => l.LocationName == tripDTO.LocationName);
+            var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == tripDTO.ClimateType);
+            var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == tripDTO.TravelTypeName);
 
 
             var trip = new Trip
@@ -39,45 +40,46 @@ namespace Project2.Services
             return trip;
         }
 
-        public void DeleteTrip(int Id)
+        public void DeleteTrip(int tripId)
         {
-            var trip = _context.Trips.Find(Id);
+            var trip = _context.Trips.Find(tripId);
             _context.Trips.Remove(trip);
             _context.SaveChanges();
         }
 
-        public IEnumerable<TripDTO> GetAllTrips()
+         public IEnumerable<TripDTO> GetAllTrips()
         {
             var trips = _context.Trips
-                .Include( t=> t.Activity)
+                .Include(t => t.Activity)
                 .Include(t => t.TravelType)
                 .Include(t => t.Climate)
                 .Include(t => t.Location)
                 .Select(t => new TripDTO
-            {
-                TripName = t.TripName,
-                MaxBudget = t.MaxBudget,
-                NeedsPassport = t.NeedsPassport,
-                ActivityName = t.Activity.ActivityName, //need to figure out how to get ActivityName to work
-                LocationName = t.Location.LocationName,
-                ClimateType = t.Climate.ClimateType,
-                TravelTypeName = t.TravelType.TravelTypeName
+                {
+                    TripId = t.TripId,
+                    TripName = t.TripName,
+                    MaxBudget = t.MaxBudget,
+                    NeedsPassport = t.NeedsPassport,
+                    ActivityName = t.Activity.ActivityName, //need to figure out how to get ActivityName to work
+                    LocationName = t.Location.LocationName,
+                    ClimateType = t.Climate.ClimateType,
+                    TravelTypeName = t.TravelType.TravelTypeName
 
 
-            }).ToList();
+                }).ToList();
             return trips;
         }
-          public TripDTO GetTripById(int Id)
+          public TripDTO GetTripById(int tripId)
         {
              var trip = _context.Trips
                 .Include( t=> t.Activity)
                 .Include(t => t.TravelType)
                 .Include(t => t.Climate)
                 .Include(t => t.Location)
-                .FirstOrDefault(t => t.Id == Id);
+                .FirstOrDefault(t => t.TripId == tripId);
                 
             var tripDTO = new TripDTO{
-                Id = trip.Id,
+                TripId = trip.TripId,
                 TripName = trip.TripName,                
                 MaxBudget = trip.MaxBudget,
                 NeedsPassport = trip.NeedsPassport,
@@ -90,35 +92,35 @@ namespace Project2.Services
             return tripDTO;
         }
 
-       /* public TripDTO GetTripByClimate(string climate)
-        {
-            throw new NotImplementedException();
-        }
+        /* public TripDTO GetTripByClimate(string climate)
+         {
+             throw new NotImplementedException();
+         }
 
-      
 
-        public TripDTO GetTripByLocation(string location)
-        {
-            throw new NotImplementedException();
-        }
 
-        public TripDTO GetTripByMaxBudge(int maxBudget)
-        {
-            throw new NotImplementedException();
-        }
+         public TripDTO GetTripByLocation(string location)
+         {
+             throw new NotImplementedException();
+         }
 
-        public TripDTO GetTripByTravelType(string travelType)
-        {
-            throw new NotImplementedException();
-        }*/
+         public TripDTO GetTripByMaxBudge(int maxBudget)
+         {
+             throw new NotImplementedException();
+         }
 
-        public void UpdateTrip(int Id, TripDTO UpdatedTrip)
+         public TripDTO GetTripByTravelType(string travelType)
+         {
+             throw new NotImplementedException();
+         }*/
+
+        public TripDTO UpdateTrip(int tripId, TripDTO UpdatedTrip)
         {
              var trip = _context.Trips.Include(t => t.Location)
                 .Include(t => t.Climate) 
                 .Include(t => t.TravelType)
                 .Include(t => t.Activity)
-                .FirstOrDefault(t => t.Id == Id);
+                .FirstOrDefault(t => t.TripId == tripId);
             var location = _context.Locations.FirstOrDefault(l => l.LocationName == UpdatedTrip.LocationName);   
             var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == UpdatedTrip.ClimateType);
             var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == UpdatedTrip.TravelTypeName);
@@ -135,8 +137,10 @@ namespace Project2.Services
 
             _context.Trips.Update(trip);
             _context.SaveChanges();
+            return UpdatedTrip;
         }
+        
 
-       
+
     }
 }

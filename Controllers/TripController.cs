@@ -27,10 +27,10 @@ namespace Project2.Controllers
            var trips = _tripService.GetAllTrips();
             return Ok(trips);
         }
-        [HttpGet("{Id}")]
-        public ActionResult<TripDTO> GetTripById(int Id)
+        [HttpGet("{tripId}")]
+        public ActionResult<TripDTO> GetTripById(int tripId)
         {
-           var trip = _tripService.GetTripById(Id);
+           var trip = _tripService.GetTripById(tripId);
            return trip;
         }
 
@@ -39,19 +39,19 @@ namespace Project2.Controllers
         {
             var trip = _tripService.AddTrip(tripDTO);
 
-            return CreatedAtAction(nameof(GetTrips), new { TripId = trip.Id}, tripDTO);
+            return CreatedAtAction(nameof(GetTrips), new { tripId = trip.TripId}, tripDTO);
         }
-        [HttpPut("{Id}")]
-        public ActionResult<TripDTO> UpdateTrip(int Id, TripDTO UpdatedTrip)
+        [HttpPut("{tripId}")]
+        public ActionResult<TripDTO> UpdateTrip(int tripId, TripDTO UpdatedTrip)
         {
-           _tripService.UpdateTrip(Id, UpdatedTrip);
+           _tripService.UpdateTrip(tripId, UpdatedTrip);
 
             return Ok(UpdatedTrip);
         }
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteTrip(int id)
+        [HttpDelete("{tripId}")]
+        public IActionResult DeleteTrip(int tripId)
         {
-            _tripService.DeleteTrip(id);
+            _tripService.DeleteTrip(tripId);
 
             return Ok();
         }

@@ -40,7 +40,7 @@ namespace Project2.DTO
 
     public class TripDTO
     {
-        public int Id { get; set; }
+        public int TripId { get; set; }
         public string TripName { get; set; }
         public string? LocationName { get; set; }
         public int MaxBudget { get; set; }
@@ -49,4 +49,20 @@ namespace Project2.DTO
         public bool NeedsPassport { get; set; }
         public string? ActivityName { get; set; }
     }
+    public class ActivityDTO
+    {
+        public int ActivityId { get; set; }
+        public string? ActivityName { get; set; }
+    }
+    public class ClimateDTO
+    {
+        public int ClimateId { get; set; }
+        public string? ClimateType { get; set; }
+    }
+    public class LocationDTO
+    {
+        public int LocationId { get; set; }
+        public string? LocationName { get; set; }
+    }
+
 }

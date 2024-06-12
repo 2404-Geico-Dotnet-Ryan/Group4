@@ -132,11 +132,14 @@ namespace Group4.Migrations
 
             modelBuilder.Entity("Project2.Models.Trip", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TripId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TripId"));
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ActivityId")
                         .HasColumnType("int");
@@ -159,7 +162,9 @@ namespace Group4.Migrations
                     b.Property<string>("TripName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("TripId");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("ActivityId");
 
