@@ -9,11 +9,8 @@ namespace Project2.Services
         Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers(); //done
         Task<ActionResult<UserDTO>> GetUser(int userId); //done
         Task<ActionResult<UserDTO>> GetUserByUsername(string username);
-        
-        // UserDTO GetUserByUsernameAndPassword(string username, string password); 
-        // Replace with LoginUser method
         Task<UserDTO> AddUser(UserDTO userDTO); //done
         Task<UserDTO> UpdateUser(int userId, UserDTO userDTO); //done
-        Task<ActionResult<UserDTO>> LoginUser(UserLoginDTO userLogin); //done
+        Task<UserDTO> LoginUser(UserLoginDTO userLogin); //done
     }
 }

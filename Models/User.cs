@@ -30,6 +30,6 @@ public class User
 
     public override string ToString()
     {
-        return $"{{UserId: {UserId},FirstName: {FirstName}, LastName: {LastName}, Max Budget: {MaxBudget}, Admin?: {IsAdmin}}}";;
+        return $"{{UserId: {UserId}, Username: {Username}, FirstName: {FirstName}, LastName: {LastName}, Max Budget: {MaxBudget}, Admin?: {IsAdmin}}}";;
     }
 }
