@@ -49,85 +49,85 @@ async function AddUser(
 }
 
 // Add User Container Creation Function
-function GenerateAddUserContainer() {
-  // Create the add user container div
-  let addUserDiv = document.createElement("div");
-  loginDiv.id = "login-container";
+// function GenerateAddUserContainer() {
+//   // Create the add user container div
+//   let addUserDiv = document.createElement("div");
+//   loginDiv.id = "login-container";
 
-  // Create the username input field and label
-  let usernameInput = document.createElement("input");
-  usernameInput.type = "text";
-  usernameInput.id = "username-input";
+//   // Create the username input field and label
+//   let usernameInput = document.createElement("input");
+//   usernameInput.type = "text";
+//   usernameInput.id = "username-input";
 
-  let usernameInputLabel = document.createElement("label");
-  usernameInputLabel.textContent = "Username";
+//   let usernameInputLabel = document.createElement("label");
+//   usernameInputLabel.textContent = "Username";
 
-  // Create the password input field and label
-  let passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.id = "password-input";
+//   // Create the password input field and label
+//   let passwordInput = document.createElement("input");
+//   passwordInput.type = "password";
+//   passwordInput.id = "password-input";
 
-  let passwordInputLabel = document.createElement("label");
-  passwordInputLabel.textContent = "Password";
+//   let passwordInputLabel = document.createElement("label");
+//   passwordInputLabel.textContent = "Password";
 
-  // Create the login button
-  let loginButton = document.createElement("button");
-  loginButton.textContent = "Login";
+//   // Create the login button
+//   let loginButton = document.createElement("button");
+//   loginButton.textContent = "Login";
 
-  // Append the login container to the main user container
-  addUserContainer.appendChild(loginDiv);
+//   // Append the login container to the main user container
+//   addUserContainer.appendChild(loginDiv);
 
-  // Append the username and password fields and labels to the login container
-  loginDiv.appendChild(usernameInputLabel);
-  loginDiv.appendChild(usernameInput);
-  loginDiv.appendChild(passwordInputLabel);
-  loginDiv.appendChild(passwordInput);
-  loginDiv.appendChild(loginButton);
+//   // Append the username and password fields and labels to the login container
+//   loginDiv.appendChild(usernameInputLabel);
+//   loginDiv.appendChild(usernameInput);
+//   loginDiv.appendChild(passwordInputLabel);
+//   loginDiv.appendChild(passwordInput);
+//   loginDiv.appendChild(loginButton);
 
-  // Add an event listener to the login button to handle login
-  loginButton.addEventListener("click", GetLoginInformation);
-}
+//   // Add an event listener to the login button to handle login
+//   loginButton.addEventListener("click", GetLoginInformation);
+// }
 
 // Login Container Creation Function
-function GenerateLoginContainer() {
-  // Create the main login container div
-  let loginDiv = document.createElement("div");
-  loginDiv.id = "login-container";
+// function GenerateLoginContainer() {
+//   // Create the main login container div
+//   let loginDiv = document.createElement("div");
+//   loginDiv.id = "login-container";
 
-  // Create the username input field and label
-  let usernameInput = document.createElement("input");
-  usernameInput.type = "text";
-  usernameInput.id = "username-input";
+//   // Create the username input field and label
+//   let usernameInput = document.createElement("input");
+//   usernameInput.type = "text";
+//   usernameInput.id = "username-input";
 
-  let usernameInputLabel = document.createElement("label");
-  usernameInputLabel.textContent = "Username";
+//   let usernameInputLabel = document.createElement("label");
+//   usernameInputLabel.textContent = "Username";
 
-  // Create the password input field and label
-  let passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.id = "password-input";
+//   // Create the password input field and label
+//   let passwordInput = document.createElement("input");
+//   passwordInput.type = "password";
+//   passwordInput.id = "password-input";
 
-  let passwordInputLabel = document.createElement("label");
-  passwordInputLabel.textContent = "Password";
+//   let passwordInputLabel = document.createElement("label");
+//   passwordInputLabel.textContent = "Password";
   
 
-  // Create the login button
-  let loginButton = document.createElement("button");
-  loginButton.textContent = "Login";
+//   // Create the login button
+//   let loginButton = document.createElement("button");
+//   loginButton.textContent = "Login";
 
-  // Append the login container to the main user container
-  userContainerDiv.appendChild(loginDiv);
+//   // Append the login container to the main user container
+//   userContainerDiv.appendChild(loginDiv);
 
-  // Append the username and password fields and labels to the login container
-  loginDiv.appendChild(usernameInputLabel);
-  loginDiv.appendChild(usernameInput);
-  loginDiv.appendChild(passwordInputLabel);
-  loginDiv.appendChild(passwordInput);
-  loginDiv.appendChild(loginButton);
+//   // Append the username and password fields and labels to the login container
+//   loginDiv.appendChild(usernameInputLabel);
+//   loginDiv.appendChild(usernameInput);
+//   loginDiv.appendChild(passwordInputLabel);
+//   loginDiv.appendChild(passwordInput);
+//   loginDiv.appendChild(loginButton);
 
-  // Add an event listener to the login button to handle login
-  loginButton.addEventListener("click", GetLoginInformation);
-}
+//   // Add an event listener to the login button to handle login
+//   loginButton.addEventListener("click", GetLoginInformation);
+// }
 
 // Function to tear down the login container
 function TeardownLoginContainer() {

@@ -9,21 +9,69 @@
 </head>
 
 <body>
-    <h1 id="Title">Trips.com
-    </h1>
+    <h1 id="Title">Trips.com</h1>
 
     <div id="user-container">
-        <div id="login-container">
+        <div id="login-container" style="margin-left: 75px;">
+            <h3 id="login-title">Login</h3>
+            <label for="username">Username</label>
+            <br>
+            <input type="text" id="username-input" name="username" required>
+            <br>
+            <br>
+            <label for="password">Password</label>
+            <br>
+            <input type="password" id="password-input" name="password" required>
+            <span> </span>
+            <button id="login-button">Login</button>
         </div>
-        <div id="register-container">
+        <br>
+        <div id="register-container" style="margin-left: 75px;">
+            <h3 id="register-title">Create an Account</h3>
+            <label for="firstName">First Name</label>
+            <br>
+            <input type="text" id="firstName-input" name="firstName" required>
+            <br>
+            <br>
+            <label for="lastName">Last Name</label>
+            <br>
+            <input type="text" id="lastName-input" name="lastName" required>
+            <br>
+            <br>
+            <label for="username">Username</label>
+            <br>
+            <input type="text" id="username-input" name="username" required>
+            <br>
+            <br>
+            <label for="password">Password</label>
+            <br>
+            <input type="password" id="password-input" name="password" required>
+            <span></span>
+            <button id="register-button">Submit</button>
         </div>
     </div>
-
-    <div id="home-page-container">
+    <div id="createTrip-container" style="margin-left: 75px; margin-top: 50px;">
+        <h3 id="createTrip-title">Create a Trip</h3>
+        <label for="tripName">Trip Name</label>
+        <br>
+        <input type="text" id="tripName-input" name="tripName" required>
+        <br>
+        <br>
+        <label for="tripLocation">Location</label>
+        <br>
+        <input type="text" id="tripLocation-input" name="tripLocation" required>
+        <br>
+        <br>
+        <label for="travelType">Description</label>
+        <br>
+        <input type="text" id="tripDescription-input" name="tripDescription" required>
+        <br>
+        <br>
+        <button id="createTrip-button">Create Trip</button>
     </div>
 
 
-    <script type ="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
 </body>
 <footer class="footer">
     <p>Copyright &copy; 2024. All rights reserved.</p>
