@@ -50,19 +50,12 @@
   ('TrippyHippy', 'pass5', 'Moon', 'Sky', 20000, 0), 
   ('ScubaGuy', 'pass6', 'Tanner', 'Joy', 10000, 0), 
   ('TakeAHike', 'pass7', 'Cam', 'Cameron', 7000, 0), 
-  ('FreeSpirit', 'pass8', 'Sunshine', 'Smith', 65000, 0)
+  ('FreeSpirit', 'pass8', 'Sunshine', 'Smith', 65000, 0),
+  ('Owner', 'pass1', 'Trip', 'Owner', 0, 1),
+  ('Admin', 'pass1', 'Sally', 'Admin', 0, 1)
   ;
 
-    INSERT INTO Users VALUES
-  ('GlassSliper', 'pass2', 'Cinder', 'Ella', 5000), 
-  ('Moana', 'pass2', 'Ocean', 'Chickem', 3500), 
-  ('OnATrip01', 'pass4', 'Fly', 'Guy', 50000), 
-  ('TrippyHippy', 'pass5', 'Moon', 'Sky', 20000), 
-  ('ScubaGuy', 'pass6', 'Tanner', 'Joy', 10000), 
-  ('TakeAHike', 'pass7', 'Cam', 'Cameron', 7000), 
-  ('FreeSpirit', 'pass8', 'Sunshine', 'Smith', 65000)
-  ;
-   
+  
   Insert into Locations values 
 ('Alaska'),
 ('Alabama'),

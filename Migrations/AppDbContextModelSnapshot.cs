@@ -141,9 +141,6 @@ namespace Group4.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ClimateId")
                         .HasColumnType("int");
 
@@ -163,8 +160,6 @@ namespace Group4.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TripId");
-
-                    b.HasIndex("ActivityId");
 
                     b.HasIndex("ActivityId");
 
