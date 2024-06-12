@@ -1,7 +1,7 @@
 //SPA (Single Page Application)
 //so that I can keep track of the users' information on the same script
 
-const BASE_URL = "http://localhost:5029";  //BB
+const BASE_URL = "http://localhost:5029"; 
 let current_user = {};
 
 // User Container Div
