@@ -78,6 +78,7 @@ namespace Project2.Services
             climate.ClimateType = updatedClimate.ClimateType;
 
             _context.Climates.Update(climate);
+            _context.SaveChanges();
 
             return updatedClimate;
         }

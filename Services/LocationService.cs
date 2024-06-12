@@ -79,6 +79,7 @@ namespace Project2.Services
             location.LocationName = updatedLocation.LocationName;
 
             _context.Locations.Update(location);
+            _context.SaveChanges();
 
             return updatedLocation;
         }
