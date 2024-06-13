@@ -204,7 +204,8 @@ async function LoginUser(username, password) {
 // GenerateLoginContainer();
 // TeardownLoginContainer(); // Uncomment this line to tear down the login component
 
-// Generate a homepage component
+// Generate a User info component
+//TODO: Change Homepage to the User info container and functionality
 function GenerateHomepageContainer(userData) {
   let homePageContainer = document.querySelector("#home-page-container");
 
