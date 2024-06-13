@@ -37,7 +37,7 @@ p {
 }
 @media screen and (max-width: 600px) {
   body {
-    background-color: rgb(7, 8, 67);
+    background-color: rgb(139, 140, 192);
   }
   #Title {
     font-size: 30px;
