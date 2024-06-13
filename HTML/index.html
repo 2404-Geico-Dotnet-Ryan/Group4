@@ -11,8 +11,8 @@
 <body>
     <h1 id="Title">Trips.com</h1>
 
-    <div id="user-container">
-        <div id="login-container" style="margin-left: 75px;">
+    <div id="user-container" style="margin-left: 75px;">
+        <div id="login-container">
             <h3 id="login-title">Login</h3>
             <label for="username">Username</label>
             <br>
@@ -26,8 +26,8 @@
             <button id="login-button">Login</button>
         </div>
         <br>
-        <div id="register-container" style="margin-left: 75px;">
-            <h3 id="register-title">Create an Account</h3>
+        <div id="add-user-container">
+            <h3 id="add-user-title">Create an Account</h3>
             <label for="firstName">First Name</label>
             <br>
             <input type="text" id="firstName-input" name="firstName" required>
@@ -49,30 +49,37 @@
             <span></span>
             <button id="register-button">Submit</button>
         </div>
+        <br>
+        <div id="user-info-container">
+            <h3 id="user-info-title">User Information</h3>
+            <p id="user-info"></p>
+        </div>
     </div>
-    <div id="createTrip-container" style="margin-left: 75px; margin-top: 50px;">
-        <h3 id="createTrip-title">Create a Trip</h3>
-        <label for="tripName">Trip Name</label>
-        <br>
-        <input type="text" id="tripName-input" name="tripName" required>
-        <br>
-        <br>
-        <label for="tripLocation">Location</label>
-        <br>
-        <input type="text" id="tripLocation-input" name="tripLocation" required>
-        <br>
-        <br>
-        <label for="travelType">Description</label>
-        <br>
-        <input type="text" id="tripDescription-input" name="tripDescription" required>
-        <br>
-        <br>
-        <button id="createTrip-button">Create Trip</button>
-    </div>
+    <div id="trip-container" style="margin-left: 75px; margin-top: 50px;">
+        <div id="createTripContainer">
+            <h3 id="createTrip-title">Create a Trip</h3>
 
+        </div>
+        <br>
+        <div id="tripListContainer">
+            <h3 id="tripList-title">Trips</h3>
+
+        </div>
+        <br>
+        <div id="tripDetailsContainer">
+            <h3 id="tripDetails-title">Trip Details</h3>
+
+        </div>
+    </div>
+    <div id="saved-trips-container" style="margin-left: 75px; margin-top: 50px;">
+        <h3 id="saved-trips-title">Saved Trips</h3>
+        <div id="saved-trips-list"></div>
+
+    </div>
 
     <script type="text/javascript" src="scripts.js"></script>
 </body>
+
 <footer class="footer">
     <p>Copyright &copy; 2024. All rights reserved.</p>
     <p>Website by FabFour</p>
