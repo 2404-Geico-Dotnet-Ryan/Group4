@@ -46,8 +46,15 @@ namespace Project2.Services
         public void DeleteTrip(int tripId)
         {
             var trip = _context.Trips.Find(tripId);
+            if (trip != null)
+            {
             _context.Trips.Remove(trip);
             _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception ("Trip not found");
+            }
         }
 
          public IEnumerable<TripDTO> GetAllTrips()
@@ -81,20 +88,26 @@ namespace Project2.Services
                 .Include(t => t.Climate)
                 .Include(t => t.Location)
                 .FirstOrDefault(t => t.TripId == tripId);
+            if (trip != null)
+            {               
                 
-                
-            var tripDTO = new TripDTO{
-                TripId = trip.TripId,
-                TripName = trip.TripName,                
-                MaxBudget = trip.MaxBudget,
-                NeedsPassport = trip.NeedsPassport,
-                ActivityName = trip.Activity.ActivityName, 
-                LocationName = trip.Location.LocationName,
-                ClimateType = trip.Climate.ClimateType,
-                TravelTypeName = trip.TravelType.TravelTypeName,
+                var tripDTO = new TripDTO{
+                    TripId = trip.TripId,
+                    TripName = trip.TripName,                
+                    MaxBudget = trip.MaxBudget,
+                    NeedsPassport = trip.NeedsPassport,
+                     ActivityName = trip.Activity.ActivityName, 
+                     LocationName = trip.Location.LocationName,
+                    ClimateType = trip.Climate.ClimateType,
+                    TravelTypeName = trip.TravelType.TravelTypeName,
 
-            };
-            return tripDTO;
+                };
+                return tripDTO;
+            }
+            else
+            {
+                throw new Exception ("Trip not found");
+            }
         }
 
         // Find a trip by LocationName
@@ -153,6 +166,11 @@ namespace Project2.Services
             var climate = _context.Climates.FirstOrDefault(c => c.ClimateType == UpdatedTrip.ClimateType);
             var travelType = _context.TravelTypes.FirstOrDefault(t => t.TravelTypeName == UpdatedTrip.TravelTypeName);
             var activity = _context.Activities.FirstOrDefault(a => a.ActivityName == UpdatedTrip.ActivityName);
+            
+            if (trip == null)
+            {
+                return null;
+            }
 
             trip.TripName = UpdatedTrip.TripName;
             trip.MaxBudget = UpdatedTrip.MaxBudget;
