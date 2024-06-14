@@ -3,6 +3,9 @@ using Project2.DTO;
 using Project2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Project2.Services
 {
@@ -60,7 +63,7 @@ namespace Project2.Services
                     TripName = t.TripName,
                     MaxBudget = t.MaxBudget,
                     NeedsPassport = t.NeedsPassport,
-                    ActivityName = t.Activity.ActivityName, //need to figure out how to get ActivityName to work
+                    ActivityName = t.Activity.ActivityName, 
                     LocationName = t.Location.LocationName,
                     ClimateType = t.Climate.ClimateType,
                     TravelTypeName = t.TravelType.TravelTypeName
@@ -69,6 +72,7 @@ namespace Project2.Services
                 }).ToList();
             return trips;
         }
+        // Find a trip by tripId
           public TripDTO GetTripById(int tripId)
         {
              var trip = _context.Trips
@@ -78,18 +82,45 @@ namespace Project2.Services
                 .Include(t => t.Location)
                 .FirstOrDefault(t => t.TripId == tripId);
                 
+                
             var tripDTO = new TripDTO{
                 TripId = trip.TripId,
                 TripName = trip.TripName,                
                 MaxBudget = trip.MaxBudget,
                 NeedsPassport = trip.NeedsPassport,
-                ActivityName = trip.Activity.ActivityName, //need to figure out how to do this
+                ActivityName = trip.Activity.ActivityName, 
                 LocationName = trip.Location.LocationName,
                 ClimateType = trip.Climate.ClimateType,
                 TravelTypeName = trip.TravelType.TravelTypeName,
 
             };
             return tripDTO;
+        }
+
+        // Find a trip by LocationName
+        public IEnumerable<TripDTO> GetTripByLocation(string locationName)
+        {
+            var location = _context.Locations;
+            var trips = _context.Trips
+                .Include( t=> t.Activity)
+                .Include(t => t.TravelType)
+                .Include(t => t.Climate)
+                .Include(t => t.Location)
+                .Where(t => t.Location.LocationName == locationName)
+                .Select(t => new TripDTO
+                {
+                    TripId = t.TripId,
+                    TripName = t.TripName,
+                    MaxBudget = t.MaxBudget,
+                    NeedsPassport = t.NeedsPassport,
+                    ActivityName = t.Activity.ActivityName, 
+                    LocationName = t.Location.LocationName,
+                    ClimateType = t.Climate.ClimateType,
+                    TravelTypeName = t.TravelType.TravelTypeName
+
+
+                }).ToList();
+            return trips;
         }
 
         /* public TripDTO GetTripByClimate(string climate)
@@ -99,10 +130,7 @@ namespace Project2.Services
 
 
 
-         public TripDTO GetTripByLocation(string location)
-         {
-             throw new NotImplementedException();
-         }
+       
 
          public TripDTO GetTripByMaxBudge(int maxBudget)
          {

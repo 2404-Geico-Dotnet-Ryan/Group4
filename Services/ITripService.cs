@@ -8,7 +8,7 @@ namespace Project2.Services
     {
         IEnumerable<TripDTO> GetAllTrips();
         TripDTO GetTripById(int tripId);
-       // TripDTO GetTripByLocation(string location);
+        IEnumerable<TripDTO> GetTripByLocation(string locationName);
        // TripDTO GetTripByMaxBudget(int maxBudget);
         //TripDTO GetTripByTravelType(string travelType);
         //TripDTO GetTripByClimate(string climate);

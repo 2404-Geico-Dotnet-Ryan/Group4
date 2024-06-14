@@ -33,6 +33,13 @@ namespace Project2.Controllers
            var trip = _tripService.GetTripById(tripId);
            return trip;
         }
+        [Route("locations/{locationName}")]
+        [HttpGet]
+        public ActionResult<TripDTO> GetTripByLocation(string locationName)
+        {
+           var trip = _tripService.GetTripByLocation(locationName);
+           return Ok(trip);
+        }
 
         [HttpPost]
         public async Task<ActionResult<TripDTO>> PostTrip(TripDTO tripDTO)
