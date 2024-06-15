@@ -72,16 +72,60 @@
     <div id="trip-container" style="margin-left: 75px; margin-top: 50px;">
         <div id="createTripContainer">
             <h3 id="createTrip-title">Create a Trip</h3>
+            <label for="TripName">Trip Name</label>
+            <br>
+            <input type="text" id="TripName" name="TripName">
+            <br>
+            <br>
+            <label for="LocationName">Location Name</label>
+            <br>
+            <input type="text" id="LocationName" name="LocationName">
+            <br>
+            <br>
+            <label for="MaxBudget">Budget</label>
+            <br>
+            <input type="number" id="MaxBudget" name="MaxBudget">
+            <br>
+            <br>
+            <label for="TravelTypeName">Travel Type</label>
+            <br>
+            <input type="text" id="TravelTypeName" name="TravelTypeName">
+            <br>
+            <br>
+            <label for="ClimateType">Climate</label>
+            <br>
+            <input type="text" id="ClimateType" name="ClimateType">
+            <br>
+            <br>
+            <label for="NeedsPassport">Passport Required</label>
+            <br>
+            <input type="text" id="NeedsPassport" name="NeedsPassport">
+            <br>
+            <br>
+            <label for="ActivityName">Included Activities</label>
+            <br>
+            <input type="text" id="ActivityName" name="ActivityName">
 
         </div>
         <br>
         <div id="tripListContainer">
             <h3 id="tripList-title">Trip List</h3>
+            <p> Please select the trip you would like to view</p>
+            <form action="http://localhost: 5029/trip">
+                <select id="TripName" name="trips">
+                    <option value="Best of Napa">Best of Napa</option>
+                    <option value="Southern Escapade">Southern Escapade</option>
+                    <option value="Cruise the Mediterranean">Cruise the Mediterranean</option>
+                    <option value="Visit Theme Parks in Florida">Visit Theme Parks in Florida</option>
+                </select>
 
         </div>
         <br>
         <div id="tripDetailsContainer">
             <h3 id="tripDetails-title">Trip Details</h3>
+            
+                
+            </form>
 
         </div>
     </div>
