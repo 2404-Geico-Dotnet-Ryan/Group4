@@ -257,7 +257,74 @@ function tearDownHomePageContainer() {
 // GetAllUsers();
 // GetUserById(1);
 
+////////////////////////////////
+//////SavedTrip Container///////
+///////////////////////////////
 
-// SavedTrip Container
-// Get SavedTrip by UId
+const savedtripscontainer = document.querySelector("#saved-trips-container");
+const savedtripslist = document.querySelector("#saved-trips-list");
+
+const inputNumber = savedtripscontainer.children[3];
+const searchButton = savedtripscontainer.children[4];
+const resetButton = savedtripscontainer.children[5]; //reset button
+
+
+console.log(inputNumber); //sanity check
+console.log(searchButton); //sanity check
+console.log(resetButton); //sanity check
+
+function GetSavedTripByUserId() {
+  let userId = inputNumber.value; 
+  getSavedTripByUserId(userId);
+}
+
+
+searchButton.addEventListener("click", GetSavedTripByUserId);
+
+
+async function getSavedTripByUserId(userId) {
+  const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data); //sanity check
+   displaySavedTrips(); //trying to figure out how to convert the string that is coming back to something that can display??
+
+  } catch (Error) {
+    console.error(Error);
+  }
+}
+/////////////////////////////////////////////
+//////////// Display Saved Trips ////////////
+/////////////////////////////////////////////
+
+
+//Empty Container for Saved Trips - this should be correct
+
+async function displaySavedTrips() {
+while(savedtripslist.firstChild) {
+  savedtripslist.removeChild(savedtripslist.firstChild);
+  }
+
+  // Create the saved trips list
+
+
+
+  // Append the saved trips list to the saved trips container
+
+
+  //savedtripslist.appendChild(not sure what to put here yet) - trying to figure out how to convert the string that is coming back to something that can display??;
+
+}
+/////////////////////////////////
+////////Reset Button //////////// - clears the input field - works!!
+/////////////////////////////////
+
+
+resetButton.addEventListener("click", function() {
+  inputNumber.value = "";
+  savedtripslist.innerHTML = "";
+}
+);
+
 
