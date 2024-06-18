@@ -1,175 +1,86 @@
-//SPA (Single Page Application)
-//so that I can keep track of the users' information on the same script
+///Trips.com JS///
 
-const BASE_URL = "http://localhost:5029"; 
+const BASE_URL = "http://localhost:5029";
 let current_user = {};
 
 // User Container Div
 const userContainerDiv = document.querySelector("#user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#add-user-container");
+const currentUserContainer = document.querySelector("#current-user");
+const userInfoContainer = document.querySelector("#user-info-container");
 
 
 
+////////////////////////////////
+//////////  Login   ///////////
+///////////////////////////////
 
-// Add User Container Creation Function
-function GenerateAddUserContainer() {
-  // Create the add user container div
-  let addUserDiv = document.createElement("div");
-  addUserDiv.id = "add-user-container";
-
-  // Create the First Name input field and label
-  let firstNameInput = document.createElement("input");
-  firstNameInput.type = "text";
-  firstNameInput.id = "firstName-input";
-
-  let firstNameInputLabel = document.createElement("label");
-  firstNameInputLabel.textContent = "First Name";
-
-  // Create the Last Name input field and label
-  let lastNameInput = document.createElement("input");
-  lastNameInput.type = "text";
-  lastNameInput.id = "lastName-input";
-
-  let lastNameInputLabel = document.createElement("label");
-  lastNameInputLabel.textContent = "Last Name";
-
-   // Create the User Name input field and label
-   let usernameInput = document.createElement("input");
-   usernameInput.type = "text";
-   usernameInput.id = "username-input";
- 
-   let usernameInputLabel = document.createElement("label");
-   usernameInputLabel.textContent = "Username";
-
-  // Create the password input field and label
-  let passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.id = "password-input";
-
-  let passwordInputLabel = document.createElement("label");
-  passwordInputLabel.textContent = "Password";
-
-  // Create the login button
-  let addUserButton = document.createElement("button");
-  addUserButton.textContent = "Submit";
-
-  // Append the login container to the main user container
-  addUserContainer.appendChild(addUserDiv);
-
-  // Append the user fields and labels to the addUser container
-  addUserDiv.appendChild(firstNameInputLabel);
-  addUserDiv.appendChild(firstNameInput);
-  addUserDiv.appendChild(lastNameInputLabel);
-  addUserDiv.appendChild(lastNameInput);
-  addUserDiv.appendChild(usernameInputLabel);
-  addUserDiv.appendChild(usernameInput);
-  addUserDiv.appendChild(passwordInputLabel);
-  addUserDiv.appendChild(passwordInput);
-  addUserDiv.appendChild(addUserButton);
-
-  // Add an event listener to the addUser button to handle login
-  addUserButton.addEventListener("click", AddUser);
-}
-
-//
-
-// Function to create a new user
-async function AddUser(
-  firstName,
-  lastName,
-  username,
-  password
-) {
-  try {
-    let response = await fetch(`${BASE_URL}/Users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "UserId": -1,
-        "Username": username,
-        "Password": password,
-        "FirstName": firstName,
-        "LastName": lastName,
-      }),
-    });
-    // let data = await response.json();
-    // console.log(data);
-    console.log(response);
-    if (response.status === 201) {
-      alert("User created successfully");
-    } else {
-      alert("Error creating user");
-    }
-    // Alerts are a good way test, but not great for production
-    //return data;
-  } catch (Error) {
-    console.error(Error);
-  }
-}
+GenerateLoginContainer();
+GenerateAddUserContainer();
 
 // Login Container Creation Function
 function GenerateLoginContainer() {
   // Create the main login container div
-  let loginDiv = document.createElement("div");
-  loginDiv.id = "login-container";
+  let loginContainerDiv = document.createElement("div");
 
-  // Create the username input field and label
+  loginContainerDiv.id = "login-container";
+
+  let loginHeader = document.createElement("h3");
+  loginHeader.textContent = "Login";
+
+  let lineBreak = document.createElement("br");
+  lineBreak.id = "line-break";
+
   let usernameInput = document.createElement("input");
   usernameInput.type = "text";
-  usernameInput.id = "username-input";
+  usernameInput.id = "username-login-input";
 
   let usernameInputLabel = document.createElement("label");
   usernameInputLabel.textContent = "Username";
 
-  // Create the password input field and label
   let passwordInput = document.createElement("input");
   passwordInput.type = "password";
-  passwordInput.id = "password-input";
+  passwordInput.id = "password-login-input";
 
   let passwordInputLabel = document.createElement("label");
   passwordInputLabel.textContent = "Password";
-  
+  passwordInputLabel.set;
 
   // Create the login button
   let loginButton = document.createElement("button");
   loginButton.textContent = "Login";
 
-  // Append the login container to the main user container
-  userContainerDiv.appendChild(loginDiv);
-
-  // Append the username and password fields and labels to the login container
-  loginDiv.appendChild(usernameInputLabel);
-  loginDiv.appendChild(usernameInput);
-  loginDiv.appendChild(passwordInputLabel);
-  loginDiv.appendChild(passwordInput);
-  loginDiv.appendChild(loginButton);
-
   // Add an event listener to the login button to handle login
   loginButton.addEventListener("click", GetLoginInformation);
+
+  // Append the login container to the main user container
+  userContainerDiv.appendChild(loginContainerDiv);
+
+  // Append the username and password fields and labels to the login container
+  loginContainerDiv.appendChild(loginHeader);
+  loginContainerDiv.appendChild(usernameInputLabel);
+  loginContainerDiv.appendChild(usernameInput);
+  loginContainerDiv.appendChild(lineBreak);
+  loginContainerDiv.appendChild(passwordInputLabel);
+  loginContainerDiv.appendChild(passwordInput);
+  loginContainerDiv.appendChild(loginButton);
 }
 
-// // Function to tear down the login container
-// function TeardownLoginContainer() {
-//   // Find the login container
-//   let loginDiv = document.querySelector("#login-container");
-
-//   // If the login container exists, remove all its children
-//   if (loginDiv != null) {
-//     while (loginDiv.firstChild) {
-//       loginDiv.firstChild.remove();
-//     }
-//   }
-// }
+//TODO: fix this function so that it actually works
+function TeardownLoginContainer() {
+  if (loginContainerDiv != null) {
+    while (loginContainerDiv.firstChild) {
+      loginContainerDiv.firstChild.remove();
+    }
+  }
+}
 
 // Function to get login information from input fields
 function GetLoginInformation() {
-  let username = document.querySelector("#username-input").value;
-  let password = document.querySelector("#password-input").value;
+  let username = document.querySelector("#username-login-input").value;
+  let password = document.querySelector("#password-login-input").value;
 
-  // Call the function to log in the user
   LoginUser(username, password);
 }
 
@@ -179,11 +90,11 @@ async function LoginUser(username, password) {
     let response = await fetch(`${BASE_URL}/User/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // Corrected the content type to 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "Username": username,
-        "Password": password,
+        Username: username,
+        Password: password,
       }),
     });
 
@@ -191,68 +102,185 @@ async function LoginUser(username, password) {
     current_user = data;
     console.log(current_user);
     TeardownLoginContainer();
-    GenerateHomepageContainer(data);
+    GenerateCurrentUserContainer(current_user);
+    //GenerateUserInfoContainer(current_user);
   } catch (e) {
     console.error("Error logging in:", e); // Added error logging
   }
 }
 
-// Generate and tear down a login component
-// GenerateLoginContainer();
-// TeardownLoginContainer(); // Uncomment this line to tear down the login component
+////////////////////////////////
+///////// Add User   ///////////
+///////////////////////////////
 
-// Generate a User info component
-//TODO: Change Homepage to the User info container and functionality
-function GenerateHomepageContainer(userData) {
-  let homePageContainer = document.querySelector("#home-page-container");
+// Add User Container Creation Function
+function GenerateAddUserContainer() {
+  let addUserHeader = document.createElement("h3");
+  addUserHeader.textContent = "Create an Account";
 
-  while (homePageContainer.firstChild) {
-    homePageContainer.firstChild.remove();
-  }
+  let addUserContainerDiv = document.createElement("div");
+  addUserContainerDiv.id = "add-user-container";
 
-  let userHeader = document.createElement("h2");
-  let emailHeader = document.createElement("h3");
+  // Create the First Name input field and label
+  let firstNameInput = document.createElement("input");
+  firstNameInput.type = "text";
+  firstNameInput.id = "firstName-input";
 
-  userHeader.textContent = userData.Username;
-  emailHeader.textContent = userData.Email;
+  let firstNameInputLabel = document.createElement("label");
+  firstNameInputLabel.textContent = "First Name";
 
-  homePageContainer.appendChild(userHeader);
-  homePageContainer.appendChild(emailHeader);
+  let lineBreak1 = document.createElement("br");
+
+  // Create the Last Name input field and label
+  let lastNameInput = document.createElement("input");
+  lastNameInput.type = "text";
+  lastNameInput.id = "lastName-input";
+
+  let lastNameInputLabel = document.createElement("label");
+  lastNameInputLabel.textContent = "Last Name";
+
+  let lineBreak2 = document.createElement("br");
+
+  // Create the User Name input field and label
+  let usernameInput = document.createElement("input");
+  usernameInput.type = "text";
+  usernameInput.id = "username-input";
+
+  let usernameInputLabel = document.createElement("label");
+  usernameInputLabel.textContent = "Username";
+
+  let lineBreak3 = document.createElement("br");
+
+  // Create the password input field and label
+  let passwordInput = document.createElement("input");
+  passwordInput.type = "password";
+  passwordInput.id = "password-input";
+
+  let passwordInputLabel = document.createElement("label");
+  passwordInputLabel.textContent = "Password";
+
+  let lineBreak4 = document.createElement("br");
+
+  // Create the max budget input field and label
+  let maxBudgetInputLabel = document.createElement("label");
+  maxBudgetInputLabel.textContent = "Max Budget";
+
+  let maxBudgetInput = document.createElement("input");
+  maxBudgetInput.type = "number";
+  maxBudgetInput.id = "maxBudget-input";
+
+  let lineBreak5 = document.createElement("br");
+
+  // Create the submit button
+  let addUserButton = document.createElement("button");
+  addUserButton.textContent = "Submit";
+
+  // Append the Add User container to the main user container
+  userContainerDiv.appendChild(addUserContainerDiv);
+
+  // Append the user fields and labels to the addUser container
+  addUserContainerDiv.appendChild(addUserHeader);
+  addUserContainerDiv.appendChild(firstNameInputLabel);
+  addUserContainerDiv.appendChild(firstNameInput);
+  addUserContainerDiv.appendChild(lineBreak1);
+  addUserContainerDiv.appendChild(lastNameInputLabel);
+  addUserContainerDiv.appendChild(lastNameInput);
+  addUserContainerDiv.appendChild(lineBreak2);
+  addUserContainerDiv.appendChild(usernameInputLabel);
+  addUserContainerDiv.appendChild(usernameInput);
+  addUserContainerDiv.appendChild(lineBreak3);
+  addUserContainerDiv.appendChild(passwordInputLabel);
+  addUserContainerDiv.appendChild(passwordInput);
+  addUserContainerDiv.appendChild(lineBreak4);
+  addUserContainerDiv.appendChild(maxBudgetInputLabel);
+  addUserContainerDiv.appendChild(maxBudgetInput);
+  addUserContainerDiv.appendChild(lineBreak5);
+  addUserContainerDiv.appendChild(addUserButton);
+
+  // Add an event listener to the addUser button to handle login
+  addUserButton.addEventListener("click", GetAddUserInformation);
 }
 
-// teardown the homepage for the user
-function tearDownHomePageContainer() {
-  while (homePageContainer.firstChild) {
-    homePageContainer.firstChild.remove();
+// Function to get User information from input fields
+function GetAddUserInformation() {
+  let username = document.querySelector("#username-input").value;
+  let password = document.querySelector("#password-input").value;
+  let firstName = document.querySelector("#firstName-input").value;
+  let lastName = document.querySelector("#lastName-input").value;
+  let maxBudget = document.querySelector("#maxBudget-input").value;
+
+  AddUser(username, password, firstName, lastName, maxBudget);
+}
+
+// Function to create a new user
+async function AddUser(username, password, firstName, lastName, maxBudget) {
+  try {
+    let response = await fetch(`${BASE_URL}/User`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        UserId: 0,
+        Username: username,
+        Password: password,
+        FirstName: firstName,
+        LastName: lastName,
+        MaxBudget: maxBudget,
+        IsAdmin: false,
+      }),
+    });
+    let data = await response.json();
+    current_user = data;
+    console.log(current_user);
+    GenerateCurrentUserContainer(current_user);
+  } catch (Error) {
+    console.error(Error);
   }
 }
 
-// // User Controller Functions
+////////////////////////////////
+///// Current User Info   //////
+///////////////////////////////
 
-// async function GetAllUsers() {
+//TODO: Add the Current User to the subheader of the page
+
+// Get User Info by Username
+// async function GetCurrentUser(username) {
 //   try {
-//     let response = await fetch(`${BASE_URL}/User`);
-//     let data = await response.json();
+//     let response = await fetch(`${BASE_URL}/User/${username}`);
+//     let userData = await response.json();
 //     console.log(data);
-//     return data;
+//     return userData;
 //   } catch (Error) {
 //     console.error(Error);
 //   }
 // }
 
-// async function GetUserById(id) {
-//   try {
-//     let response = await fetch(`${BASE_URL}/User/${id}`);
-//     let data = await response.json();
-//     console.log(data);
-//     return data;
-//   } catch (Error) {
-//     console.error(Error);
-//   }
-// }
-// Test these API calls as you are making them so that you can verify that it works inside your script before you actually use them in your website
-// GetAllUsers();
-// GetUserById(1);
+function GenerateCurrentUserContainer(current_user) {
+
+  let currentUserName = `${current_user.FirstName} ${current_user.LastName}`;
+  let currentUserContainer = document.createElement("h3");
+  currentUserContainer.textContent = `Traveler: ${currentUserName}`;
+  
+  let lineBreak = document.createElement("br");
+
+  let usernameDisplay = document.createElement("text");
+  usernameDisplay.textContent = `${current_user.Username}`;
+
+
+  let lineBreak2 = document.createElement("br");
+
+  let userInfoLink = document.createElement("a");
+  userInfoLink.href = "#"; //TODO: Add the link to the user info page
+  userInfoLink.textContent = "Update User Info";
+
+  //currentUserContainer.appendChild(currentUserName);
+  currentUserContainer.appendChild(lineBreak);
+  currentUserContainer.appendChild(usernameDisplay);
+  currentUserContainer.appendChild(lineBreak2);
+  currentUserContainer.appendChild(userInfoLink);
+}
 
 ////////////////////////////////
 //////SavedTrip Container///////
@@ -265,19 +293,16 @@ const inputNumber = savedtripscontainer.children[3];
 const searchButton = savedtripscontainer.children[4];
 const resetButton = savedtripscontainer.children[5]; //reset button
 
-
 console.log(inputNumber); //sanity check
 console.log(searchButton); //sanity check
 console.log(resetButton); //sanity check
 
 function GetSavedTripByUserId() {
-  let userId = inputNumber.value; 
+  let userId = inputNumber.value;
   getSavedTripByUserId(userId);
 }
 
-
 searchButton.addEventListener("click", GetSavedTripByUserId);
-
 
 async function getSavedTripByUserId(userId) {
   const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
@@ -285,8 +310,7 @@ async function getSavedTripByUserId(userId) {
     let response = await fetch(URL);
     let data = await response.json();
     console.log(data); //sanity check
-   displaySavedTrips(); //trying to figure out how to convert the string that is coming back to something that can display??
-
+    displaySavedTrips(); //trying to figure out how to convert the string that is coming back to something that can display??
   } catch (Error) {
     console.error(Error);
   }
@@ -295,32 +319,27 @@ async function getSavedTripByUserId(userId) {
 //////////// Display Saved Trips ////////////
 /////////////////////////////////////////////
 
-
 //Empty Container for Saved Trips - this should be correct
 
 async function displaySavedTrips() {
-while(savedtripslist.firstChild) {
-  savedtripslist.removeChild(savedtripslist.firstChild);
+  while (savedtripslist.firstChild) {
+    savedtripslist.removeChild(savedtripslist.firstChild);
   }
 
   // Create the saved trips list
 
-
-
   // Append the saved trips list to the saved trips container
 
-
   //savedtripslist.appendChild(not sure what to put here yet) - trying to figure out how to convert the string that is coming back to something that can display??;
-
 }
 /////////////////////////////////
 ////////Reset Button //////////// - clears the input field - works!!
 /////////////////////////////////
 
-
-resetButton.addEventListener("click", function() {
+resetButton.addEventListener("click", function () {
   inputNumber.value = "";
   savedtripslist.innerHTML = "";
+
 }
 );
 
@@ -347,5 +366,6 @@ async function getTrips(){
     }
 }
 getTrips();
+
 
 
