@@ -349,6 +349,7 @@ const tripContainerDiv = document.querySelector("#trip-container");
 const tripList = document.querySelector("#ListOfTrips");
 //const createTripContainerDiv = document.querySelector("#create-trip-container");
 //const updateTripContainerDiv = document.querySelector("#update-trip-container");
+const tripDetails = document.querySelector("#TripDetails");
 
 console.log(tripList);
 
@@ -386,6 +387,48 @@ function displayTrips(tripDatas){
 function getTripByID()
 {
   const selected = tripList.value;
-  alert(selected);
+  fetchTripFromDB(selected);
+}
+
+async function fetchTripFromDB(tripId) {
+  const URL = `${BASE_URL}/Trip/${tripId}`;
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data);
+    displayTripDetails(data); //need to work through this
+  } catch (Error) {
+    console.error(Error);
+  }
+  
+  function displayTripDetails(data) //{ need to work through this
+  {
+    tripDetails.innerHTML = "";
+    tripDetails.innerHTML = showTrip(data);
+  }
+  // function showTrip(trip) {
+  //   let triphtml = "";
+  //   // triphtml += JSON.stringify(trip);
+
+
+  //   return triphtml;
+  // }
+
+  function showTrip(trip) {
+    let triphtml = "";
+    triphtml += "<p>Selected Trip: " + trip.tripName + "</p>";
+    triphtml += "<p>Destination: " + trip.locationName + "</p>";
+    triphtml += "<p>Travel Type: " + trip.travelTypeName + "</p>";
+    triphtml += "<p>Climate: " + trip.climateType + "</p>";
+    triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
+    triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
+    triphtml += "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
+    
+    
+    
+    // TODO: the rest of the fields
+    // triphtml += JSON.stringify(trip);
+    return triphtml;
+  } 
 }
 
