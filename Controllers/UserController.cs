@@ -19,12 +19,12 @@ namespace Project2.Controllers
         public async Task<ActionResult<UserDTO>> AddUser(UserDTO userDTO)
         {
             var user = await _userService.AddUser(userDTO);
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest("Username already exists. Please try again.");
-            }   
-            return Created();  // from Brian's example
-            //return CreatedAtAction(nameof(GetUser), new { userId = userDTO.UserId }, userDTO);
+            }
+            //return Created();  // from Brian's example
+            return CreatedAtAction(nameof(GetUser), new { userId = userDTO.UserId }, userDTO);
         }
 
         [HttpGet] //Done
@@ -84,16 +84,20 @@ namespace Project2.Controllers
             {
                 return Ok("Invalid username or password. Please try again.");
             }
-       
-//TODO: Implement this method for admin login
-          //  Response.Headers.Add("Authorization", "Admin" ();
-            return Ok(new LoginResponseDTO{Username = userDTO.Username, IsAdmin = userDTO.IsAdmin});
+            return Ok(new LoginResponseDTO { Username = userDTO.Username, IsAdmin = userDTO.IsAdmin });
         }
 
-        // [HttpGet("protected")] 
-        // public async Task<ActionResult> ProtectedEndpoint([FromHeader] string authorization)
-        // {
-//TODO: Implement this method
-        // }
+        [HttpGet("protected")]
+        public async Task<IActionResult> ProtectedEndpoint(bool isAdmin)
+        {
+            if (isAdmin == true)
+            {
+                return Ok("Hi there admin!");
+            }
+            else
+            {
+                return Unauthorized("You are not an admin!");
+            }
+        }
     }
 }
