@@ -7,8 +7,8 @@ let current_user = {};
 const userContainerDiv = document.querySelector("#user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#add-user-container");
-const currentUserContainer = document.getElementById("#current-user");
-const userInfoContainer = document.getElementById("#user-info-container");
+const currentUserContainer = document.querySelector("#current-user");
+const userInfoContainer = document.querySelector("#user-info-container");
 
 // Trip Container Div
 const tripContainerDiv = document.querySelector("#trip-container");
@@ -105,8 +105,8 @@ async function LoginUser(username, password) {
     current_user = data;
     console.log(current_user);
     TeardownLoginContainer();
-    GenerateCurrentUserContainer(data);
-    GenerateUserInfoContainer(data);
+    GenerateCurrentUserContainer(current_user);
+    //GenerateUserInfoContainer(current_user);
   } catch (e) {
     console.error("Error logging in:", e); // Added error logging
   }
@@ -234,17 +234,9 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
       }),
     });
     let data = await response.json();
-    newCurrent_user = data;
-    console.log(newCurrent_user);
-    // console.log(data);
-    // console.log(response);
-    if (response.status === 204) {
-      alert("User created successfully");
-    } else {
-      alert("Error creating user");
-    }
-    // Alerts are a good way test, but not great for production
-    //return data;
+    current_user = data;
+    console.log(current_user);
+    GenerateCurrentUserContainer(current_user);
   } catch (Error) {
     console.error(Error);
   }
@@ -256,55 +248,42 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
 
 //TODO: Add the Current User to the subheader of the page
 
-function GenerateCurrentUserContainer(userData) {
-  let currentUserContainer = document.createElement("div");
+// Get User Info by Username
+// async function GetCurrentUser(username) {
+//   try {
+//     let response = await fetch(`${BASE_URL}/User/${username}`);
+//     let userData = await response.json();
+//     console.log(data);
+//     return userData;
+//   } catch (Error) {
+//     console.error(Error);
+//   }
+// }
+
+function GenerateCurrentUserContainer(current_user) {
+
+  let currentUserName = `${current_user.FirstName} ${current_user.LastName}`;
+  let currentUserContainer = document.createElement("h3");
+  currentUserContainer.textContent = `Traveler: ${currentUserName}`;
+  
+  let lineBreak = document.createElement("br");
+
+  let usernameDisplay = document.createElement("text");
+  usernameDisplay.textContent = `${current_user.Username}`;
+
+
+  let lineBreak2 = document.createElement("br");
+
+  let userInfoLink = document.createElement("a");
+  userInfoLink.href = "#"; //TODO: Add the link to the user info page
+  userInfoLink.textContent = "Update User Info";
+
+  //currentUserContainer.appendChild(currentUserName);
+  currentUserContainer.appendChild(lineBreak);
+  currentUserContainer.appendChild(usernameDisplay);
+  currentUserContainer.appendChild(lineBreak2);
+  currentUserContainer.appendChild(userInfoLink);
 }
-let userSubheader = document.createElement("h3");
-userSubheader.textContent = `Traveler: ${userData.FirstName} ${userData.LastName}`;
-
-let lineBreak = document.createElement("br");
-
-let usernameDisplay = document.createElement("text");
-usernameDisplay.textContent = `Username: ${userData.Username}`;
-
-let lineBreak2 = document.createElement("br");
-
-let userInfoLink = document.createElement("a");
-userInfoLink.href = "#"; //TODO: Add the link to the user info page
-userInfoLink.textContent = "Update User Info";
-
-currentUserContainer.appendChild(userSubheader);
-currentUserContainer.appendChild(lineBreak);
-currentUserContainer.appendChild(usernameDisplay);
-currentUserContainer.appendChild(lineBreak2);
-currentUserContainer.appendChild(userInfoLink);
-
-// // User Controller Functions
-
-// async function GetAllUsers() {
-//   try {
-//     let response = await fetch(`${BASE_URL}/User`);
-//     let data = await response.json();
-//     console.log(data);
-//     return data;
-//   } catch (Error) {
-//     console.error(Error);
-//   }
-// }
-
-// async function GetUserById(id) {
-//   try {
-//     let response = await fetch(`${BASE_URL}/User/${id}`);
-//     let data = await response.json();
-//     console.log(data);
-//     return data;
-//   } catch (Error) {
-//     console.error(Error);
-//   }
-// }
-// Test these API calls as you are making them so that you can verify that it works inside your script before you actually use them in your website
-// GetAllUsers();
-// GetUserById(1);
 
 ////////////////////////////////
 //////SavedTrip Container///////
