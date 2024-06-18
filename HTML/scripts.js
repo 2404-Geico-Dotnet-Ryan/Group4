@@ -345,27 +345,47 @@ resetButton.addEventListener("click", function () {
 
 // Trip Container Div
 const tripContainerDiv = document.querySelector("#trip-container");
-const displayContainer = document.querySelector("#tripListContainer");
+//const tripList = document.querySelector("#tripListContainer");
+const tripList = document.querySelector("#ListOfTrips");
 //const createTripContainerDiv = document.querySelector("#create-trip-container");
 //const updateTripContainerDiv = document.querySelector("#update-trip-container");
 
-console.log(displayContainer);
+console.log(tripList);
 
 //async function to actually communicate with the trip api
 // function that takes in the search input for the search container
 
 async function getTrips(){
-        try{
-        let response = await fetch("http://localhost:5029/Trip");
-        let data = await response.json();
-        console.log(data);
+  const URL = `${BASE_URL}/Trip`;
+  try{
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data);
+    displayTrips(data);
 
-    }
-    catch(error){
-        console.error(error);
-    }
+  }
+  catch(error){
+    console.error(error);
+  }
 }
 getTrips();
 
+function displayTrips(tripDatas){
+    
+  for ( const tripData of tripDatas){
+    const option = document.createElement("option");
+    option.text = tripData.tripName;
+    option.value = tripData.tripId;
+    tripList.add(option);
+    
+    //tripList.appendChild(document.createTextNode(element.tripName));
+  }
+  tripList.size = Object.keys(tripDatas).length;
+}
 
+function getTripByID()
+{
+  const selected = tripList.value;
+  alert(selected);
+}
 
