@@ -11,9 +11,9 @@ const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 
 // Trip Container Div
-const tripContainerDiv = document.querySelector("#trip-container");
-const createTripContainerDiv = document.querySelector("#create-trip-container");
-const updateTripContainerDiv = document.querySelector("#update-trip-container");
+//const tripContainerDiv = document.querySelector("#trip-container");
+//const createTripContainerDiv = document.querySelector("#create-trip-container");
+//const updateTripContainerDiv = document.querySelector("#update-trip-container");
 
 ////////////////////////////////
 //////////  Login   ///////////
@@ -342,4 +342,7 @@ async function displaySavedTrips() {
 resetButton.addEventListener("click", function () {
   inputNumber.value = "";
   savedtripslist.innerHTML = "";
-});
+}
+);
+
+

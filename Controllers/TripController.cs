@@ -9,9 +9,11 @@ using Project2.Services;
 
 namespace Project2.Controllers
 {
+    // tells ASP.Net that this is a controller
     [ApiController]
+    // determines the path of the URL-->everything in front of 'controller' in class Name (Ex: Trip will be in URL)
     [Route("[controller]")]
-
+    // Inherits ControllerBase-->allows class to have the methods
     public class TripController : ControllerBase
     {
         private readonly ITripService _tripService;
@@ -22,6 +24,7 @@ namespace Project2.Controllers
         }
     
         [HttpGet]
+        // IActionResult is pre-formatted interface-->let's you create response based purely on name of status message
         public ActionResult<IEnumerable<TripDTO>> GetTrips()
         {
            var trips = _tripService.GetAllTrips();
@@ -42,6 +45,7 @@ namespace Project2.Controllers
         }
 
         [HttpPost]
+        // sends object to database containing all the fields within the object
         public async Task<ActionResult<TripDTO>> PostTrip(TripDTO tripDTO)
         {
             var trip = _tripService.AddTrip(tripDTO);
