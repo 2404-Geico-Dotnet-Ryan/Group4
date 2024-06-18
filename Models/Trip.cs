@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
+// model sets up the data object 
 public class Trip
 {
     public int TripId { get; set; } //Primary Key

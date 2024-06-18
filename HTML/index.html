@@ -11,6 +11,7 @@
 <body>
     <h1 id="Title">Trips.com</h1>
 
+
     <h3 id="current-user">Current User
         <p id="user-name">username
         <a href="addInUserUpdate-link">link to update profile goes here</a>
@@ -18,6 +19,7 @@
         <a href="https://www.w3schools.com/html/html_layout.asp">W3 HTML Layout</a>
     </p>
     </h3>
+
 
     <div id="user-container" style="margin-left: 75px;">
     </div>
@@ -89,13 +91,12 @@
         <div id="tripListContainer">
             <h3 id="tripList-title">Trip List</h3>
             <p> Please select the trip you would like to view</p>
-            <form action="http://localhost: 5029/trip">
+            <form id="tripForm" >
                 <select id="TripName" name="trips">
-                    <option value="Best of Napa">Best of Napa</option>
-                    <option value="Southern Escapade">Southern Escapade</option>
-                    <option value="Cruise the Mediterranean">Cruise the Mediterranean</option>
-                    <option value="Visit Theme Parks in Florida">Visit Theme Parks in Florida</option>
+                    
+                   
                 </select>
+            </form>
 
         </div>
         <br>
@@ -108,8 +109,7 @@
         </div>
     </div>
 
-
-    <script type="text/javascript" src="scripts.js"></script>
+     <script type="text/javascript" src="scripts.js"></script>
 </body>
 
 <footer class="footer">
