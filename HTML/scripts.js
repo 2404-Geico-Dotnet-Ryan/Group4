@@ -9,10 +9,7 @@ const userContainerDiv = document.querySelector("#user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#add-user-container");
 
-// Trip Container Div
-//const tripContainerDiv = document.querySelector("#trip-container");
-//const createTripContainerDiv = document.querySelector("#create-trip-container");
-//const updateTripContainerDiv = document.querySelector("#update-trip-container");
+
 
 
 // Add User Container Creation Function
@@ -326,5 +323,29 @@ resetButton.addEventListener("click", function() {
   savedtripslist.innerHTML = "";
 }
 );
+
+// Trip Container Div
+const tripContainerDiv = document.querySelector("#trip-container");
+const displayContainer = document.querySelector("#tripListContainer");
+//const createTripContainerDiv = document.querySelector("#create-trip-container");
+//const updateTripContainerDiv = document.querySelector("#update-trip-container");
+
+console.log(displayContainer);
+
+//async function to actually communicate with the trip api
+// function that takes in the search input for the search container
+
+async function getTrips(){
+        try{
+        let response = await fetch("http://localhost:5029/Trip");
+        let data = await response.json();
+        console.log(data);
+
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+getTrips();
 
 
