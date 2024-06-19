@@ -11,7 +11,7 @@
 <body>
     <h1 id="Title">Trips.com</h1>
 
-    <div id="current-user-container" style="margin-left: 75px; margin-top: 50px;">
+    <div id="current-user-container" hidden="true"style="margin-left: 75px; margin-top: 50px;">
     <h3 id="current-user">Current User</h3>
         <p id="user-name">salt-n-peppa</p>
         <a id="user-info-container">View Profile</a>
@@ -57,6 +57,12 @@
             <label for="maxBudget">Max Budget</label>
             <br>
             <input type="number" id="maxBudget-input" name="maxBudget" required>
+            <br>
+            <div id="isAdmin-container" hidden="true">
+                <label for="isAdmin">Admin</label>
+                <input type="checkbox" id="isAdmin-input" name="isAdmin">
+            </div>
+            <br>
             <span></span>
             <button id="register-button">Submit</button>
         </div>
@@ -89,9 +95,15 @@
         <label for="maxBudget">Max Budget</label>
         <br>
         <input type="number" id="maxBudget-update-input" name="maxBudget" required>
+        <br>
+        <div id="isAdmin-update-container" hidden="true">
+            <label for="isAdmin">Admin</label>
+            <input type="checkbox" id="isAdmin-update-input" name="isAdmin">
+        </div>
         <span></span>
+        <br>
         <button id="updateUser-button">SAVE</button>
-
+    </div>
 
     <div id="saved-trips-container" style="margin-left: 75px; margin-top: 50px;">
         <h3 id="saved-trips-title">Saved Trips</h3>
@@ -112,8 +124,8 @@
 
     </div>
 
-    <div id="trip-container" style="margin-left: 75px; margin-top: 50px;">
-        <div id="createTripContainer">
+    <div id="trip-container"style="margin-left: 75px; margin-top: 50px;">
+        <div id="createTripContainer"  hidden="true">
             <h3 id="createTrip-title">Create a Trip</h3>
             <label for="TripName">Trip Name</label>
             <br>
@@ -181,7 +193,7 @@
 
 <footer class="footer">
     <p>Copyright &copy; 2024. All rights reserved.</p>
-    <p>Website by FabFour</p>
+    <p>Website by Fantastic Four</p>
 </footer>
 
 </html>

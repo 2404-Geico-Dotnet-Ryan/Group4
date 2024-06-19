@@ -7,64 +7,13 @@ let current_user = {};
 const userContainerDiv = document.querySelector("#user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#register-container");
-//const addUserContainerDiv = document.querySelector("#add-user-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
+
 
 ////////////////////////////////
 //////////  Login   ///////////
 ///////////////////////////////
-
-// GenerateLoginContainer();
-// GenerateAddUserContainer();
-
-// // Login Container Creation Function
-// function GenerateLoginContainer() {
-//   // Create the main login container div
-//   let loginContainerDiv = document.createElement("div");
-
-//   loginContainerDiv.id = "login-container";
-
-//   let loginHeader = document.createElement("h3");
-//   loginHeader.textContent = "Login";
-
-//   let lineBreak = document.createElement("br");
-//   lineBreak.id = "line-break";
-
-//   let usernameInput = document.createElement("input");
-//   usernameInput.type = "text";
-//   usernameInput.id = "username-login-input";
-
-//   let usernameInputLabel = document.createElement("label");
-//   usernameInputLabel.textContent = "Username";
-
-//   let passwordInput = document.createElement("input");
-//   passwordInput.type = "password";
-//   passwordInput.id = "password-login-input";
-
-//   let passwordInputLabel = document.createElement("label");
-//   passwordInputLabel.textContent = "Password";
-//   passwordInputLabel.set;
-
-//   // Create the login button
-//   let loginButton = document.createElement("button");
-//   loginButton.textContent = "Login";
-
-//   // Add an event listener to the login button to handle login
-//   loginButton.addEventListener("click", GetLoginInformation);
-
-//   // Append the login container to the main user container
-//   userContainerDiv.appendChild(loginContainerDiv);
-
-//   // Append the username and password fields and labels to the login container
-//   loginContainerDiv.appendChild(loginHeader);
-//   loginContainerDiv.appendChild(usernameInputLabel);
-//   loginContainerDiv.appendChild(usernameInput);
-//   loginContainerDiv.appendChild(lineBreak);
-//   loginContainerDiv.appendChild(passwordInputLabel);
-//   loginContainerDiv.appendChild(passwordInput);
-//   loginContainerDiv.appendChild(loginButton);
-// }
 
 //TODO: fix this function so that it actually works
 function TeardownLoginContainer() {
@@ -105,100 +54,38 @@ async function LoginUser(username, password) {
     console.log(current_user);
     GenerateCurrentUserContainer(current_user);
     GenerateUserInfoContainer(current_user);
+    LoginCheck();
+    AdminCheck();
     return current_user;
   } catch (e) {
-    console.error("Error logging in:", e); // Added error logging
+    console.error("Error logging in:", e); 
   }
   // TeardownLoginContainer();
 }
-
+// hide the login container
+function LoginCheck() {
+  if (current_user == null) {
+    document.querySelector("#current-user-container").hidden=true;
+    document.querySelector("#user-container").hidden=false;
+  }
+  else
+  {
+    document.querySelector("#current-user-container").hidden=false;
+    document.querySelector("#user-container").hidden=true;
+  }
+}
+function AdminCheck() {
+  if (current_user.isAdmin) {
+    document.querySelector("#createTripContainer").hidden=false;
+  }
+  else
+  {
+    document.querySelector("#createTripContainer").hidden=true;
+  }
+}
 ////////////////////////////////
 ///////// Add User   ///////////
 ///////////////////////////////
-
-// Add User Container Creation Function
-// function GenerateAddUserContainer() {
-//   let addUserHeader = document.createElement("h3");
-//   addUserHeader.textContent = "Create an Account";
-
-//   let addUserContainerDiv = document.createElement("div");
-//   addUserContainerDiv.id = "add-user-container";
-
-//   // Create the First Name input field and label
-//   let firstNameInput = document.createElement("input");
-//   firstNameInput.type = "text";
-//   firstNameInput.id = "firstName-input";
-
-//   let firstNameInputLabel = document.createElement("label");
-//   firstNameInputLabel.textContent = "First Name";
-
-//   let lineBreak1 = document.createElement("br");
-
-//   // Create the Last Name input field and label
-//   let lastNameInput = document.createElement("input");
-//   lastNameInput.type = "text";
-//   lastNameInput.id = "lastName-input";
-
-//   let lastNameInputLabel = document.createElement("label");
-//   lastNameInputLabel.textContent = "Last Name";
-
-//   let lineBreak2 = document.createElement("br");
-
-//   // Create the User Name input field and label
-//   let usernameInput = document.createElement("input");
-//   usernameInput.type = "text";
-//   usernameInput.id = "username-input";
-
-//   let usernameInputLabel = document.createElement("label");
-//   usernameInputLabel.textContent = "Username";
-
-//   let lineBreak3 = document.createElement("br");
-
-//   // Create the password input field and label
-//   let passwordInput = document.createElement("input");
-//   passwordInput.type = "password";
-//   passwordInput.id = "password-input";
-
-//   let passwordInputLabel = document.createElement("label");
-//   passwordInputLabel.textContent = "Password";
-
-//   let lineBreak4 = document.createElement("br");
-
-//   // Create the max budget input field and label
-//   let maxBudgetInputLabel = document.createElement("label");
-//   maxBudgetInputLabel.textContent = "Max Budget";
-
-//   let maxBudgetInput = document.createElement("input");
-//   maxBudgetInput.type = "number";
-//   maxBudgetInput.id = "maxBudget-input";
-
-//   let lineBreak5 = document.createElement("br");
-
-//   // Create the submit button
-//   let addUserButton = document.createElement("button");
-//   addUserButton.textContent = "Submit";
-
-//   // Append the Add User container to the main user container
-//   userContainerDiv.appendChild(addUserContainerDiv);
-
-//   // Append the user fields and labels to the addUser container
-//   addUserContainerDiv.appendChild(addUserHeader);
-//   addUserContainerDiv.appendChild(firstNameInputLabel);
-//   addUserContainerDiv.appendChild(firstNameInput);
-//   addUserContainerDiv.appendChild(lineBreak1);
-//   addUserContainerDiv.appendChild(lastNameInputLabel);
-//   addUserContainerDiv.appendChild(lastNameInput);
-//   addUserContainerDiv.appendChild(lineBreak2);
-//   addUserContainerDiv.appendChild(usernameInputLabel);
-//   addUserContainerDiv.appendChild(usernameInput);
-//   addUserContainerDiv.appendChild(lineBreak3);
-//   addUserContainerDiv.appendChild(passwordInputLabel);
-//   addUserContainerDiv.appendChild(passwordInput);
-//   addUserContainerDiv.appendChild(lineBreak4);
-//   addUserContainerDiv.appendChild(maxBudgetInputLabel);
-//   addUserContainerDiv.appendChild(maxBudgetInput);
-//   addUserContainerDiv.appendChild(lineBreak5);
-//   addUserContainerDiv.appendChild(addUserButton);
 
 // Event listener to the addUser button to handle login
 let addUserButton = document.querySelector("#register-button");
@@ -212,8 +99,9 @@ function GetAddUserInformation() {
   let firstName = document.querySelector("#firstName-input").value;
   let lastName = document.querySelector("#lastName-input").value;
   let maxBudget = document.querySelector("#maxBudget-input").value;
+  let isAdmin = document.querySelector("#isAdmin-input").value;
 
-  AddUser(username, password, firstName, lastName, maxBudget);
+  AddUser(username, password, firstName, lastName, maxBudget, isAdmin);
 }
 
 // Function to create a new user
@@ -270,14 +158,17 @@ function GenerateUserInfoContainer(current_user) {
   let lastNameDisplay = document.getElementById("lastName-update-input");
   lastNameDisplay.value = current_user.lastName;
 
-  // let usernameDisplay = document.getElementById("username");
-  // usernameDisplay.textContent = {current_user.username}
+  let usernameDisplay = document.getElementById("username-update-input");
+  usernameDisplay.value = current_user.username;
 
-  // let passwordDisplay = document.getElementById("password");  
-  // passwordDisplay.textContent = `Password: ${current_user.password}`;
+  let passwordDisplay = document.getElementById("password-update-input");  
+  passwordDisplay.value = current_user.password;
 
-  // let maxBudgetDisplay = document.getElementById("max-budget");
-  // maxBudgetDisplay.textContent = `Max Budget: $${current_user.maxBudget}`;
+  let maxBudgetDisplay = document.getElementById("maxBudget-update-input");
+  maxBudgetDisplay.value = current_user.maxBudget;
+
+  let isAdminDisplay = document.getElementById("isAdmin-update-input");
+  isAdminDisplay.value = current_user.isAdmin;
 }
 // Event listener to the addUser button to handle login
 let updateUserButton = document.querySelector("#updateUser-button");
@@ -335,7 +226,7 @@ async function getSavedTripsByUserIdFromDb(userId) {
 //next to cuntion displaySavedTrips we need to have what should be displayed like the trip name, location, etc. I just can't figure out exactly how to do that.
 async function displaySavedTrips(savedtripdatas) {
   savedtripslist.innerHTML = "";
-  for (const savedtripdata of savedtripdatas) {
+  for await (const savedtripdata of savedtripdatas) {
     const option = document.createElement("option");
     const tripdata = await fetchTripFromDB(savedtripdata.tripId);
     option.text = tripdata.tripName;
