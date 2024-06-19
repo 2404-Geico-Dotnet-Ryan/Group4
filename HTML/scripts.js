@@ -246,7 +246,7 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
 }
 
 ////////////////////////////////
-///// Current User Info   //////
+///// Current User Header  //////
 ///////////////////////////////
 
 function GenerateCurrentUserContainer(current_user) {
@@ -257,52 +257,41 @@ function GenerateCurrentUserContainer(current_user) {
 
   let usernameDisplay = document.getElementById("user-name");
   usernameDisplay.textContent = `${current_user.username}`;
-
-  //TODO: Add the link to the user info page
-  let userInfoLink = document.getElementById("updateUser-link");
-  userInfoLink.href = "#";
-  userInfoLink.textContent = "Update User Info";
 }
 
-//TODO: change the fields to editable text fields
+////////////////////////////////
+///// User Info Container  //////
+///////////////////////////////
+
 function GenerateUserInfoContainer(current_user) {
-  let userInfoContainer = document.getElementById("user-info-container");
+  let firstNameDisplay = document.getElementById("firstName-update-input");
+  firstNameDisplay.value = current_user.firstName;
 
-  //   let userFirstName = document.createElement("input");
-  //   userFirstName.type = "text";
+  let lastNameDisplay = document.getElementById("lastName-update-input");
+  lastNameDisplay.value = current_user.lastName;
 
-  //   let userFirstNameLabel = document.createElement("label");
-  //   userFirstNameLabel.textContent = "First Name: ";
-  //   userFirstName.value = current_user.firstName;
+  // let usernameDisplay = document.getElementById("username");
+  // usernameDisplay.textContent = {current_user.username}
 
-  //   let userLastNameLabel = document.createElement("label");
-  //   let userLastName = document.createElement("input");
-  //   userLastName.type = "text";
+  // let passwordDisplay = document.getElementById("password");  
+  // passwordDisplay.textContent = `Password: ${current_user.password}`;
 
-  //   userLastNameLabel.textContent = "Last Name: ";
-  //   userLastName.value = current_user.lastName;
+  // let maxBudgetDisplay = document.getElementById("max-budget");
+  // maxBudgetDisplay.textContent = `Max Budget: $${current_user.maxBudget}`;
+}
+// Event listener to the addUser button to handle login
+let updateUserButton = document.querySelector("#updateUser-button");
+updateUserButton.addEventListener("click", GetUpdateUserInformation);
+// }
+//TODO: change the fields to editable text fields
+function GetUpdateUserInformation() {
+  let firstName = document.getElementById("#firstName-update-input").value;
+  let lastName = document.getElementById("#lastName-update-input").value;
+  let username = document.getElementById("#username-update-input").value;
+  let password = document.getElementById("#password-update-input").value;
+  let maxBudget = document.getElementById("#maxBudget-update-input").value;
 
-  //   let userMaxBudget = document.createElement("p");
-  //   userMaxBudget.textContent = `Max Budget: $${current_user.maxBudget}`;
-
-  //   let userUserName = document.createElement("p");
-  //   userUserName.textContent = `Username: ${current_user.username}`;
-
-  //   let userPassword = document.createElement("p");
-  //   userPassword.textContent = `Password: ${current_user.password}`;
-
-  //   let userIsAdmin = document.createElement("p");
-  //   userIsAdmin.textContent = `Admin: ${current_user.isAdmin}`;
-
-  //   userInfoContainer.appendChild(userFirstNameLabel);
-  //   userInfoContainer.appendChild(userFirstName);
-  //   userInfoContainer.appendChild(userLastNameLabel);
-  //   userInfoContainer.appendChild(userLastName);
-  //   userInfoContainer.appendChild(userMaxBudget);
-  //   userInfoContainer.appendChild(userUserName);
-  //   userInfoContainer.appendChild(userPassword);
-  //   userInfoContainer.appendChild(userIsAdmin);
-  // }
+  UpdateUser(username, password, firstName, lastName, maxBudget);
 
   ////////////////////////////////
   //////SavedTrip Container///////
