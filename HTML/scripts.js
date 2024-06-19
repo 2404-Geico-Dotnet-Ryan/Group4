@@ -5,13 +5,12 @@ let current_user = {};
 let current_trip = {};
 
 // User Container Div
-const userContainerDiv = document.querySelector("#user-container");
+const userContainerDiv = document.querySelector("#landing-user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#register-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 const savedTripButton = document.querySelector("#saved-Trip-Button");
-
 
 ////////////////////////////////
 //////////  Login   ///////////
@@ -61,31 +60,38 @@ async function LoginUser(username, password) {
     AdminCheck();
     return current_user;
   } catch (e) {
-    console.error("Error logging in:", e); 
+    console.error(e);
+    document.getElementById("login-error").textContent = "Invalid Username or Password";
+
   }
   // TeardownLoginContainer();
 }
 // hide the login container
 function LoginCheck() {
   if (current_user == null) {
-    document.querySelector("#current-user-container").hidden=true;
-    document.querySelector("#user-container").hidden=false;
-  }
-  else
-  {
-    document.querySelector("#current-user-container").hidden=false;
-    document.querySelector("#user-container").hidden=true;
+    document.querySelector("#current-user-container").hidden = true;
+    document.querySelector("#features-container").hidden = true;
+    document.querySelector("#landing-user-container").hidden = false;
+  } else {
+    document.querySelector("#current-user-container").hidden = false;
+    document.querySelector("#landing-user-container").hidden = true;
+    document.querySelector("#features-container").hidden = false;
   }
 }
 function AdminCheck() {
   if (current_user.isAdmin) {
-    document.querySelector("#createTripContainer").hidden=false;
-  }
-  else
-  {
-    document.querySelector("#createTripContainer").hidden=true;
+    document.querySelector("#createTripContainer").hidden = false;
+  } else {
+    document.querySelector("#createTripContainer").hidden = true;
   }
 }
+
+const handleLogout = () => {
+  window.localStorage.clear();
+  window.location.reload(true);
+  // window.location.replace('/');
+};
+
 ////////////////////////////////
 ///////// Add User   ///////////
 ///////////////////////////////
@@ -148,6 +154,9 @@ function GenerateCurrentUserContainer(current_user) {
 
   let usernameDisplay = document.getElementById("user-name");
   usernameDisplay.textContent = `${current_user.username}`;
+
+  let logoutButton = document.querySelector("#logout-button");
+  logoutButton.addEventListener("click", handleLogout);
 }
 
 ////////////////////////////////
@@ -164,7 +173,7 @@ function GenerateUserInfoContainer(current_user) {
   let usernameDisplay = document.getElementById("username-update-input");
   usernameDisplay.value = current_user.username;
 
-  let passwordDisplay = document.getElementById("password-update-input");  
+  let passwordDisplay = document.getElementById("password-update-input");
   passwordDisplay.value = current_user.password;
 
   let maxBudgetDisplay = document.getElementById("maxBudget-update-input");
@@ -242,20 +251,19 @@ async function displaySavedTrips(savedtripdatas) {
 async function deleteSavedTripByID() {
   const selected = savedtripslist.value;
   const tripdata = await deleteSavedTripFromDB(selected);
-  GetSavedTripsByUserId(); 
+  GetSavedTripsByUserId();
 }
 
 async function deleteSavedTripFromDB(savedtripId) {
   const URL = `${BASE_URL}/SavedTrip/${savedtripId}`;
   try {
     let response = await fetch(URL, {
-      method: 'DELETE',
-    })  
+      method: "DELETE",
+    });
     let data = await response.json();
     console.log(data);
-    
-    return data;
 
+    return data;
   } catch (Error) {
     console.error(Error);
   }
@@ -336,8 +344,7 @@ async function fetchTripFromDB(tripId) {
     let data = await response.json();
     current_trip = data;
     console.log(data);   
-    return data;
-
+     return data;
   } catch (Error) {
     console.error(Error);
   }
@@ -368,8 +375,4 @@ async function fetchTripFromDB(tripId) {
       console.error("Error saving current trip: ", e); 
     }
   }
-  
- 
-
-
 
