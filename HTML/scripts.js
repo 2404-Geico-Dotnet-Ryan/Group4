@@ -2,6 +2,7 @@
 
 const BASE_URL = "http://localhost:5029";
 let current_user = {};
+let current_trip = {};
 
 // User Container Div
 const userContainerDiv = document.querySelector("#landing-user-container");
@@ -9,6 +10,7 @@ const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#register-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
+const savedTripButton = document.querySelector("#saved-Trip-Button");
 
 ////////////////////////////////
 //////////  Login   ///////////
@@ -308,8 +310,6 @@ function displayTrips(tripDatas) {
     option.text = tripData.tripName;
     option.value = tripData.tripId;
     tripList.add(option);
-
-    //tripList.appendChild(document.createTextNode(element.tripName));
   }
   tripList.size = Object.keys(tripDatas).length;
 }
@@ -322,21 +322,19 @@ function showTrip(trip) {
   triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
   triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
   triphtml += "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
-
-  // TODO: the rest of the fields
-  // triphtml += JSON.stringify(trip);
   return triphtml;
 }
 
 function displayTripDetails(data) {
-  //{ need to work through this
   tripDetails.innerHTML = "";
   tripDetails.innerHTML = showTrip(data);
+  savedTripButton.style.display = "block";
 }
+
 async function getTripByID() {
   const selected = tripList.value;
   const tripdata = await fetchTripFromDB(selected);
-  displayTripDetails(tripdata); //need to work through this
+  displayTripDetails(tripdata);
 }
 
 async function fetchTripFromDB(tripId) {
@@ -344,17 +342,37 @@ async function fetchTripFromDB(tripId) {
   try {
     let response = await fetch(URL);
     let data = await response.json();
-    console.log(data);
-
-    return data;
+    current_trip = data;
+    console.log(data);   
+     return data;
   } catch (Error) {
     console.error(Error);
   }
-
-  // function showTrip(trip) {
-  //   let triphtml = "";
-  //   // triphtml += JSON.stringify(trip);
-
-  //   return triphtml;
-  // }
 }
+
+  async function SaveCurrentTrip() {
+    try {
+      let response = await fetch(`${BASE_URL}/SavedTrip`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+          TripId: current_trip.tripId,
+          UserId: current_user.userId,
+          Season: current_trip.season,
+          Location: current_trip.location,
+          MaxBudget: current_trip.maxBudget,
+          TravelType: current_trip.travelType,
+          PassportStatus: current_trip.passportStatus
+        }),
+      }); 
+      let data = await response.json();  
+      getSavedTripsByUserIdFromDb(current_user.userId);
+      return data;
+    } catch (e) {
+      console.error("Error saving current trip: ", e); 
+    }
+  }
+
