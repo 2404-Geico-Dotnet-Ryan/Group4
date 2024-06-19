@@ -302,19 +302,23 @@ function GenerateUserInfoContainer(current_user) {
   //   userInfoContainer.appendChild(userUserName);
   //   userInfoContainer.appendChild(userPassword);
   //   userInfoContainer.appendChild(userIsAdmin);
-  // }
+  // 
+  }
 
-  ////////////////////////////////
-  //////SavedTrip Container///////
-  ///////////////////////////////
+////////////////////////////////
+//////SavedTrip Container///////
+///////////////////////////////
 
-  const savedtripscontainer = document.querySelector("#saved-trips-container");
-  const savedtripslist = document.querySelector("#saved-trips-list");
+const savedtripscontainer = document.querySelector("#saved-trips-container");
+const savedtripslist = document.querySelector("#saved-trips-list");
 
-  const inputNumber = savedtripscontainer.children[3];
-  const searchButton = savedtripscontainer.children[4];
-  const resetButton = savedtripscontainer.children[5]; //reset button
+const inputNumber = savedtripscontainer.children[3];
+const searchButton = savedtripscontainer.children[4];
+const resetButton = savedtripscontainer.children[5]; //reset button
 
+console.log(inputNumber); //sanity check
+console.log(searchButton); //sanity check
+console.log(resetButton); //sanity check
 
 function GetSavedTripsByUserId() {
   let userId = inputNumber.value;
@@ -409,6 +413,17 @@ async function getTrips() {
 }
 getTrips();
 
+function displayTrips(tripDatas) {
+  for (const tripData of tripDatas) {
+    const option = document.createElement("option");
+    option.text = tripData.tripName;
+    option.value = tripData.tripId;
+    tripList.add(option);
+
+    //tripList.appendChild(document.createTextNode(element.tripName));
+  }
+  tripList.size = Object.keys(tripDatas).length;
+}
 function showTrip(trip) {
   let triphtml = "";
   triphtml += "<p>Selected Trip: " + trip.tripName + "</p>";
@@ -453,34 +468,6 @@ async function fetchTripFromDB(tripId) {
   //   let triphtml = "";
   //   // triphtml += JSON.stringify(trip);
 
- 
-
-  function displayTrips(tripDatas) {
-    for (const tripData of tripDatas) {
-      const option = document.createElement("option");
-      option.text = tripData.tripName;
-      option.value = tripData.tripId;
-      tripList.add(option);
-
-      //tripList.appendChild(document.createTextNode(element.tripName));
-    }
-    tripList.size = Object.keys(tripDatas).length;
-  }
-
-  function getTripByID() {
-    const selected = tripList.value;
-    fetchTripFromDB(selected);
-  }
-
-
-  async function fetchTripFromDB(tripId) {
-    const URL = `${BASE_URL}/Trip/${tripId}`;
-    try {
-      let response = await fetch(URL);
-      let data = await response.json();
-      console.log(data);
-      displayTripDetails(data); //need to work through this
-    } catch (Error) {
-      console.error(Error);
-    }
-
+  //   return triphtml;
+  // }
+}
