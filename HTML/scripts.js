@@ -10,7 +10,6 @@ const addUserContainerDiv = document.querySelector("#register-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 
-
 ////////////////////////////////
 //////////  Login   ///////////
 ///////////////////////////////
@@ -59,32 +58,37 @@ async function LoginUser(username, password) {
     AdminCheck();
     return current_user;
   } catch (e) {
-    console.error("Error logging in:", e); 
+    console.error("Error logging in:", e);
+    return error;
   }
   // TeardownLoginContainer();
 }
 // hide the login container
 function LoginCheck() {
   if (current_user == null) {
-    document.querySelector("#current-user-container").hidden=true;
-    document.querySelector("#landing-user-container").hidden=false;
-  }
-  else
-  {
-    document.querySelector("#current-user-container").hidden=false;
-    document.querySelector("#landing-user-container").hidden=true;
-
+    document.querySelector("#current-user-container").hidden = true;
+    document.querySelector("#features-container").hidden = true;
+    document.querySelector("#landing-user-container").hidden = false;
+  } else {
+    document.querySelector("#current-user-container").hidden = false;
+    document.querySelector("#landing-user-container").hidden = true;
+    document.querySelector("#features-container").hidden = false;
   }
 }
 function AdminCheck() {
   if (current_user.isAdmin) {
-    document.querySelector("#createTripContainer").hidden=false;
-  }
-  else
-  {
-    document.querySelector("#createTripContainer").hidden=true;
+    document.querySelector("#createTripContainer").hidden = false;
+  } else {
+    document.querySelector("#createTripContainer").hidden = true;
   }
 }
+
+const handleLogout = () => {
+  window.localStorage.clear();
+  window.location.reload(true);
+  // window.location.replace('/');
+};
+
 ////////////////////////////////
 ///////// Add User   ///////////
 ///////////////////////////////
@@ -147,6 +151,9 @@ function GenerateCurrentUserContainer(current_user) {
 
   let usernameDisplay = document.getElementById("user-name");
   usernameDisplay.textContent = `${current_user.username}`;
+
+  let logoutButton = document.querySelector("#logout-button");
+  logoutButton.addEventListener("click", handleLogout);
 }
 
 ////////////////////////////////
@@ -163,7 +170,7 @@ function GenerateUserInfoContainer(current_user) {
   let usernameDisplay = document.getElementById("username-update-input");
   usernameDisplay.value = current_user.username;
 
-  let passwordDisplay = document.getElementById("password-update-input");  
+  let passwordDisplay = document.getElementById("password-update-input");
   passwordDisplay.value = current_user.password;
 
   let maxBudgetDisplay = document.getElementById("maxBudget-update-input");
@@ -241,20 +248,19 @@ async function displaySavedTrips(savedtripdatas) {
 async function deleteSavedTripByID() {
   const selected = savedtripslist.value;
   const tripdata = await deleteSavedTripFromDB(selected);
-  GetSavedTripsByUserId(); 
+  GetSavedTripsByUserId();
 }
 
 async function deleteSavedTripFromDB(savedtripId) {
   const URL = `${BASE_URL}/SavedTrip/${savedtripId}`;
   try {
     let response = await fetch(URL, {
-      method: 'DELETE',
-    })  
+      method: "DELETE",
+    });
     let data = await response.json();
     console.log(data);
-    
-    return data;
 
+    return data;
   } catch (Error) {
     console.error(Error);
   }
@@ -314,8 +320,7 @@ function showTrip(trip) {
   triphtml += "<p>Climate: " + trip.climateType + "</p>";
   triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
   triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
-  triphtml +=
-    "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
+  triphtml += "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
 
   // TODO: the rest of the fields
   // triphtml += JSON.stringify(trip);
@@ -339,9 +344,8 @@ async function fetchTripFromDB(tripId) {
     let response = await fetch(URL);
     let data = await response.json();
     console.log(data);
-    
-    return data;
 
+    return data;
   } catch (Error) {
     console.error(Error);
   }
