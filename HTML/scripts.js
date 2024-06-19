@@ -292,146 +292,171 @@ function GetUpdateUserInformation() {
   let maxBudget = document.getElementById("#maxBudget-update-input").value;
 
   UpdateUser(username, password, firstName, lastName, maxBudget);
+}
 
-  ////////////////////////////////
-  //////SavedTrip Container///////
-  ///////////////////////////////
+////////////////////////////////
+//////SavedTrip Container///////
+///////////////////////////////
 
-  const savedtripscontainer = document.querySelector("#saved-trips-container");
-  const savedtripslist = document.querySelector("#saved-trips-list");
+const savedtripscontainer = document.querySelector("#saved-trips-container");
+const savedtripslist = document.querySelector("#saved-trips-list");
 
-  const inputNumber = savedtripscontainer.children[3];
-  const searchButton = savedtripscontainer.children[4];
-  const resetButton = savedtripscontainer.children[5]; //reset button
+const inputNumber = savedtripscontainer.children[3];
+const searchButton = savedtripscontainer.children[4];
+const resetButton = savedtripscontainer.children[5]; //reset button
 
-  console.log(inputNumber); //sanity check
-  console.log(searchButton); //sanity check
-  console.log(resetButton); //sanity check
+console.log(inputNumber); //sanity check
+console.log(searchButton); //sanity check
+console.log(resetButton); //sanity check
 
-  function GetSavedTripByUserId() {
-    let userId = inputNumber.value;
-    getSavedTripByUserId(userId);
+function GetSavedTripsByUserId() {
+  let userId = inputNumber.value;
+  getSavedTripsByUserIdFromDb(userId);
+}
+
+searchButton.addEventListener("click", GetSavedTripsByUserId);
+
+async function getSavedTripsByUserIdFromDb(userId) {
+  const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data); //sanity check
+    displaySavedTrips(data); //trying to figure out how to convert the string that is coming back to something that can display??
+  } catch (Error) {
+    console.error(Error);
+  }
+}
+/////////////////////////////////////////////
+//////////// Display Saved Trips ////////////
+/////////////////////////////////////////////
+
+//Empty Container for Saved Trips - this should be correct
+//next to cuntion displaySavedTrips we need to have what should be displayed like the trip name, location, etc. I just can't figure out exactly how to do that.
+async function displaySavedTrips(savedtripdatas) {
+  savedtripslist.innerHTML = "";
+  for (const savedtripdata of savedtripdatas) {
+    const option = document.createElement("option");
+    const tripdata = await fetchTripFromDB(savedtripdata.tripId);
+    option.text = tripdata.tripName;
+    option.value = savedtripdata.UId;
+    savedtripslist.add(option);
+  }
+  savedtripslist.size = Object.keys(savedtripdatas).length;
+}
+
+async function deleteSavedTripByID() {
+  const selected = savedtripslist.value;
+  const tripdata = await deleteSavedTripFromDB(selected);
+  GetSavedTripsByUserId(); 
+}
+
+async function deleteSavedTripFromDB(savedtripId) {
+  const URL = `${BASE_URL}/SavedTrip/${savedtripId}`;
+  try {
+    let response = await fetch(URL, {
+      method: 'DELETE',
+    })  
+    let data = await response.json();
+    console.log(data);
+    
+    return data;
+
+  } catch (Error) {
+    console.error(Error);
+  }
+}
+
+/////////////////////////////////
+////////Reset Button //////////// - clears the input field - works!!
+/////////////////////////////////
+
+resetButton.addEventListener("click", function () {
+  inputNumber.value = "";
+  savedtripslist.innerHTML = "";
+});
+
+// Trip Container Div
+const tripContainerDiv = document.querySelector("#trip-container");
+//const tripList = document.querySelector("#tripListContainer");
+const tripList = document.querySelector("#ListOfTrips");
+//const createTripContainerDiv = document.querySelector("#create-trip-container");
+//const updateTripContainerDiv = document.querySelector("#update-trip-container");
+const tripDetails = document.querySelector("#TripDetails");
+
+console.log(tripList);
+
+//async function to actually communicate with the trip api
+// function that takes in the search input for the search container
+
+async function getTrips() {
+  const URL = `${BASE_URL}/Trip`;
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data);
+    displayTrips(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+getTrips();
+
+function displayTrips(tripDatas) {
+  for (const tripData of tripDatas) {
+    const option = document.createElement("option");
+    option.text = tripData.tripName;
+    option.value = tripData.tripId;
+    tripList.add(option);
+
+    //tripList.appendChild(document.createTextNode(element.tripName));
+  }
+  tripList.size = Object.keys(tripDatas).length;
+}
+function showTrip(trip) {
+  let triphtml = "";
+  triphtml += "<p>Selected Trip: " + trip.tripName + "</p>";
+  triphtml += "<p>Destination: " + trip.locationName + "</p>";
+  triphtml += "<p>Travel Type: " + trip.travelTypeName + "</p>";
+  triphtml += "<p>Climate: " + trip.climateType + "</p>";
+  triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
+  triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
+  triphtml +=
+    "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
+
+  // TODO: the rest of the fields
+  // triphtml += JSON.stringify(trip);
+  return triphtml;
+}
+
+function displayTripDetails(data) {
+  //{ need to work through this
+  tripDetails.innerHTML = "";
+  tripDetails.innerHTML = showTrip(data);
+}
+async function getTripByID() {
+  const selected = tripList.value;
+  const tripdata = await fetchTripFromDB(selected);
+  displayTripDetails(tripdata); //need to work through this
+}
+
+async function fetchTripFromDB(tripId) {
+  const URL = `${BASE_URL}/Trip/${tripId}`;
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+    console.log(data);
+    
+    return data;
+
+  } catch (Error) {
+    console.error(Error);
   }
 
-  searchButton.addEventListener("click", GetSavedTripByUserId);
+  // function showTrip(trip) {
+  //   let triphtml = "";
+  //   // triphtml += JSON.stringify(trip);
 
-  async function getSavedTripByUserId(userId) {
-    const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
-    try {
-      let response = await fetch(URL);
-      let data = await response.json();
-      console.log(data); //sanity check
-      displaySavedTrips(); //trying to figure out how to convert the string that is coming back to something that can display??
-    } catch (Error) {
-      console.error(Error);
-    }
-  }
-  /////////////////////////////////////////////
-  //////////// Display Saved Trips ////////////
-  /////////////////////////////////////////////
-
-  //Empty Container for Saved Trips - this should be correct
-
-  async function displaySavedTrips() {
-    while (savedtripslist.firstChild) {
-      savedtripslist.removeChild(savedtripslist.firstChild);
-    }
-
-    // Create the saved trips list
-
-    // Append the saved trips list to the saved trips container
-
-    //savedtripslist.appendChild(not sure what to put here yet) - trying to figure out how to convert the string that is coming back to something that can display??;
-  }
-  /////////////////////////////////
-  ////////Reset Button //////////// - clears the input field - works!!
-  /////////////////////////////////
-
-  resetButton.addEventListener("click", function () {
-    inputNumber.value = "";
-    savedtripslist.innerHTML = "";
-  });
-
-  // Trip Container Div
-  const tripContainerDiv = document.querySelector("#trip-container");
-  //const tripList = document.querySelector("#tripListContainer");
-  const tripList = document.querySelector("#ListOfTrips");
-  //const createTripContainerDiv = document.querySelector("#create-trip-container");
-  //const updateTripContainerDiv = document.querySelector("#update-trip-container");
-  const tripDetails = document.querySelector("#TripDetails");
-
-  console.log(tripList);
-
-  //async function to actually communicate with the trip api
-  // function that takes in the search input for the search container
-
-  async function getTrips() {
-    const URL = `${BASE_URL}/Trip`;
-    try {
-      let response = await fetch(URL);
-      let data = await response.json();
-      console.log(data);
-      displayTrips(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  getTrips();
-
-  function displayTrips(tripDatas) {
-    for (const tripData of tripDatas) {
-      const option = document.createElement("option");
-      option.text = tripData.tripName;
-      option.value = tripData.tripId;
-      tripList.add(option);
-
-      //tripList.appendChild(document.createTextNode(element.tripName));
-    }
-    tripList.size = Object.keys(tripDatas).length;
-  }
-
-  function getTripByID() {
-    const selected = tripList.value;
-    fetchTripFromDB(selected);
-  }
-
-  async function fetchTripFromDB(tripId) {
-    const URL = `${BASE_URL}/Trip/${tripId}`;
-    try {
-      let response = await fetch(URL);
-      let data = await response.json();
-      console.log(data);
-      displayTripDetails(data); //need to work through this
-    } catch (Error) {
-      console.error(Error);
-    }
-
-    function displayTripDetails(data) {
-      //{ need to work through this
-      tripDetails.innerHTML = "";
-      tripDetails.innerHTML = showTrip(data);
-    }
-    // function showTrip(trip) {
-    //   let triphtml = "";
-    //   // triphtml += JSON.stringify(trip);
-
-    //   return triphtml;
-    // }
-
-    function showTrip(trip) {
-      let triphtml = "";
-      triphtml += "<p>Selected Trip: " + trip.tripName + "</p>";
-      triphtml += "<p>Destination: " + trip.locationName + "</p>";
-      triphtml += "<p>Travel Type: " + trip.travelTypeName + "</p>";
-      triphtml += "<p>Climate: " + trip.climateType + "</p>";
-      triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
-      triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
-      triphtml +=
-        "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
-
-      // TODO: the rest of the fields
-      // triphtml += JSON.stringify(trip);
-      return triphtml;
-    }
-  }
+  //   return triphtml;
+  // }
 }
