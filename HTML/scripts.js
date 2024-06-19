@@ -61,8 +61,8 @@ async function LoginUser(username, password) {
     return current_user;
   } catch (e) {
     console.error(e);
-    document.getElementById("login-error").textContent = "Invalid Username or Password";
-
+    document.getElementById("login-error").textContent =
+      "Invalid Username or Password";
   }
   // TeardownLoginContainer();
 }
@@ -81,8 +81,10 @@ function LoginCheck() {
 function AdminCheck() {
   if (current_user.isAdmin) {
     document.querySelector("#createTripContainer").hidden = false;
+    document.querySelector("#saved-trips-container").hidden = false;
   } else {
     document.querySelector("#createTripContainer").hidden = true;
+    document.querySelector("#saved-trips-container").hidden = true;
   }
 }
 
@@ -343,36 +345,34 @@ async function fetchTripFromDB(tripId) {
     let response = await fetch(URL);
     let data = await response.json();
     current_trip = data;
-    console.log(data);   
-     return data;
+    console.log(data);
+    return data;
   } catch (Error) {
     console.error(Error);
   }
 }
 
-  async function SaveCurrentTrip() {
-    try {
-      let response = await fetch(`${BASE_URL}/SavedTrip`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-
-          TripId: current_trip.tripId,
-          UserId: current_user.userId,
-          Season: current_trip.season,
-          Location: current_trip.location,
-          MaxBudget: current_trip.maxBudget,
-          TravelType: current_trip.travelType,
-          PassportStatus: current_trip.passportStatus
-        }),
-      }); 
-      let data = await response.json();  
-      getSavedTripsByUserIdFromDb(current_user.userId);
-      return data;
-    } catch (e) {
-      console.error("Error saving current trip: ", e); 
-    }
+async function SaveCurrentTrip() {
+  try {
+    let response = await fetch(`${BASE_URL}/SavedTrip`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        TripId: current_trip.tripId,
+        UserId: current_user.userId,
+        Season: current_trip.season,
+        Location: current_trip.location,
+        MaxBudget: current_trip.maxBudget,
+        TravelType: current_trip.travelType,
+        PassportStatus: current_trip.passportStatus,
+      }),
+    });
+    let data = await response.json();
+    getSavedTripsByUserIdFromDb(current_user.userId);
+    return data;
+  } catch (e) {
+    console.error("Error saving current trip: ", e);
   }
-
+}
