@@ -6,7 +6,8 @@ let current_user = {};
 // User Container Div
 const userContainerDiv = document.querySelector("#user-container");
 const loginContainerDiv = document.querySelector("#login-container");
-const addUserContainerDiv = document.querySelector("#add-user-container");
+const addUserContainerDiv = document.querySelector("#register-container");
+//const addUserContainerDiv = document.querySelector("#add-user-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 
@@ -14,56 +15,56 @@ const userInfoContainer = document.querySelector("#user-info-container");
 //////////  Login   ///////////
 ///////////////////////////////
 
-GenerateLoginContainer();
-GenerateAddUserContainer();
+// GenerateLoginContainer();
+// GenerateAddUserContainer();
 
-// Login Container Creation Function
-function GenerateLoginContainer() {
-  // Create the main login container div
-  let loginContainerDiv = document.createElement("div");
+// // Login Container Creation Function
+// function GenerateLoginContainer() {
+//   // Create the main login container div
+//   let loginContainerDiv = document.createElement("div");
 
-  loginContainerDiv.id = "login-container";
+//   loginContainerDiv.id = "login-container";
 
-  let loginHeader = document.createElement("h3");
-  loginHeader.textContent = "Login";
+//   let loginHeader = document.createElement("h3");
+//   loginHeader.textContent = "Login";
 
-  let lineBreak = document.createElement("br");
-  lineBreak.id = "line-break";
+//   let lineBreak = document.createElement("br");
+//   lineBreak.id = "line-break";
 
-  let usernameInput = document.createElement("input");
-  usernameInput.type = "text";
-  usernameInput.id = "username-login-input";
+//   let usernameInput = document.createElement("input");
+//   usernameInput.type = "text";
+//   usernameInput.id = "username-login-input";
 
-  let usernameInputLabel = document.createElement("label");
-  usernameInputLabel.textContent = "Username";
+//   let usernameInputLabel = document.createElement("label");
+//   usernameInputLabel.textContent = "Username";
 
-  let passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.id = "password-login-input";
+//   let passwordInput = document.createElement("input");
+//   passwordInput.type = "password";
+//   passwordInput.id = "password-login-input";
 
-  let passwordInputLabel = document.createElement("label");
-  passwordInputLabel.textContent = "Password";
-  passwordInputLabel.set;
+//   let passwordInputLabel = document.createElement("label");
+//   passwordInputLabel.textContent = "Password";
+//   passwordInputLabel.set;
 
-  // Create the login button
-  let loginButton = document.createElement("button");
-  loginButton.textContent = "Login";
+//   // Create the login button
+//   let loginButton = document.createElement("button");
+//   loginButton.textContent = "Login";
 
-  // Add an event listener to the login button to handle login
-  loginButton.addEventListener("click", GetLoginInformation);
+//   // Add an event listener to the login button to handle login
+//   loginButton.addEventListener("click", GetLoginInformation);
 
-  // Append the login container to the main user container
-  userContainerDiv.appendChild(loginContainerDiv);
+//   // Append the login container to the main user container
+//   userContainerDiv.appendChild(loginContainerDiv);
 
-  // Append the username and password fields and labels to the login container
-  loginContainerDiv.appendChild(loginHeader);
-  loginContainerDiv.appendChild(usernameInputLabel);
-  loginContainerDiv.appendChild(usernameInput);
-  loginContainerDiv.appendChild(lineBreak);
-  loginContainerDiv.appendChild(passwordInputLabel);
-  loginContainerDiv.appendChild(passwordInput);
-  loginContainerDiv.appendChild(loginButton);
-}
+//   // Append the username and password fields and labels to the login container
+//   loginContainerDiv.appendChild(loginHeader);
+//   loginContainerDiv.appendChild(usernameInputLabel);
+//   loginContainerDiv.appendChild(usernameInput);
+//   loginContainerDiv.appendChild(lineBreak);
+//   loginContainerDiv.appendChild(passwordInputLabel);
+//   loginContainerDiv.appendChild(passwordInput);
+//   loginContainerDiv.appendChild(loginButton);
+// }
 
 //TODO: fix this function so that it actually works
 function TeardownLoginContainer() {
@@ -73,8 +74,11 @@ function TeardownLoginContainer() {
     }
   }
 }
+// event listener to the login button to handle login
+let loginButton = document.querySelector("#login-button");
+loginButton.addEventListener("click", GetLoginInformation);
 
-// Function to get login information from input fields
+//Function to get login information from input fields
 function GetLoginInformation() {
   let username = document.querySelector("#username-login-input").value;
   let password = document.querySelector("#password-login-input").value;
@@ -113,92 +117,93 @@ async function LoginUser(username, password) {
 ///////////////////////////////
 
 // Add User Container Creation Function
-function GenerateAddUserContainer() {
-  let addUserHeader = document.createElement("h3");
-  addUserHeader.textContent = "Create an Account";
+// function GenerateAddUserContainer() {
+//   let addUserHeader = document.createElement("h3");
+//   addUserHeader.textContent = "Create an Account";
 
-  let addUserContainerDiv = document.createElement("div");
-  addUserContainerDiv.id = "add-user-container";
+//   let addUserContainerDiv = document.createElement("div");
+//   addUserContainerDiv.id = "add-user-container";
 
-  // Create the First Name input field and label
-  let firstNameInput = document.createElement("input");
-  firstNameInput.type = "text";
-  firstNameInput.id = "firstName-input";
+//   // Create the First Name input field and label
+//   let firstNameInput = document.createElement("input");
+//   firstNameInput.type = "text";
+//   firstNameInput.id = "firstName-input";
 
-  let firstNameInputLabel = document.createElement("label");
-  firstNameInputLabel.textContent = "First Name";
+//   let firstNameInputLabel = document.createElement("label");
+//   firstNameInputLabel.textContent = "First Name";
 
-  let lineBreak1 = document.createElement("br");
+//   let lineBreak1 = document.createElement("br");
 
-  // Create the Last Name input field and label
-  let lastNameInput = document.createElement("input");
-  lastNameInput.type = "text";
-  lastNameInput.id = "lastName-input";
+//   // Create the Last Name input field and label
+//   let lastNameInput = document.createElement("input");
+//   lastNameInput.type = "text";
+//   lastNameInput.id = "lastName-input";
 
-  let lastNameInputLabel = document.createElement("label");
-  lastNameInputLabel.textContent = "Last Name";
+//   let lastNameInputLabel = document.createElement("label");
+//   lastNameInputLabel.textContent = "Last Name";
 
-  let lineBreak2 = document.createElement("br");
+//   let lineBreak2 = document.createElement("br");
 
-  // Create the User Name input field and label
-  let usernameInput = document.createElement("input");
-  usernameInput.type = "text";
-  usernameInput.id = "username-input";
+//   // Create the User Name input field and label
+//   let usernameInput = document.createElement("input");
+//   usernameInput.type = "text";
+//   usernameInput.id = "username-input";
 
-  let usernameInputLabel = document.createElement("label");
-  usernameInputLabel.textContent = "Username";
+//   let usernameInputLabel = document.createElement("label");
+//   usernameInputLabel.textContent = "Username";
 
-  let lineBreak3 = document.createElement("br");
+//   let lineBreak3 = document.createElement("br");
 
-  // Create the password input field and label
-  let passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.id = "password-input";
+//   // Create the password input field and label
+//   let passwordInput = document.createElement("input");
+//   passwordInput.type = "password";
+//   passwordInput.id = "password-input";
 
-  let passwordInputLabel = document.createElement("label");
-  passwordInputLabel.textContent = "Password";
+//   let passwordInputLabel = document.createElement("label");
+//   passwordInputLabel.textContent = "Password";
 
-  let lineBreak4 = document.createElement("br");
+//   let lineBreak4 = document.createElement("br");
 
-  // Create the max budget input field and label
-  let maxBudgetInputLabel = document.createElement("label");
-  maxBudgetInputLabel.textContent = "Max Budget";
+//   // Create the max budget input field and label
+//   let maxBudgetInputLabel = document.createElement("label");
+//   maxBudgetInputLabel.textContent = "Max Budget";
 
-  let maxBudgetInput = document.createElement("input");
-  maxBudgetInput.type = "number";
-  maxBudgetInput.id = "maxBudget-input";
+//   let maxBudgetInput = document.createElement("input");
+//   maxBudgetInput.type = "number";
+//   maxBudgetInput.id = "maxBudget-input";
 
-  let lineBreak5 = document.createElement("br");
+//   let lineBreak5 = document.createElement("br");
 
-  // Create the submit button
-  let addUserButton = document.createElement("button");
-  addUserButton.textContent = "Submit";
+//   // Create the submit button
+//   let addUserButton = document.createElement("button");
+//   addUserButton.textContent = "Submit";
 
-  // Append the Add User container to the main user container
-  userContainerDiv.appendChild(addUserContainerDiv);
+//   // Append the Add User container to the main user container
+//   userContainerDiv.appendChild(addUserContainerDiv);
 
-  // Append the user fields and labels to the addUser container
-  addUserContainerDiv.appendChild(addUserHeader);
-  addUserContainerDiv.appendChild(firstNameInputLabel);
-  addUserContainerDiv.appendChild(firstNameInput);
-  addUserContainerDiv.appendChild(lineBreak1);
-  addUserContainerDiv.appendChild(lastNameInputLabel);
-  addUserContainerDiv.appendChild(lastNameInput);
-  addUserContainerDiv.appendChild(lineBreak2);
-  addUserContainerDiv.appendChild(usernameInputLabel);
-  addUserContainerDiv.appendChild(usernameInput);
-  addUserContainerDiv.appendChild(lineBreak3);
-  addUserContainerDiv.appendChild(passwordInputLabel);
-  addUserContainerDiv.appendChild(passwordInput);
-  addUserContainerDiv.appendChild(lineBreak4);
-  addUserContainerDiv.appendChild(maxBudgetInputLabel);
-  addUserContainerDiv.appendChild(maxBudgetInput);
-  addUserContainerDiv.appendChild(lineBreak5);
-  addUserContainerDiv.appendChild(addUserButton);
+//   // Append the user fields and labels to the addUser container
+//   addUserContainerDiv.appendChild(addUserHeader);
+//   addUserContainerDiv.appendChild(firstNameInputLabel);
+//   addUserContainerDiv.appendChild(firstNameInput);
+//   addUserContainerDiv.appendChild(lineBreak1);
+//   addUserContainerDiv.appendChild(lastNameInputLabel);
+//   addUserContainerDiv.appendChild(lastNameInput);
+//   addUserContainerDiv.appendChild(lineBreak2);
+//   addUserContainerDiv.appendChild(usernameInputLabel);
+//   addUserContainerDiv.appendChild(usernameInput);
+//   addUserContainerDiv.appendChild(lineBreak3);
+//   addUserContainerDiv.appendChild(passwordInputLabel);
+//   addUserContainerDiv.appendChild(passwordInput);
+//   addUserContainerDiv.appendChild(lineBreak4);
+//   addUserContainerDiv.appendChild(maxBudgetInputLabel);
+//   addUserContainerDiv.appendChild(maxBudgetInput);
+//   addUserContainerDiv.appendChild(lineBreak5);
+//   addUserContainerDiv.appendChild(addUserButton);
 
-  // Add an event listener to the addUser button to handle login
-  addUserButton.addEventListener("click", GetAddUserInformation);
-}
+// Event listener to the addUser button to handle login
+let addUserButton = document.querySelector("#register-button");
+addUserButton.addEventListener("click", GetAddUserInformation);
+// }
 
 // Function to get User information from input fields
 function GetAddUserInformation() {
@@ -263,56 +268,53 @@ function GenerateCurrentUserContainer(current_user) {
 function GenerateUserInfoContainer(current_user) {
   let userInfoContainer = document.getElementById("user-info-container");
 
-  let userFirstName = document.createElement("input");
-  userFirstName.type = "text";
+  //   let userFirstName = document.createElement("input");
+  //   userFirstName.type = "text";
 
-  let userFirstNameLabel = document.createElement("label");
-  userFirstNameLabel.textContent = "First Name: ";
-  userFirstName.value = current_user.firstName;
+  //   let userFirstNameLabel = document.createElement("label");
+  //   userFirstNameLabel.textContent = "First Name: ";
+  //   userFirstName.value = current_user.firstName;
 
-  let userLastNameLabel = document.createElement("label");
-  let userLastName = document.createElement("input");
-  userLastName.type = "text";
+  //   let userLastNameLabel = document.createElement("label");
+  //   let userLastName = document.createElement("input");
+  //   userLastName.type = "text";
 
-  userLastNameLabel.textContent = "Last Name: ";
-  userLastName.value = current_user.lastName;
+  //   userLastNameLabel.textContent = "Last Name: ";
+  //   userLastName.value = current_user.lastName;
 
-  let userMaxBudget = document.createElement("p");
-  userMaxBudget.textContent = `Max Budget: $${current_user.maxBudget}`;
+  //   let userMaxBudget = document.createElement("p");
+  //   userMaxBudget.textContent = `Max Budget: $${current_user.maxBudget}`;
 
-  let userUserName = document.createElement("p");
-  userUserName.textContent = `Username: ${current_user.username}`;
+  //   let userUserName = document.createElement("p");
+  //   userUserName.textContent = `Username: ${current_user.username}`;
 
-  let userPassword = document.createElement("p");
-  userPassword.textContent = `Password: ${current_user.password}`;
+  //   let userPassword = document.createElement("p");
+  //   userPassword.textContent = `Password: ${current_user.password}`;
 
-  let userIsAdmin = document.createElement("p");
-  userIsAdmin.textContent = `Admin: ${current_user.isAdmin}`;
+  //   let userIsAdmin = document.createElement("p");
+  //   userIsAdmin.textContent = `Admin: ${current_user.isAdmin}`;
 
-  userInfoContainer.appendChild(userFirstNameLabel);
-  userInfoContainer.appendChild(userFirstName);
-  userInfoContainer.appendChild(userLastNameLabel);
-  userInfoContainer.appendChild(userLastName);
-  userInfoContainer.appendChild(userMaxBudget);
-  userInfoContainer.appendChild(userUserName);
-  userInfoContainer.appendChild(userPassword);
-  userInfoContainer.appendChild(userIsAdmin);
-}
+  //   userInfoContainer.appendChild(userFirstNameLabel);
+  //   userInfoContainer.appendChild(userFirstName);
+  //   userInfoContainer.appendChild(userLastNameLabel);
+  //   userInfoContainer.appendChild(userLastName);
+  //   userInfoContainer.appendChild(userMaxBudget);
+  //   userInfoContainer.appendChild(userUserName);
+  //   userInfoContainer.appendChild(userPassword);
+  //   userInfoContainer.appendChild(userIsAdmin);
+  // }
 
-////////////////////////////////
-//////SavedTrip Container///////
-///////////////////////////////
+  ////////////////////////////////
+  //////SavedTrip Container///////
+  ///////////////////////////////
 
-const savedtripscontainer = document.querySelector("#saved-trips-container");
-const savedtripslist = document.querySelector("#saved-trips-list");
+  const savedtripscontainer = document.querySelector("#saved-trips-container");
+  const savedtripslist = document.querySelector("#saved-trips-list");
 
-const inputNumber = savedtripscontainer.children[3];
-const searchButton = savedtripscontainer.children[4];
-const resetButton = savedtripscontainer.children[5]; //reset button
+  const inputNumber = savedtripscontainer.children[3];
+  const searchButton = savedtripscontainer.children[4];
+  const resetButton = savedtripscontainer.children[5]; //reset button
 
-console.log(inputNumber); //sanity check
-console.log(searchButton); //sanity check
-console.log(resetButton); //sanity check
 
 function GetSavedTripsByUserId() {
   let userId = inputNumber.value;
@@ -407,17 +409,6 @@ async function getTrips() {
 }
 getTrips();
 
-function displayTrips(tripDatas) {
-  for (const tripData of tripDatas) {
-    const option = document.createElement("option");
-    option.text = tripData.tripName;
-    option.value = tripData.tripId;
-    tripList.add(option);
-
-    //tripList.appendChild(document.createTextNode(element.tripName));
-  }
-  tripList.size = Object.keys(tripDatas).length;
-}
 function showTrip(trip) {
   let triphtml = "";
   triphtml += "<p>Selected Trip: " + trip.tripName + "</p>";
@@ -462,8 +453,34 @@ async function fetchTripFromDB(tripId) {
   //   let triphtml = "";
   //   // triphtml += JSON.stringify(trip);
 
-  //   return triphtml;
-  // }
+ 
+
+  function displayTrips(tripDatas) {
+    for (const tripData of tripDatas) {
+      const option = document.createElement("option");
+      option.text = tripData.tripName;
+      option.value = tripData.tripId;
+      tripList.add(option);
+
+      //tripList.appendChild(document.createTextNode(element.tripName));
+    }
+    tripList.size = Object.keys(tripDatas).length;
+  }
+
+  function getTripByID() {
+    const selected = tripList.value;
+    fetchTripFromDB(selected);
+  }
 
 
-}
+  async function fetchTripFromDB(tripId) {
+    const URL = `${BASE_URL}/Trip/${tripId}`;
+    try {
+      let response = await fetch(URL);
+      let data = await response.json();
+      console.log(data);
+      displayTripDetails(data); //need to work through this
+    } catch (Error) {
+      console.error(Error);
+    }
+
