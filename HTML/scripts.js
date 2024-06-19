@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:5029";
 let current_user = {};
 
 // User Container Div
-const userContainerDiv = document.querySelector("#user-container");
+const userContainerDiv = document.querySelector("#landing-user-container");
 const loginContainerDiv = document.querySelector("#login-container");
 const addUserContainerDiv = document.querySelector("#register-container");
 const currentUserContainer = document.querySelector("#current-user");
@@ -66,12 +66,13 @@ async function LoginUser(username, password) {
 function LoginCheck() {
   if (current_user == null) {
     document.querySelector("#current-user-container").hidden=true;
-    document.querySelector("#user-container").hidden=false;
+    document.querySelector("#landing-user-container").hidden=false;
   }
   else
   {
     document.querySelector("#current-user-container").hidden=false;
-    document.querySelector("#user-container").hidden=true;
+    document.querySelector("#landing-user-container").hidden=true;
+
   }
 }
 function AdminCheck() {
