@@ -58,8 +58,9 @@ async function LoginUser(username, password) {
     AdminCheck();
     return current_user;
   } catch (e) {
-    console.error("Error logging in:", e);
-    return error;
+    console.error(e);
+    document.getElementById("login-error").textContent = "Invalid Username or Password";
+
   }
   // TeardownLoginContainer();
 }
