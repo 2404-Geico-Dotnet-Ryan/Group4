@@ -54,6 +54,7 @@ async function LoginUser(username, password) {
     console.log(current_user);
     GenerateCurrentUserContainer(current_user);
     GenerateUserInfoContainer(current_user);
+    getSavedTripsByUserIdFromDb(current_user.userId);
     LoginCheck();
     AdminCheck();
     return current_user;
@@ -205,7 +206,7 @@ function GetSavedTripsByUserId() {
   getSavedTripsByUserIdFromDb(userId);
 }
 
-searchButton.addEventListener("click", GetSavedTripsByUserId);
+// searchButton.addEventListener("click", GetSavedTripsByUserId);
 
 async function getSavedTripsByUserIdFromDb(userId) {
   const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
@@ -230,7 +231,7 @@ async function displaySavedTrips(savedtripdatas) {
     const option = document.createElement("option");
     const tripdata = await fetchTripFromDB(savedtripdata.tripId);
     option.text = tripdata.tripName;
-    option.value = savedtripdata.UId;
+    option.value = savedtripdata.uId;
     savedtripslist.add(option);
   }
   savedtripslist.size = Object.keys(savedtripdatas).length;
