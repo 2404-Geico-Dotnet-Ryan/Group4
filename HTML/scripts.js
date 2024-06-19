@@ -10,8 +10,6 @@ const addUserContainerDiv = document.querySelector("#add-user-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 
-
-
 ////////////////////////////////
 //////////  Login   ///////////
 ///////////////////////////////
@@ -101,12 +99,13 @@ async function LoginUser(username, password) {
     let data = await response.json();
     current_user = data;
     console.log(current_user);
-    TeardownLoginContainer();
     GenerateCurrentUserContainer(current_user);
-    //GenerateUserInfoContainer(current_user);
+    GenerateUserInfoContainer(current_user);
+    return current_user;
   } catch (e) {
     console.error("Error logging in:", e); // Added error logging
   }
+  // TeardownLoginContainer();
 }
 
 ////////////////////////////////
@@ -234,6 +233,8 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
     current_user = data;
     console.log(current_user);
     GenerateCurrentUserContainer(current_user);
+    GenerateUserInfoContainer(current_user);
+    return current_user;
   } catch (Error) {
     console.error(Error);
   }
@@ -243,43 +244,60 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
 ///// Current User Info   //////
 ///////////////////////////////
 
-//TODO: Add the Current User to the subheader of the page
-
-// Get User Info by Username
-// async function GetCurrentUser(username) {
-//   try {
-//     let response = await fetch(`${BASE_URL}/User/${username}`);
-//     let userData = await response.json();
-//     console.log(data);
-//     return userData;
-//   } catch (Error) {
-//     console.error(Error);
-//   }
-// }
-
 function GenerateCurrentUserContainer(current_user) {
-
-  let currentUserName = `${current_user.FirstName} ${current_user.LastName}`;
-  let currentUserContainer = document.createElement("h3");
-  currentUserContainer.textContent = `Traveler: ${currentUserName}`;
+  let currentName = `${current_user.firstName} ${current_user.lastName}`;
   
-  let lineBreak = document.createElement("br");
+  let currentUser = document.getElementById("current-user");
+  currentUser.textContent = `Traveler: ${currentName}`;
 
-  let usernameDisplay = document.createElement("text");
-  usernameDisplay.textContent = `${current_user.Username}`;
+  let usernameDisplay = document.getElementById("user-name");
+  usernameDisplay.textContent = `${current_user.username}`;
 
-
-  let lineBreak2 = document.createElement("br");
-
-  let userInfoLink = document.createElement("a");
-  userInfoLink.href = "#"; //TODO: Add the link to the user info page
+  //TODO: Add the link to the user info page
+  let userInfoLink = document.getElementById("updateUser-link");
+  userInfoLink.href = "#";
   userInfoLink.textContent = "Update User Info";
+}
 
-  //currentUserContainer.appendChild(currentUserName);
-  currentUserContainer.appendChild(lineBreak);
-  currentUserContainer.appendChild(usernameDisplay);
-  currentUserContainer.appendChild(lineBreak2);
-  currentUserContainer.appendChild(userInfoLink);
+//TODO: change the fields to editable text fields
+function GenerateUserInfoContainer(current_user) {
+  let userInfoContainer = document.getElementById("user-info-container");
+
+  let userFirstName = document.createElement("input");
+  userFirstName.type = "text";
+
+  let userFirstNameLabel = document.createElement("label");
+  userFirstNameLabel.textContent = "First Name: ";
+  userFirstName.value = current_user.firstName;
+
+  let userLastNameLabel = document.createElement("label");
+  let userLastName = document.createElement("input");
+  userLastName.type = "text";
+
+  userLastNameLabel.textContent = "Last Name: ";
+  userLastName.value = current_user.lastName;
+
+
+  let userMaxBudget = document.createElement("p");
+  userMaxBudget.textContent = `Max Budget: $${current_user.maxBudget}`;
+
+  let userUserName = document.createElement("p");
+  userUserName.textContent = `Username: ${current_user.username}`;
+
+  let userPassword = document.createElement("p");
+  userPassword.textContent = `Password: ${current_user.password}`;
+
+  let userIsAdmin = document.createElement("p");
+  userIsAdmin.textContent = `Admin: ${current_user.isAdmin}`;
+
+  userInfoContainer.appendChild(userFirstNameLabel);
+  userInfoContainer.appendChild(userFirstName);
+  userInfoContainer.appendChild(userLastNameLabel);
+  userInfoContainer.appendChild(userLastName);
+  userInfoContainer.appendChild(userMaxBudget);
+  userInfoContainer.appendChild(userUserName);
+  userInfoContainer.appendChild(userPassword);
+  userInfoContainer.appendChild(userIsAdmin);
 }
 
 ////////////////////////////////
@@ -339,9 +357,7 @@ async function displaySavedTrips() {
 resetButton.addEventListener("click", function () {
   inputNumber.value = "";
   savedtripslist.innerHTML = "";
-
-}
-);
+});
 
 // Trip Container Div
 const tripContainerDiv = document.querySelector("#trip-container");
@@ -356,36 +372,32 @@ console.log(tripList);
 //async function to actually communicate with the trip api
 // function that takes in the search input for the search container
 
-async function getTrips(){
+async function getTrips() {
   const URL = `${BASE_URL}/Trip`;
-  try{
+  try {
     let response = await fetch(URL);
     let data = await response.json();
     console.log(data);
     displayTrips(data);
-
-  }
-  catch(error){
+  } catch (error) {
     console.error(error);
   }
 }
 getTrips();
 
-function displayTrips(tripDatas){
-    
-  for ( const tripData of tripDatas){
+function displayTrips(tripDatas) {
+  for (const tripData of tripDatas) {
     const option = document.createElement("option");
     option.text = tripData.tripName;
     option.value = tripData.tripId;
     tripList.add(option);
-    
+
     //tripList.appendChild(document.createTextNode(element.tripName));
   }
   tripList.size = Object.keys(tripDatas).length;
 }
 
-function getTripByID()
-{
+function getTripByID() {
   const selected = tripList.value;
   fetchTripFromDB(selected);
 }
@@ -400,16 +412,15 @@ async function fetchTripFromDB(tripId) {
   } catch (Error) {
     console.error(Error);
   }
-  
-  function displayTripDetails(data) //{ need to work through this
-  {
+
+  function displayTripDetails(data) {
+    //{ need to work through this
     tripDetails.innerHTML = "";
     tripDetails.innerHTML = showTrip(data);
   }
   // function showTrip(trip) {
   //   let triphtml = "";
   //   // triphtml += JSON.stringify(trip);
-
 
   //   return triphtml;
   // }
@@ -422,13 +433,11 @@ async function fetchTripFromDB(tripId) {
     triphtml += "<p>Climate: " + trip.climateType + "</p>";
     triphtml += "<p>Passport Required: " + trip.needsPassport + "</p>";
     triphtml += "<p>Included Activity: " + trip.activityName + "</p>";
-    triphtml += "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
-    
-    
-    
+    triphtml +=
+      "<p>Total Cost: $" + trip.maxBudget + " all-inclusive!" + "</p>";
+
     // TODO: the rest of the fields
     // triphtml += JSON.stringify(trip);
     return triphtml;
-  } 
+  }
 }
-

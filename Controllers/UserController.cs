@@ -76,15 +76,15 @@ namespace Project2.Controllers
         }
 
         [HttpPost("login")] //Done
-        public async Task<ActionResult<LoginResponseDTO>> Login(UserLoginDTO userLogin)
+        public async Task<ActionResult<UserDTO>> Login(UserLoginDTO userLogin)
         {
-            var userDTO = await _userService.LoginUser(userLogin);
+            var currentUserDTO = await _userService.LoginUser(userLogin);
 
-            if (userDTO == null)
+            if (currentUserDTO == null)
             {
                 return Ok("Invalid username or password. Please try again.");
             }
-            return Ok(new LoginResponseDTO { Username = userDTO.Username, IsAdmin = userDTO.IsAdmin });
+            return Ok(currentUserDTO);
         }
 
         [HttpGet("protected")]
