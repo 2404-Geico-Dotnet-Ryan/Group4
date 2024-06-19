@@ -72,25 +72,6 @@
     </div>
 
     <div id="features-container" hidden="true">
-        <div id="saved-trips-container" style="margin-left: 75px; margin-top: 50px;">
-            <h3 id="saved-trips-title">Saved Trips</h3>
-            <label for="SavedTripUId">User ID</label>
-            <br>
-            <input type="number" id="SavedTripUId" name="SavedTripUId">
-            <input type="button" onclick="GetSavedTripsByUserId()" value="Get Saved Trips">
-            <input type="reset" value="Reset">
-        </div>
-        <br>
-        <br>
-        <div id="saved-trips-list-container" style="margin-left: 75px; margin-top: 50px;">
-            <label for="saved-trips-list">Select A Trip:</label>
-            <select id="saved-trips-list"></select>
-            <button onclick="deleteSavedTripByID()">Delete Selected Trip</button>
-            <br>
-            <br>
-
-        </div>
-
         <div id="trip-container" style="margin-left: 75px; margin-top: 50px;">
             <div id="createTripContainer" hidden="true">
                 <h3 id="createTrip-title">Create a Trip</h3>
@@ -146,6 +127,24 @@
                 </div>
                 <button id="saved-Trip-Button" onclick="SaveCurrentTrip()" style="display: none;" >Save this Trip!</button>   
             </div>
+        </div>
+        <div id="saved-trips-container" style="margin-left: 75px; margin-top: 50px;">
+            <h3 id="saved-trips-title">Saved Trips</h3>
+            <label for="SavedTripUId">User ID</label>
+            <br>
+            <input type="number" id="SavedTripUId" name="SavedTripUId">
+            <input type="button" onclick="GetSavedTripsByUserId()" value="Get Saved Trips">
+            <input type="reset" value="Reset">
+        </div>
+        <br>
+        <br>
+        <div id="saved-trips-list-container" style="margin-left: 75px; margin-top: 50px;">
+            <label for="saved-trips-list">Select A Trip:</label>
+            <select id="saved-trips-list"></select>
+            <button onclick="deleteSavedTripByID()">Delete Selected Trip</button>
+            <br>
+            <br>
+
         </div>
         <div id="user-info-container" style="margin-left: 75px; margin-top: 50px;">
             <h3 id="user-info-title">User Information</h3>
