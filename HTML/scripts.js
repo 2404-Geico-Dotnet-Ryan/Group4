@@ -110,9 +110,9 @@ function GetAddUserInformation() {
   let firstName = document.querySelector("#firstName-input").value;
   let lastName = document.querySelector("#lastName-input").value;
   let maxBudget = document.querySelector("#maxBudget-input").value;
-  let isAdmin = document.querySelector("#isAdmin-input").value;
+  //let isAdmin = document.querySelector("#isAdmin-input").value;
 
-  AddUser(username, password, firstName, lastName, maxBudget, isAdmin);
+  AddUser(username, password, firstName, lastName, maxBudget);
 }
 
 // Function to create a new user
@@ -138,6 +138,8 @@ async function AddUser(username, password, firstName, lastName, maxBudget) {
     console.log(current_user);
     GenerateCurrentUserContainer(current_user);
     GenerateUserInfoContainer(current_user);
+    LoginCheck();
+    AdminCheck();
     return current_user;
   } catch (Error) {
     console.error(Error);
@@ -188,7 +190,7 @@ function GenerateUserInfoContainer(current_user) {
 let updateUserButton = document.querySelector("#updateUser-button");
 updateUserButton.addEventListener("click", GetUpdateUserInformation);
 // }
-//TODO: change the fields to editable text fields
+//TODO: add userId = null check; if null, call get user by username
 function GetUpdateUserInformation() {
   let firstName = document.getElementById("#firstName-update-input").value;
   let lastName = document.getElementById("#lastName-update-input").value;
