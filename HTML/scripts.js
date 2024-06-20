@@ -3,6 +3,7 @@
 const BASE_URL = "http://localhost:5029";
 let current_user = {};
 let current_trip = {};
+let new_trip = {};
 
 // User Container Div
 const userContainerDiv = document.querySelector("#landing-user-container");
@@ -11,6 +12,9 @@ const addUserContainerDiv = document.querySelector("#register-container");
 const currentUserContainer = document.querySelector("#current-user");
 const userInfoContainer = document.querySelector("#user-info-container");
 const savedTripButton = document.querySelector("#saved-Trip-Button");
+const saveNewTripButton = document.querySelector("#new-Trip-Button")
+
+
 
 ////////////////////////////////
 //////////  Login   ///////////
@@ -281,9 +285,11 @@ resetButton.addEventListener("click", function () {
 const tripContainerDiv = document.querySelector("#trip-container");
 //const tripList = document.querySelector("#tripListContainer");
 const tripList = document.querySelector("#ListOfTrips");
-//const createTripContainerDiv = document.querySelector("#create-trip-container");
+const createTripContainerDiv = document.querySelector("#create-trip-container");
 //const updateTripContainerDiv = document.querySelector("#update-trip-container");
 const tripDetails = document.querySelector("#TripDetails");
+
+saveNewTripButton.addEventListener("click", GetAddTripInformation);
 
 console.log(tripList);
 
@@ -370,3 +376,79 @@ async function SaveCurrentTrip() {
     console.error("Error saving current trip: ", e);
   }
 }
+// Function to get New Trip information from input fields
+function GetAddTripInformation() {
+  let TripName = document.querySelector("#TripName").value;
+
+
+  AddNewTripPackage();
+}
+async function AddNewTripPackage() {
+  try {
+    let response = await fetch(`${BASE_URL}/Trip`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        TripId: 0,
+        TripName: new_trip.TripName,
+        MaxBudget: new_trip.MaxBudget,
+        NeedsPassport: new_trip.NeedsPassport
+      }),
+    });
+    let data = await response.json();
+    return data;
+  } catch (e) {
+    console.error("Error saving new trip: ", e);
+  }
+}
+
+
+/*
+// Event listener to the addUser button to handle login
+let addUserButton = document.querySelector("#register-button");
+addUserButton.addEventListener("click", GetAddUserInformation);
+// }
+
+// Function to get User information from input fields
+function GetAddUserInformation() {
+  let username = document.querySelector("#username-input").value;
+  let password = document.querySelector("#password-input").value;
+  let firstName = document.querySelector("#firstName-input").value;
+  let lastName = document.querySelector("#lastName-input").value;
+  let maxBudget = document.querySelector("#maxBudget-input").value;
+  let isAdmin = document.querySelector("#isAdmin-input").value;
+
+  AddUser(username, password, firstName, lastName, maxBudget, isAdmin);
+}
+
+// Function to create a new user
+async function AddUser(username, password, firstName, lastName, maxBudget) {
+  try {
+    let response = await fetch(`${BASE_URL}/User`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        UserId: 0,
+        Username: username,
+        Password: password,
+        FirstName: firstName,
+        LastName: lastName,
+        MaxBudget: maxBudget,
+        IsAdmin: false,
+      }),
+    });
+    let data = await response.json();
+    current_user = data;
+    console.log(current_user);
+    GenerateCurrentUserContainer(current_user);
+    GenerateUserInfoContainer(current_user);
+    return current_user;
+  } catch (Error) {
+    console.error(Error);
+  }
+}
+*/
