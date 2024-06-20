@@ -157,7 +157,7 @@ function GenerateCurrentUserContainer(current_user) {
   currentUser.textContent = `Traveler: ${currentName}`;
 
   let usernameDisplay = document.getElementById("user-name");
-  usernameDisplay.textContent = `${current_user.username}`;
+  usernameDisplay.textContent = `Username: ${current_user.username}`;
 
   let logoutButton = document.querySelector("#logout-button");
   logoutButton.addEventListener("click", handleLogout);

@@ -9,11 +9,21 @@ body {
 .intro {
   text-align: center;
   margin-top: 20px;
+
 }
+h3 {
+  background-color: rgb(61, 139, 135);
+  color: white;
+  text-align: left;
+  padding: 10px;
+  margin: 0;
+}
+
 #Title {
   font-size: 50px;
   color: white;
   text-align: center;
+  background-color: rgb(61, 139, 135);
 }
 a:hover {
   color: white;
@@ -30,8 +40,8 @@ p {
   font-family: Arial, Helvetica, sans-serif;
 }
 .footer {
-  color: navy;
-  background-color: lightslategray;
+  color: rgb(171, 219, 209);
+  background-color: rgb(60, 89, 117);
   font-family: system-ui;
   font-size: small;
 }
@@ -41,6 +51,7 @@ p {
   }
   #Title {
     font-size: 30px;
+    background-color: rgb(61, 139, 135);
   }
   a {
     font-size: 10px;
