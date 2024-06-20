@@ -219,15 +219,13 @@ function GetSavedTripsByUserId() {
   getSavedTripsByUserIdFromDb(userId);
 }
 
-// searchButton.addEventListener("click", GetSavedTripsByUserId);
-
 async function getSavedTripsByUserIdFromDb(userId) {
   const URL = `${BASE_URL}/SavedTrip/${userId}`; //concatenated version of  http://localhost:5029/SavedTrip/1
   try {
     let response = await fetch(URL);
     let data = await response.json();
     console.log(data); //sanity check
-    displaySavedTrips(data); //trying to figure out how to convert the string that is coming back to something that can display??
+    displaySavedTrips(data); 
   } catch (Error) {
     console.error(Error);
   }
@@ -236,8 +234,7 @@ async function getSavedTripsByUserIdFromDb(userId) {
 //////////// Display Saved Trips ////////////
 /////////////////////////////////////////////
 
-//Empty Container for Saved Trips - this should be correct
-//next to cuntion displaySavedTrips we need to have what should be displayed like the trip name, location, etc. I just can't figure out exactly how to do that.
+
 async function displaySavedTrips(savedtripdatas) {
   savedtripslist.innerHTML = "";
   for await (const savedtripdata of savedtripdatas) {
@@ -289,9 +286,6 @@ const tripList = document.querySelector("#ListOfTrips");
 const tripDetails = document.querySelector("#TripDetails");
 
 console.log(tripList);
-
-//async function to actually communicate with the trip api
-// function that takes in the search input for the search container
 
 async function getTrips() {
   const URL = `${BASE_URL}/Trip`;
